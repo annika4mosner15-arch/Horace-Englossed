@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="tei_ms.rnc" type="application/relax-ng-compact-syntax"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Quintus Horatius Flaccus, Opera</title>
+            </titleStmt>
+            <publicationStmt>
+                <publisher>Kantonsbibliothek St. Gallen</publisher>
+                <pubPlace>St. Gallen</pubPlace>
+                <availability>
+                    <p>Images available via e-codices. Rights according to the repository’s terms of
+                        use.</p>
+                </availability>
+                <idno type="DOI">10.5076/e-codices-vad-0312</idno>
+            </publicationStmt>
+            <sourceDesc>
+                <msDesc xml:id="vadslg_ms_312">
+                    <msIdentifier>
+                        <country>Switzerland</country>
+                        <settlement>St. Gallen</settlement>
+                        <repository>Kantonsbibliothek</repository>
+                        <collection>Vadianische Sammlung</collection>
+                        <idno>VadSlg Ms. 312</idno>
+                    </msIdentifier>
+                    <msContents>
+                        <msItem>
+                            <author>Quintus Horatius Flaccus</author>
+                            <title>Opera</title>
+                            <textLang mainLang="la" otherLangs="goh"> Latin, with glosses including
+                                one Old High German gloss </textLang>
+
+                            <note> Extensive marginal and interlinear glossing. Glosses are written
+                                in different inks and by several hands. A commentary by
+                                    <persName>Acronius</persName> is included in the glosses.
+                            </note>
+                        </msItem>
+                    </msContents>
+                    <physDesc>
+                        <objectDesc>
+                            <supportDesc>
+                                <support>parchment</support>
+                                <extent>158 folios</extent>
+                                <foliation>Foliation in faint pencil on every recto page, upper
+                                    right margin;</foliation>
+                            </supportDesc>
+                            <layoutDesc>
+                                <layout> Margins for marginal glosses. </layout>
+                            </layoutDesc>
+                        </objectDesc>
+                        <bindingDesc>
+                            <binding>
+                                <p>15th century</p>
+                            </binding>
+                        </bindingDesc>
+                    </physDesc>
+                    <history>
+                        <origin>
+                            <origPlace>Franconia(?)</origPlace>
+                            <origDate>10th century</origDate>
+                            <note> Localization is uncertain; the only Old High German gloss might
+                                have been written in Franconia. </note>
+                        </origin>
+                        <provenance>
+                            <p> The manuscript’s presence in St. Gallen is not attested until the
+                                middle of the 17th century. </p>
+                        </provenance>
+                    </history>
+                    <additional>
+                        <adminInfo>
+                            <recordHist>
+                                <source> Description based on the e-codices catalogue and HAN.
+                                    Verbundkatalog Handschriften – Archive – Nachlässe (2016).
+                                </source>
+                            </recordHist>
+                        </adminInfo>
+                    </additional>
+                </msDesc>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <editorialDecl>
+                <interpretation>
+                    <!-- most common Latin abbreviations of this manuscript listed -->
+                    <p>The following abbreviations occur in the manuscript and are not expanded in
+                        the transcription: ꝓ = pro; ꝑ = per/par; ꝗ = qui; ꝙ = quod; ÷ = est; ⁊ =
+                        et/etiam; ꝰ = us; ꝯ = con; ꝵ = rum; ũ = um/us; ã = am/as; ẽ = em/es.</p>
+                </interpretation>
+            </editorialDecl>
+        </encodingDesc>
+    </teiHeader>
+    <facsimile>
+        <graphic url="https://www.e-codices.ch/en/list/one/vad/0312"/>
+    </facsimile>
+    <text>
+        <body>
+            <!-- marginal glosses on the left side of the manuscript page -->
+            <ab>
+                <metamark>Ø</metamark>
+                <note target="#seg_Ø_1" type="commentary">
+                    <p>In hac ode uelut ꝓpro sitio ẽ cuiꝰdã ĩcerti car minis. nã dubitat ꝗd
+                        pͥmũ t ꝗd potissimũ di cat. utrũ cęlestiũ deoꝵ anromena. diuoꝵ &amp;
+                        fortiũ ducu. om̃s tam̃ laudat cũ se fingit an cipitẽ. ꝑ.cratoriã pare
+                        lepsin. uerũ meiore ĩten tume iaugusti lauder stendit. ꝙ scđm aioue. uult
+                        eẽ int̃ris. Ordo÷ ó clio quẽ uirũ aut quẽ heroa sumis celebra re tibia
+                        aut acrilira</p>
+                </note>
+                <metamark>y</metamark>
+                <note target="seg_y_1" type="commentary">
+                    <p> ꝓximã iouis honori mineruã. ħ ẽ uirtutẽ ⁊ sapientiã đo uicinã. unđ
+                        nulla questio ÷. cum supᵃ dixerit nil iouis simile. ⁊ scđm. &amp; ĩsequenti
+                        mineruã posuit. </p>
+                </note>
+                <metamark>∵</metamark>
+                <note target="seg_∵_1" type="commentary">
+                    <p>Castorẽ ⁊ pollucẽ lede filioˢ. Amatorẽ equoꝵ castorẽ dic̃. ut÷. talis
+                        amrclei domitꝰ pollucis habe nis. pollucẽ uͦ pugnis ñ bellis ualentẽ. ab
+                        eo ꝙ pugil fuerit. gͦ pugnos dix̃. ut t̃r. ĩuentrẽ in gere.</p>
+                </note>
+            </ab>
+            <!-- last four lines of previous ode (carmen 1,11) with interlinear glosses -->
+            <ab>
+                <l>Quȩ nunc oppositis debilitat pumicibꝯ mare</l>
+                <note target="#liques_1" type="synonym">bibes</note>
+                <l>Tyrrenũ. sapias. uina <seg xml:id="liques_1">liques</seg> &amp; spatio breui</l>
+                <note type="addition">l</note>
+                <!-- target of gloss is unclear -->
+                <note target="#reseces_1" type="synonym">auferes</note>
+                <l>Spẽ longã <seg xml:id="reseces_1">reseces</seg>. dũ loquimur fugit inuida</l>
+                <note target="Aetas_carpe_diem_quã_minimũ_credula_postero_1" type="addition">s.
+                    fruere p̃serti dˢie nil crederiꝰ postero</note>
+                <l><seg xml:id="Aetas_carpe_diem_quã_minimũ_credula_postero_1">Aᵉtas. carpe diem.
+                        quã minimũ credula postero.</seg></l>
+            </ab>
+            <!-- beginning of current ode (carmen 1,12) -->
+            <fw><hi>DE LAUDIBUS DEOꝵ UEL HOMINUM.</hi></fw>
+            <!-- main text of ode including interlinear glosses -->
+            <ab>
+                <l><seg xml:id="seg_Ø_1">Ø</seg>Quem uirũ. aut heroa. lyra uel acri</l>
+                <note target="#seg_sumis_1" type="addition">ꝯtendis</note>
+                <note target="#seg_clyo_1" type="explanation">ó una ex uiiii musis</note>
+                <l>Tibia <seg xml:id="seg_sumis_1">sumis</seg> celebrare <seg xml:id="seg_clyo_1"
+                        >clyo:</seg></l>
+                <note>sumis celebrare</note>
+                <l>Quẽ deũ. cuius retinet iocosa nomen imago</l>
+                <note target="#seg_heliconis_oris_1" type="explanation">in parnaso monte musis
+                    ꝯsecrato</note>
+                <l>Aut inumbrosis <seg xml:id="seg_heliconis_oris_1">heliconis oris</seg>.</l>
+                <note target="#seg_aut_super_pindo_1" type="explanation">mons thracie inqͦ orpheuꝰ
+                    cecinit.</note>
+                <l>
+                    <seg xml:id="seg_aut_super_pindo_1">Aut suꝑ pindo</seg>.<seg
+                        xml:id="seg_gelidoue_in_hȩmo_1">gelidoue in hȩmo</seg>.</l>
+                <note target="#seg_gelidoue_in_hȩmo_1" type="explanation">mons thessaliȩ
+                    hemo.</note>
+                <note target="#seg_Unde_uocalẽ_temere_in_secutę_Orphea_siluȩ_1"
+                    type="explanation"> Vocales om̃s sũme uoces dnr̃.</note>
+                <l>
+                    <seg xml:id="seg_Unde_uocalẽ_temere_in_secutę_Orphea_siluȩ_1">Unde uocalẽ
+                        temere in secutę Orphea siluȩ.</seg>
+                </l>
+                <note target="#seg_Arte_materna_1" type="explanation">musica scilic. nã filiꝰ
+                    calliope drͣ</note>
+                <l><seg xml:id="seg_Arte_materna_1">Arte materna</seg>rapidos morantẽ</l>
+                <note target="#seg_lapsus_1" type="synonym">cursus</note>
+                <l>Fluminũ <seg xml:id="seg_lapsus_1">lapsus</seg> celerisq. uentos</l>
+                <note target="#seg_Blandũ_1" type="addition">ꝓ.de</note>
+                <note target="#seg_auritas_1" type="explanation">sensũ audiendi habentes.</note>
+                <note target="#seg_ducere_1" type="addition">oblectare</note>
+                <l><seg xml:id="seg_Blandũ_1">Blandũ</seg>.&amp; <seg xml:id="seg_auritas_1"
+                        >auritas</seg> fidibꝯ canoris <seg xml:id="seg_ducere_1">ducere</seg>
+                    quercus.</l>
+                <l>Quid prius. dicã solitis parentũ </l>
+                <l>Laudibꝯ. qui res hominũ. ac deoꝵ. </l>
+                <note target="#seg_temperat_1" type="addition">distinguit dimeeab</note>
+                <l>Qui mare:&amp; terras. uarusq; <seg xml:id="seg_temperat_1">temperat</seg>
+                    horis</l>
+                <note target="#seg_Unde_nil_maius_generatur_ipso_1" type="addition">aqͦ ex illo qͥ
+                    cuncta tẽperat. aqͥ uirg̃. unde genꝰ ducis. qͦsi dic̃ iouẽ suꝑ om̃ia sine
+                    cõparatione.</note>
+                <l><seg xml:id="seg_Unde_nil_maius_generatur_ipso_1">Unde nil maius generatur
+                        ipso.</seg>
+                </l>
+                <note target="#seg_simile_1" type="addition">illi.</note>
+                <l>Nec uig&amp; quicquã <seg xml:id="seg_simile_1">simile</seg>. aut secundũ.</l>
+                <seg xml:id="seg_y_1">y</seg>
+                <note target="#seg_Pallas_1" type="explanation">sapientia</note>
+                <l>ꝓximos illi tamen occupauit <seg xml:id="seg_Pallas_1">Pallas</seg> honores.</l>
+                <l>Proeliis audax neq; te silebo</l>
+                <note target="#seg_Liber_1" type="synonym">bache</note>
+                <note target="#seg_seuis_inimica_uirgo_1" type="explanation">dianã dic̃ studiosã
+                    uenandi</note>
+                <l><seg xml:id="seg_Liber_1">Liber</seg> &amp; <seg
+                        xml:id="seg_seuis_inimica_uirgo_1">seuis inimica uirgo</seg></l>
+                <note target="#seg_nec_te_1">s. silebo</note>
+                <note target="#seg_certa_1" type="synonym">ieuitabili</note>
+                <note>o</note>
+                <note target="#seg_Phoebe_1" type="explanation">apolline dic̃ </note>
+                <l>Beluis. <seg xml:id="seg_nec_te_metuende_1">nec te metuende</seg><seg
+                        xml:id="seg_certa_1">certa</seg><seg xml:id="seg_Phoebe_1"
+                    >Phoebe</seg>sagitta.</l>
+                <note target="#seg_alciden_1" type="explanation">herculẽ</note>
+                <l><seg xml:id="seg_tricolon_1">∵</seg>Dicã ⁊ <seg xml:id="seg_alciden_1"
+                        >alciden</seg>. <seg xml:id="seg_pueros_q̨_ledȩ_1">pueros q̨
+                    ledȩ̨</seg>.</l>
+                <note target="#seg_pueros_q̨_ledȩ_1" type="explanation">castorẽ pollucẽ</note>
+                <l>Hunc equis illũ superare pugnis</l></ab>
+            <!-- new page of manuscript (folio 8r), main text of ode resumes here with interlinear glosses -->
+            <pb n="8r"/>
+            <ab>
+                <l>Nobilẽ. quoꝵ simul alba nautis Stella refulsit.</l>
+                <l>Defluit saxis agitatus humor.</l>
+                <l>Concidunt uenti. fugiunt q; nubes.</l>
+                <l>Et minax quia sic uoluere ponto Unda recũbit</l>
+                <seg xml:id="seg_S_1">S</seg>
+                <l><seg xml:id="Romulus_post">Romulũ post</seg>hos prius. an quietum</l>
+                <l>Pompilii regnũ memorẽ an suꝑbos </l>
+                <seg xml:id="seg_trikolon_2">∵</seg>
+                <note target="#seg_Romulus_post_1" type="addition">dubito</note>
+                <seg xml:id="seg_pro_1">ꝓ</seg>
+                <l>Tarquinii fasces: an catonis Nobile loetum.</l>
+                <seg xml:id="seg_S_2">S</seg>
+                <l>Regulũ. &amp; Scauros. animȩ q; magnȩ</l>
+                <seg xml:id="seg_SS_1">SS</seg>
+                <l>ꝓdigum paulũ superante poeno</l>
+                <seg xml:id="seg_SSS_1">SSS</seg>
+                <l>Gratus insigni referã camena. Fabriciũꝙ</l>
+                <seg xml:id="seg_c_1">c</seg>
+                <l>Nunc &amp; incomptis curiũ capillis </l>
+                <seg xml:id="seg_u_1">u</seg>
+                <l>Utilẽ bello. tulit &amp; camillum </l>
+                <l>Sȩua paupertas. &amp; auitus apto cũ lare fundus.</l>
+                <l>Crescit occulto uelut arbor aeuo </l>
+                <seg xml:id="seg_Ø_2">Ø</seg>
+                <l>Fama marcelli. micat iñt õms</l>
+                <note type="addition">l</note>
+                <!-- target of gloss is unclear -->
+                <l>Iuliũ sidus uelut int̃ ignes luna minores</l>
+                <l>Gentis humanȩ pater atq; custos</l>
+                <l>Orte saturno. tibi cura magni</l>
+                <l>Caesaris fatis data. tu secundo Caesare regnes </l>
+                <l>Ille seu parthos latio imminentes </l>
+                <note target="#Egerit_1" type="synonym">subegerit</note>
+                <l><seg xml:id="seg_Egerit_1">Egerit</seg> iusto domitos triumpho</l>
+                <l>Siue subiectos orientis orae Seras &amp; indos.</l>
+                <note target="#aequus_1" type="synonym">iustus</note>
+                <l>Te minor latũ reg&amp; <seg xml:id="seg_aequus_1">aequus</seg> orbem. Tu graui
+                    currũ quaties olympum.</l>
+                <l>Tu parũ castis inimica mittes fulmina lucis.</l>
+            </ab>
+            <!-- end of ode 1,12-->
+            <!-- marginal glosses on the right side of the manuscript page -->
+            <ab>
+                <metamark>S</metamark>
+                <note target="#seg_S_1" type="commentary">
+                    <p>adhuc romanos duces &amp; nobiles p̃t̃eundo cõmemo rat. ut augustũ
+                        p̃ferat cunctis. nã romulus urbis rom̃ȩ ꝯditor ẽ. Num põpiliuꝰ a curib;
+                        sabinus ad regnũ uocatꝰ sacroꝵ inuentor ẽ.</p></note>
+                <metamark><hi>∵</hi></metamark>
+                <note target="#seg_trikolon_2" type="commentary">
+                    <p>Tarqͥnus qͦq; rex uirtute magnꝰ. s; hic ꝑⁱscũ posuit ñ suꝑbũ. nã suꝑbos
+                        fasces nobiles dix̃.</p></note>
+                <metamark><hi>ꝓ</hi></metamark>
+                <note target="#seg_ꝓ_1" type="commentary">
+                    <p> Cato dũ mortuo põpeio apđ uticã obsideret;. amore lib̃tatis manu sua
+                        sese ꝑemit. unđ̃ &amp; uticensis uocatꝰ ẽ.</p></note>
+                <metamark><hi>S</hi></metamark>
+                <note target="#seg_S_2" type="commentary">
+                    <p>Regulũ aut̃ cũ afros uicisset ab hisdẽ cũ ꝑaucis captꝰ ÷. quẽ dũ
+                        cartaginenses romã misissent ꝓ cõmutatione captiuoꝵ. adqͥescentes romanos
+                        suo ꝯsilio reuocaũ. hunc poeni dũ memoꝵ sacram̃ti reũteret;. sectis
+                        palpebris uigiliis necauer̃. </p></note>
+                <metamark><hi>SS</hi></metamark>
+                <note target="#seg_SS_1" type="commentary">
+                    <p>Pauluꝰ ⁊ tirentiuꝰ uarro ꝯsules adũsuꝰ hannibalẽ missi s̃. hi similit̃
+                        apd carinas apuliȩ uicũ grandi exercitꝰ romani clade superati s. paulus
+                        ̃pteaqũ tantã uitio collegae suoꝵ uidisset stragẽ se ꝑimdũ hoˢtib;
+                        dedit</p></note>
+                <metamark><hi>SSS</hi></metamark>
+                <note target="#seg_SSS_1" type="commentary">
+                    <p>Fabriciuˢ qͦq; magnis p̃mus a rege pyrro tẽptatꝰ. dũ nimis pauꝑ censu
+                        eˢˢet. corrũpi ñ potuit. de qeqᵒ lucañ. qͦ te fabriciuꝰ regi ñ uendidit
+                        auro.</p></note>
+                <metamark><hi>c</hi></metamark>
+                <note target="#seg_c_1" type="commentary">
+                    <p>Curiuꝰ pauꝑtate clarꝰ. de agro ad ꝯsulatũ euocatꝰ ÷ qͥ ñ totondit
+                        cesariẽ. ꝓpt̃ ĩuriã ̃pturẽ.</p></note>
+                <metamark><hi>u</hi></metamark>
+                <note target="#seg_u_1" type="commentary">
+                    <p>Camilluꝰ de exilio reũsus. uictores gallos urbe pepulit. &amp; ad
+                        intñecionẽ cecidit. uictorꝙ sua sponte in exiliũ rediit</p></note>
+            </ab>
+            <!-- marginal gloss in lower margin of manuscript page -->
+            <ab>
+                <metamark>Ø</metamark>
+                <note target="#seg_Ø_2" type="commentary">
+                    <p>Marcellũ octauie dic̃ filiũ sororis cesaris. qͥ puer mortuuꝰ ÷. de qͦ
+                        uirg̃ si q̃ fata aspera rũpas tu marcellũ eris. Aut illũ cõmemorat qͥ
+                        pͥmꝰ hannibalẽ apđ nolanã ciuitatẽ ĩ fugã cõpulit. ⁊ ab eo pꝰea
+                        occisus est.</p>
+                </note>
+            </ab>
+        </body>
+    </text>
+</TEI>
