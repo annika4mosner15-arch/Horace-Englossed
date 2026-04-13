@@ -1,0 +1,142 @@
+# Visual Design Proposal for Horace Englossed Interactive Digital Edition
+
+## Introduction
+This document outlines a concrete design proposal for the Horace Englossed interactive digital edition, focusing on the visual aspects of the project.
+
+## Color Scheme
+- **Primary Color**: Soft Blue (#A7C6ED)
+- **Secondary Color**: Warm Beige (#F0E6D2)
+- **Accent Color**: Deep Charcoal (#333333)
+- **Text Color**: Dark Gray (#4A4A4A)
+- **Background Color**: White (#FFFFFF)
+
+## Layout Sketches
+- **Homepage**: A clean design with sections for featured content and navigation links to interactive elements.
+- **Content Pages**: A two-column layout where the primary text appears on the left and interactive content (like footnotes and illustrations) appears on the right.
+- **Footer**: Contains links to social media, copyright information, and navigation links.
+
+  Desktop layout:
+  ┌─────────────────────────────────────────────────────────┐
+│                                                         │
+│  HORACE ENGLOSSED                                    │
+│  Carmen 1,12 – Interactive Digital Edition              │
+│  VadSlg Ms. 312 (10. Jh.) | Kantonsbibliothek St. Gallen│
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+┌──────────────────────┬──────────────────┬──────────────┐
+│                      │                  │              │
+│   SIDEBAR            │   MAIN CONTENT   │ GLOSSEN      │
+│   (250px)            │   (600px)        │ PANEL        │
+│   ────────────       │   ────────────   │ (300px)      │
+│                      │                  │              │
+│   🔧 CONTROLS:       │   Quem virum,    │ GLOSSEN:  │
+│   ├─ ☑ Mit Glossen   │   aut heroa      │              │
+│   ├─ ☐ Abkürzungen   │   lyra vel acri  │ [quem virum] │
+│   ├─ 👁 Diplomatisch │                  │ Accusativ    │
+│   └─ 👁 Normalisiert │   Tibia sumis    │ sing. masc.  │
+│                      │   celebrare      │              │
+│   Seite 010 (7r)     │   clyo:          │ [Quellen]    │
+│   [◀ Vorige]         │                  │              │
+│   Seite 1 / 2        │   Quem deum,     │ ────────────│
+│   [Nächste ▶]        │   cuius retinet  │              │
+│                      │   iocosa nomen   │ [heroa]      │
+│   Abbr. Legende   │   imago          │ Nominativ    │
+│   ────────────       │                  │ sing. masc.  │
+│   ꝓ = pro            │   ───────────    │              │
+│   ꝑ = per/par        │   [Marginale]    │ [Mehr]       │
+│   ꝗ = qui            │   Glossen...     │              │
+│   ꝙ = quod           │                  │              │
+│   ÷ = est            │                  │              │
+│   ⁊ = et/etiam       │                  │              │
+│                      │                  │              │
+└──────────────────────┴──────────────��───┴──────────────┘
+
+  Tablet layout:
+  ┌─────────────────────────────────────┐
+│   HORACE ENGLOSSED               │
+│   Carmen 1,12                       │
+└─────────────────────────────────────┘
+┌─────────────────────────────────────┐
+│  ☰ MENU | [Controls: Glossen|Abbr.] │
+└─────────────────────────────────────┘
+┌─────────────────────────────────────┐
+│                                     │
+│      MAIN CONTENT (Vollbreite)      │
+│                                     │
+│  Quem virum, aut heroa lyra vel     │
+│  acri Tibia sumis celebrare clyo:   │
+│                                     │
+│  [Glossen im Modal/Accordion]       │
+│                                     │
+└─────────────────────────────────────┘
+┌─────────────────────────────────────┐
+│  [◀ Seite 010 | 1/2 | Seite 011 ▶]  │
+└─────────────────────────────────────┘
+
+  Mobile layout:
+  ┌──────────────────┐
+│ HORACE        │
+│ ☰                │
+└──────────────────┘
+┌──────────────────┐
+│ Quem virum, aut  │
+│ heroa lyra vel   │
+│ acri Tibia       │
+│ sumis celebrare  │
+│ clyo:            │
+│                  │
+│ Quem deum,       │
+│ cuius retinet    │
+│ iocosa nomen     │
+│ imago...         │
+└──────────────────┘
+┌──────────────────┐
+│ 📖 GLOSSEN (🔽)  │
+│ ──────────────── │
+│ [quem virum]     │
+│ Accusativ, sing. │
+│                  │
+│ [heroa]          │
+│ Nominativ, sing. │
+└──────────────────┘
+┌──────────────────┐
+│ [◀ Seite 1/2 ▶]  │
+└──────────────────┘
+
+Gloss with Hover-affect
+  Quem virum ← Hier hovern
+   ↓
+┌──────────────────────┐
+│ lemma: vir, virum    │
+│ wortart: Subst.      │
+│ kasus: Accusativ     │
+│ numerus: Singular    │
+│ genus: Maskulinum    │
+│ [➜ Im Text suchen]   │
+└──────────────────────┘
+
+Toggle-Button:
+  
+  ☑ Mit Glossen    →    ☐ Mit Glossen
+(aktiv, Bg: Beige)    (inaktiv, Bg: Grau)
+Farbwechsel bei Klick
+
+
+Visual: 
+- Unterstrich (gestrichelt)
+- Hintergrund-Highlight: #FFF8E7
+- Farbe Text: #D4A574 (Gold)
+
+  
+## Typography
+- **Headings**: 'Playfair Display', Serif 36px, Bold
+- **Body Text**: 'Roboto', Sans-serif 16px, Regular
+- **Links**: 'Roboto', Sans-serif 16px, Italic (Primary color)
+
+## Design Decisions
+- **Accessibility**: Color contrast ratios will be ensured to meet WCAG standards, providing readability for all users.
+- **Interactivity**: Subtle animations will be used to enhance user engagement without distracting from the content.
+- **Responsiveness**: The layout will be designed to be fully responsive, ensuring good usability on both mobile and desktop devices.
+
+## Conclusion
+This visual design proposal aims to create a cohesive and engaging experience for users of the Horace Englossed interactive digital edition, marrying aesthetics with functionality to enhance user experience.
