@@ -1,1 +1,262 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Horace Englossed</title>\n</head>\n<body>\n    <header>\n        <h1>Horace Englossed</h1>\n    </header>\n    <nav>\n        <ul>\n            <li><a href="#home">Home</a></li>\n            <li><a href="#about">About</a></li>\n            <li><a href="#services">Services</a></li>\n            <li><a href="#contact">Contact</a></li>\n        </ul>\n    </nav>\n    <aside id="sidebar-controls">\n        <h2>Controls</h2>\n        <ul>\n            <li><button>Control 1</button></li>\n            <li><button>Control 2</button></li>\n            <li><button>Control 3</button></li>\n        </ul>\n    </aside>\n    <main>\n        <h2>Main Content Area</h2>\n        <p>This is where the main content goes.</p>\n    </main>\n    <aside id="glossen-sidebar">\n        <h2>Glossen</h2>\n        <ul>\n            <li>Glossary term 1</li>\n            <li>Glossary term 2</li>\n            <li>Glossary term 3</li>\n        </ul>\n    </aside>\n    <footer>\n        <p>&copy; 2026 Horace Englossed. All Rights Reserved.</p>\n    </footer>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="la">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horace Englossed – Carmen 1,12</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Horace Englossed</h1>
+        <p class="subtitle">A Digital Edition of Horace, Carmen 1,12 · VadSlg Ms. 312, Kantonsbibliothek St. Gallen (10th c.)</p>
+    </header>
+
+    <nav aria-label="Main navigation">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#text">Text</a></li>
+            <li><a href="#glosses">Glosses</a></li>
+            <li><a href="imprint.html">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-wrapper">
+
+        <!-- Controls sidebar -->
+        <aside id="sidebar-controls" class="sidebar" aria-label="Display controls">
+            <h2>Controls</h2>
+            <div class="control-group">
+                <label>
+                    <input type="checkbox" id="toggle-glosses" checked>
+                    Show Glosses
+                </label>
+            </div>
+            <div class="control-group">
+                <label>
+                    <input type="checkbox" id="toggle-abbreviations">
+                    Expand Abbreviations
+                </label>
+            </div>
+            <div class="control-group">
+                <label for="edition-mode">Edition Mode:</label>
+                <select id="edition-mode">
+                    <option value="diplomatic">Diplomatic</option>
+                    <option value="normalized">Normalized</option>
+                </select>
+            </div>
+        </aside>
+
+        <!-- Main content area -->
+        <main id="text">
+
+            <!-- Manuscript image viewer -->
+            <section class="manuscript-viewer">
+                <h2>Manuscript Images</h2>
+                <p class="section-desc">VadSlg Ms. 312, Kantonsbibliothek St. Gallen, Switzerland</p>
+                <div class="manuscript-image-container">
+                    <figure>
+                        <img class="manuscript-image"
+                             src="https://www.e-codices.unifr.ch/loris/vad/vad0312/vad0312_e0007r.jpg/full/500,/0/default.jpg"
+                             alt="Folio 7r – Horace Carmen 1,12 beginning, VadSlg Ms. 312"
+                             onerror="this.parentElement.querySelector('.img-fallback').style.display='block'; this.style.display='none';">
+                        <p class="img-fallback" style="display:none;">
+                            [Folio 7r – view on
+                            <a href="https://www.e-codices.ch/en/list/one/vad/0312" target="_blank" rel="noopener">e-codices</a>]
+                        </p>
+                        <figcaption>Folio 7r – Carmen 1,12 begins</figcaption>
+                    </figure>
+                    <figure>
+                        <img class="manuscript-image"
+                             src="https://www.e-codices.unifr.ch/loris/vad/vad0312/vad0312_e0008r.jpg/full/500,/0/default.jpg"
+                             alt="Folio 8r – Horace Carmen 1,12 continued, VadSlg Ms. 312"
+                             onerror="this.parentElement.querySelector('.img-fallback').style.display='block'; this.style.display='none';">
+                        <p class="img-fallback" style="display:none;">
+                            [Folio 8r – view on
+                            <a href="https://www.e-codices.ch/en/list/one/vad/0312" target="_blank" rel="noopener">e-codices</a>]
+                        </p>
+                        <figcaption>Folio 8r – Carmen 1,12 continued</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- Latin text transcription -->
+            <section class="text-transcription">
+                <h2>Transcription – <em>De laudibus deorum vel hominum</em> (Carmen 1,12)</h2>
+                <div class="page-header">
+                    <span id="current-folio">Folio 7r</span>
+                    <progress id="page-progress" value="1" max="2" aria-label="Page progress"></progress>
+                    <span id="page-counter">Page 1 of 2</span>
+                </div>
+
+                <div id="manuscript-text" class="latin-text">
+                    <p><strong>DE LAUDIBVS DEORVM VEL HOMINVM</strong></p>
+                    <p>Quem virũ aut heroa. lyra vel acri</p>
+                    <p>Tibia <span class="gloss-word" data-gloss-id="gloss-sumis">sumis</span> celebrare <span class="gloss-word" data-gloss-id="gloss-clyo">Clyo</span>:</p>
+                    <p>Quem deũ. cuius retinet iocosa nomen imago</p>
+                    <p>Aut in umbrosis <span class="gloss-word" data-gloss-id="gloss-heliconis">Heliconis oris</span>.</p>
+                    <p><span class="gloss-word" data-gloss-id="gloss-pindo">Aut super Pindo</span>. <span class="gloss-word" data-gloss-id="gloss-haemo">gelidove in Hæmo</span>.</p>
+                    <p><span class="gloss-word" data-gloss-id="gloss-orphea">Unde vocalem temere insecutae Orphea silvae.</span></p>
+                    <p><span class="gloss-word" data-gloss-id="gloss-arte">Arte materna</span> rapidos morantem</p>
+                    <p>Fluminum <span class="gloss-word" data-gloss-id="gloss-lapsus">lapsus</span> celerisque ventos</p>
+                    <p><span class="gloss-word" data-gloss-id="gloss-blandum">Blandũ</span> et <span class="gloss-word" data-gloss-id="gloss-auritas">auritas</span> fidibus canoris <span class="gloss-word" data-gloss-id="gloss-ducere">ducere</span> quercus.</p>
+                    <p>Quid prius dicām solitis parentum</p>
+                    <p>Laudibus, qui res hominum ac deorum.</p>
+                    <p>Qui mare et terras variasque <span class="gloss-word" data-gloss-id="gloss-temperat">temperat</span> horis</p>
+                    <p><span class="gloss-word" data-gloss-id="gloss-nil-maius">Unde nil maius generatur ipso.</span></p>
+                    <p>Nec viget quicquam <span class="gloss-word" data-gloss-id="gloss-simile">simile</span> aut secundum.</p>
+                    <p>Proximos illi tamen occupavit <span class="gloss-word" data-gloss-id="gloss-pallas">Pallas</span> honores.</p>
+                    <p>Proeliis audax, neque te silebo</p>
+                    <p><span class="gloss-word" data-gloss-id="gloss-liber">Liber</span> et <span class="gloss-word" data-gloss-id="gloss-virgo">saevis inimica virgo</span></p>
+                    <p>Beluis, nec te metuende <span class="gloss-word" data-gloss-id="gloss-certa">certa</span> <span class="gloss-word" data-gloss-id="gloss-phoebe">Phoebe</span> sagitta.</p>
+                    <p>Dicam et <span class="gloss-word" data-gloss-id="gloss-alciden">Alciden</span>, <span class="gloss-word" data-gloss-id="gloss-leda">pueros que Ledæ</span>.</p>
+                    <p>Hunc equis, illũ superare pugnis</p>
+                </div>
+
+                <div class="page-navigation">
+                    <button id="prev-page" disabled aria-label="Previous page">&#8592; Previous</button>
+                    <button id="next-page" aria-label="Next page">Next &#8594;</button>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Glosses sidebar -->
+        <aside id="glossen-sidebar" class="sidebar sidebar-glosses">
+            <h2 id="glosses">Glosses</h2>
+            <div class="gloss-filter">
+                <label for="gloss-type-filter">Filter:</label>
+                <select id="gloss-type-filter">
+                    <option value="all">All types</option>
+                    <option value="explanation">Explanation</option>
+                    <option value="synonym">Synonym</option>
+                    <option value="commentary">Commentary</option>
+                    <option value="addition">Addition</option>
+                </select>
+            </div>
+
+            <div id="glosses-list">
+                <div class="gloss-item" data-gloss-id="gloss-clyo">
+                    <h4 class="gloss-word">Clio</h4>
+                    <p class="gloss-type">explanation</p>
+                    <p class="gloss-content">una ex viiii Musis — one of the nine Muses; patron of lyric poetry</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-sumis">
+                    <h4 class="gloss-word">sumis</h4>
+                    <p class="gloss-type">addition</p>
+                    <p class="gloss-content">contendis — you strive, undertake</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-heliconis">
+                    <h4 class="gloss-word">Heliconis oris</h4>
+                    <p class="gloss-type">explanation</p>
+                    <p class="gloss-content">in Parnaso monte Musis consecrato — on Mount Parnassus, consecrated to the Muses</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-pindo">
+                    <h4 class="gloss-word">aut super Pindo</h4>
+                    <p class="gloss-type">explanation</p>
+                    <p class="gloss-content">mons Thracie in quo Orpheus cecinit — mountain of Thrace where Orpheus sang</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-haemo">
+                    <h4 class="gloss-word">gelidove in Hæmo</h4>
+                    <p class="gloss-type">explanation</p>
+                    <p class="gloss-content">mons Thessalie Hemo — the Thessalian mountain Hemus (the Balkans)</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-orphea">
+                    <h4 class="gloss-word">Orphea silvæ</h4>
+                    <p class="gloss-type">explanation</p>
+                    <p class="gloss-content">Vocales omnes summe voces dicuntur — all vocal beings follow Orpheus; the highest voices are meant</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-arte">
+                    <h4 class="gloss-word">Arte materna</h4>
+                    <p class="gloss-type">explanation</p>
+                    <p class="gloss-content">musica scilicet, nam filius Calliopes dicitur — music, for Orpheus is called the son of Calliope, Muse of epic poetry</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-lapsus">
+                    <h4 class="gloss-word">lapsus</h4>
+                    <p class="gloss-type">synonym</p>
+                    <p class="gloss-content">cursus — flowing, running (of rivers)</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-blandum">
+                    <h4 class="gloss-word">Blandũ</h4>
+                    <p class="gloss-type">addition</p>
+                    <p class="gloss-content">pro, de — sweetly, with charm</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-auritas">
+                    <h4 class="gloss-word">auritas</h4>
+                    <p class="gloss-type">explanation</p>
+                    <p class="gloss-content">sensum audiendi habentes — having the sense of hearing; trees enchanted to listen</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-ducere">
+                    <h4 class="gloss-word">ducere</h4>
+                    <p class="gloss-type">addition</p>
+                    <p class="gloss-content">oblectare — to delight, to charm, to lead along</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-temperat">
+                    <h4 class="gloss-word">temperat</h4>
+                    <p class="gloss-type">addition</p>
+                    <p class="gloss-content">distinguit, dimetitur — apportions and regulates; Jupiter orders the seasons and nature</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-nil-maius">
+                    <h4 class="gloss-word">Unde nil maius generatur ipso</h4>
+                    <p class="gloss-type">addition</p>
+                    <p class="gloss-content">quasi dicens Iovem super omnia — as if saying Jupiter is above all; Horace implicitly equates Augustus with Jupiter</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-simile">
+                    <h4 class="gloss-word">simile</h4>
+                    <p class="gloss-type">addition</p>
+                    <p class="gloss-content">illi — similar to him [Jupiter]; nothing equals or comes second to Jupiter</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-pallas">
+                    <h4 class="gloss-word">Pallas</h4>
+                    <p class="gloss-type">explanation</p>
+                    <p class="gloss-content">sapientia; proxima Iovis honori Minerva — wisdom; Minerva nearest to the honour of Jupiter, i.e. virtue and wisdom are closest to divinity</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-liber">
+                    <h4 class="gloss-word">Liber</h4>
+                    <p class="gloss-type">synonym</p>
+                    <p class="gloss-content">Bacche — Bacchus, god of wine and festivity</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-virgo">
+                    <h4 class="gloss-word">saevis inimica virgo</h4>
+                    <p class="gloss-type">explanation</p>
+                    <p class="gloss-content">Dianam dicit studiosa venandi — Diana, enemy of wild beasts, fond of hunting</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-certa">
+                    <h4 class="gloss-word">certa</h4>
+                    <p class="gloss-type">synonym</p>
+                    <p class="gloss-content">inevitabili — with unerring, inevitable arrow</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-phoebe">
+                    <h4 class="gloss-word">Phoebe</h4>
+                    <p class="gloss-type">explanation</p>
+                    <p class="gloss-content">Apollinem dicit — refers to Apollo, god of light, music and prophecy; Phoebus = “bright”</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-alciden">
+                    <h4 class="gloss-word">Alciden</h4>
+                    <p class="gloss-type">explanation</p>
+                    <p class="gloss-content">Herculem — Hercules, grandson of Alcaeus; supreme hero celebrated for his twelve labours</p>
+                </div>
+                <div class="gloss-item" data-gloss-id="gloss-leda">
+                    <h4 class="gloss-word">pueros que Ledæ</h4>
+                    <p class="gloss-type">explanation</p>
+                    <p class="gloss-content">Castorem Pollucem — Castor and Pollux, twin sons of Leda; Castor famed for horses, Pollux for boxing</p>
+                </div>
+            </div>
+        </aside>
+
+    </div><!-- .page-wrapper -->
+
+    <footer>
+        <p>
+            Digital edition of Quintus Horatius Flaccus, <em>Opera</em> (Carmen 1,12)<br>
+            Source: VadSlg Ms. 312, Kantonsbibliothek St. Gallen, Switzerland (10th century)<br>
+            Images courtesy of
+            <a href="https://www.e-codices.ch/en/list/one/vad/0312" target="_blank" rel="noopener">e-codices – Virtual Manuscript Library of Switzerland</a><br>
+            DOI: <a href="https://doi.org/10.5076/e-codices-vad-0312" target="_blank" rel="noopener">10.5076/e-codices-vad-0312</a>
+        </p>
+        <p>&copy; 2026 Horace Englossed. All Rights Reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,37 +1,256 @@
+/* ============================================================
+   HORACE ENGLOSSED – STYLESHEET
+   ============================================================ */
+
+/* ---- Base reset ---- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background-color: #faf8f4;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---- Headings ---- */
+h1, h2, h3, h4 {
+    font-family: 'Garamond', Georgia, serif;
+    color: #4a2c2c;
+}
+
+/* ---- Header ---- */
+header {
+    background-color: #4a2c2c;
+    color: #fff;
+    padding: 1.5rem 2rem;
+    text-align: center;
+}
+
+header h1 {
+    color: #fff;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+}
+
+header .subtitle {
+    color: #d4b896;
+    font-size: 0.9rem;
+    margin-top: 0.4rem;
+}
+
+/* ---- Navigation ---- */
+nav {
+    background-color: #3a1f1f;
+    padding: 0.5rem 2rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: #d4b896;
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    transition: background 0.2s;
+}
+
+nav a:hover {
+    background-color: #4a2c2c;
+    color: #fff;
+}
+
+/* ---- Page wrapper: three-column layout ---- */
+.page-wrapper {
+    display: flex;
+    flex: 1;
+    gap: 0;
+    align-items: flex-start;
+}
+
+/* ---- Sidebar (shared) ---- */
+.sidebar {
+    background-color: #fff;
+    box-shadow: inset -1px 0 0 #e0d8cc;
+    padding: 1.25rem;
+    min-width: 200px;
+    max-width: 240px;
+    flex: 0 0 220px;
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    font-size: 1rem;
+    border-bottom: 2px solid #d4b896;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* ---- Controls sidebar ---- */
+.control-group {
+    margin-bottom: 0.9rem;
+    font-size: 0.88rem;
+}
+
+.control-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+}
+
+.control-group select {
+    margin-top: 0.25rem;
+    width: 100%;
+    padding: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 0.85rem;
+}
+
+/* ---- Main content ---- */
+main {
+    flex: 1;
+    padding: 1.5rem 2rem;
+    min-width: 0;
+}
+
+.section-desc {
+    color: #666;
+    font-size: 0.88rem;
+    margin-bottom: 1rem;
+}
+
+/* ---- Manuscript image container ---- */
 .manuscript-image-container {
-    max-width: 100%;
     display: flex;
     flex-wrap: wrap;
+    gap: 1rem;
     justify-content: center;
-    margin: 1rem 0;
+    margin: 1rem 0 1.5rem;
+}
+
+.manuscript-image-container figure {
+    flex: 1 1 45%;
+    min-width: 200px;
+    max-width: 480px;
+    text-align: center;
 }
 
 .manuscript-image {
-    flex: 1 1 45%;
-    margin: 0.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid #ddd;
+    display: block;
 }
 
+.manuscript-image-container figcaption {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.4rem;
+    font-style: italic;
+}
+
+.img-fallback {
+    font-style: italic;
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+/* ---- Page header (folio / progress) ---- */
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.page-header progress {
+    flex: 1;
+    height: 6px;
+    accent-color: #4a2c2c;
+}
+
+/* ---- Latin text transcription ---- */
 .latin-text {
-    font-family: 'Garamond', serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
+    font-family: 'Garamond', Georgia, serif;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: #222;
+    border-left: 3px solid #d4b896;
+    padding-left: 1rem;
+    margin-bottom: 1.25rem;
 }
 
-.gloss-item {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 0.5rem;
-    border-left: 4px solid #0073e6;
-    margin: 0.5rem 0;
+.latin-text p {
+    margin-bottom: 0.1rem;
 }
 
+/* ---- Gloss words in text ---- */
+.gloss-word {
+    border-bottom: 1px dashed #0073e6;
+    cursor: pointer;
+    color: inherit;
+    transition: background 0.15s;
+}
+
+.gloss-word:hover,
+.gloss-word:focus {
+    background-color: #fff3cd;
+    outline: none;
+}
+
+/* ---- Page navigation buttons ---- */
 .page-navigation {
     display: flex;
     justify-content: space-between;
-    margin: 1rem 0;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
+.page-navigation button {
+    background-color: #4a2c2c;
+    color: #fff;
+    border: none;
+    padding: 0.55rem 1.2rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.page-navigation button:hover:not(:disabled) {
+    background-color: #6b3e3e;
+}
+
+.page-navigation button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* kept for backward compatibility with any <a> usage */
 .page-navigation a {
     background-color: #0073e6;
     color: white;
@@ -44,27 +263,118 @@
     background-color: #005bb5;
 }
 
-h1, h2, h3 {
-    font-family: 'Garamond', serif;
-    color: #4a2c2c;
+/* ---- Glosses sidebar ---- */
+.sidebar-glosses {
+    box-shadow: inset 1px 0 0 #e0d8cc;
+    flex: 0 0 260px;
+    max-width: 260px;
 }
 
-header, footer {
-    background-color: #f8f8f8;
-    padding: 1rem;
+.gloss-filter {
+    margin-bottom: 0.8rem;
+    font-size: 0.82rem;
+}
+
+.gloss-filter select {
+    width: 100%;
+    padding: 0.2rem;
+    margin-top: 0.2rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 0.82rem;
+}
+
+/* ---- Gloss items ---- */
+.gloss-item {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0.55rem 0.65rem;
+    border-left: 4px solid #d4b896;
+    margin-bottom: 0.75rem;
+    border-radius: 0 3px 3px 0;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.gloss-item:hover {
+    border-left-color: #4a2c2c;
+    background-color: #fff8f0;
+    cursor: pointer;
+}
+
+.gloss-item h4.gloss-word {
+    font-size: 0.92rem;
+    font-style: italic;
+    margin-bottom: 0.15rem;
+    border-bottom: none;
+    cursor: default;
+}
+
+.gloss-item .gloss-type {
+    font-size: 0.72rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.25rem;
+}
+
+.gloss-item .gloss-content {
+    font-size: 0.82rem;
+    color: #444;
+    line-height: 1.4;
+}
+
+/* ---- Footer ---- */
+footer {
+    background-color: #3a1f1f;
+    color: #c8b49a;
+    padding: 1.2rem 2rem;
     text-align: center;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    margin-top: auto;
 }
 
-.sidebar {
-    background-color: #ffffff;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
+footer a {
+    color: #d4b896;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+    .sidebar {
+        flex: 0 0 180px;
+        max-width: 180px;
+    }
+    .sidebar-glosses {
+        flex: 0 0 200px;
+        max-width: 200px;
+    }
 }
 
 @media (max-width: 768px) {
-    .manuscript-image {
+    .page-wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar, .sidebar-glosses {
+        position: static;
+        max-height: none;
+        max-width: 100%;
+        flex: none;
+        width: 100%;
+        box-shadow: 0 1px 0 #e0d8cc;
+    }
+
+    .manuscript-image-container figure {
         flex: 1 1 100%;
     }
+
+    .manuscript-image {
+        max-width: 100%;
+    }
+
     .page-navigation {
         flex-direction: column;
     }
