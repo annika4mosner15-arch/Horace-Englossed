@@ -1,71 +1,571 @@
-.manuscript-image-container {
-    max-width: 100%;
+/* ============================================================
+   HORACE ENGLOSSED – MAIN STYLESHEET
+   Interactive Digital Edition of Horace, Carmen 1,12
+   VadSlg Ms. 312 · Kantonsbibliothek St. Gallen
+   ============================================================ */
+
+/* ---- 1. CSS RESET & BASE ---------------------------------- */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --color-primary:    #A7C6ED;   /* soft blue */
+    --color-secondary:  #F0E6D2;   /* warm beige */
+    --color-accent:     #333333;   /* deep charcoal */
+    --color-text:       #4A4A4A;   /* dark grey */
+    --color-bg:         #FFFFFF;
+    --color-border:     #D4C9B8;
+    --color-gold:       #D4A574;
+    --color-highlight:  #FFF8E7;
+    --color-link:       #1A5276;
+
+    --sidebar-width:    250px;
+    --gloss-width:      300px;
+    --font-heading:     'Playfair Display', Georgia, serif;
+    --font-body:        'Roboto', Arial, sans-serif;
+    --font-latin:       'EB Garamond', 'Garamond', Georgia, serif;
+    --radius:           6px;
+    --shadow:           0 2px 8px rgba(0, 0, 0, 0.10);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-secondary);
+    min-height: 100vh;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+/* ---- 2. HEADER ------------------------------------------- */
+
+header {
+    background-color: var(--color-accent);
+    color: #FFFFFF;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.header-content h1 {
+    font-family: var(--font-heading);
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+    margin-bottom: 0.25rem;
+}
+
+.header-content .subtitle {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--color-primary);
+    margin-bottom: 0.2rem;
+}
+
+.header-content .manuscript-info {
+    font-size: 0.9rem;
+    color: #B0BEC5;
+}
+
+/* ---- 3. NAVIGATION --------------------------------------- */
+
+nav {
+    background-color: #1A2A3A;
+    padding: 0 2rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 0;
     justify-content: center;
-    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+
+nav ul li a {
+    display: block;
+    padding: 0.75rem 1.25rem;
+    color: #D0D8E0;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+    background-color: var(--color-primary);
+    color: #1A2A3A;
+    outline: none;
+}
+
+/* ---- 4. APP CONTAINER (3-column grid) -------------------- */
+
+.app-container {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr var(--gloss-width);
+    grid-template-rows: auto;
+    gap: 0;
+    flex: 1;
+    align-items: start;
+}
+
+/* ---- 5. SIDEBARS ----------------------------------------- */
+
+.sidebar {
+    background-color: var(--color-bg);
+    border-right: 1px solid var(--color-border);
+    padding: 1.25rem 1rem;
+    min-height: calc(100vh - 140px);
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--color-accent);
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.sidebar h3 {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #777;
+    margin: 0.75rem 0 0.4rem;
+}
+
+.sidebar-glosses {
+    border-right: none;
+    border-left: 1px solid var(--color-border);
+}
+
+/* ---- 6. CONTROLS ----------------------------------------- */
+
+.control-group {
+    margin-bottom: 1.2rem;
+}
+
+.control-group label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    margin-bottom: 0.3rem;
+}
+
+.toggle-label {
+    display: flex !important;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.3rem 0;
+    font-size: 0.9rem;
+}
+
+.toggle-label input[type="checkbox"] {
+    accent-color: var(--color-primary);
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
+
+select {
+    width: 100%;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-text);
+    cursor: pointer;
+}
+
+select:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+}
+
+/* Page navigation */
+.page-nav-group .folio-label {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    text-align: center;
+    margin: 0.3rem 0;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 0.6rem 0;
+}
+
+.nav-buttons button {
+    flex: 1;
+    padding: 0.5rem 0.5rem;
+    background-color: var(--color-primary);
+    color: #1A2A3A;
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.nav-buttons button:hover:not(:disabled) {
+    background-color: #7AADD6;
+}
+
+.nav-buttons button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+progress {
+    width: 100%;
+    height: 6px;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: var(--color-border);
+    margin: 0.4rem 0;
+}
+
+progress::-webkit-progress-bar {
+    background-color: var(--color-border);
+}
+
+progress::-webkit-progress-value {
+    background-color: var(--color-primary);
+}
+
+progress::-moz-progress-bar {
+    background-color: var(--color-primary);
+}
+
+.page-counter {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #777;
+}
+
+/* Abbreviation legend */
+.abbrev-legend ul {
+    list-style: none;
+    font-size: 0.85rem;
+}
+
+.abbrev-legend li {
+    padding: 0.15rem 0;
+    border-bottom: 1px dotted var(--color-border);
+}
+
+.abbrev {
+    font-family: var(--font-latin);
+    font-size: 1rem;
+    color: var(--color-accent);
+    font-weight: 700;
+    margin-right: 0.25rem;
+}
+
+/* ---- 7. MAIN CONTENT AREA -------------------------------- */
+
+.main-content {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    background-color: var(--color-secondary);
+    padding: 1.25rem;
+    gap: 1.25rem;
+}
+
+.main-content h2 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--color-accent);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.35rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Split the center column into image | transcription */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 1.25rem;
+    align-items: start;
+}
+
+/* ---- 8. MANUSCRIPT IMAGE VIEWER -------------------------- */
+
+.manuscript-viewer {
+    background-color: var(--color-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1rem;
+    overflow: hidden;
+}
+
+.manuscript-image-container {
+    width: 100%;
+    max-height: 60vh;
+    overflow: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: #F5F0E8;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.manuscript-image-container a {
+    display: block;
+    line-height: 0;
 }
 
 .manuscript-image {
-    flex: 1 1 45%;
-    margin: 0.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity 0.3s;
+}
+
+.manuscript-image:hover {
+    opacity: 0.92;
+}
+
+.image-caption {
+    font-size: 0.8rem;
+    color: #777;
+    text-align: center;
+    margin-top: 0.4rem;
+}
+
+.image-caption a {
+    color: var(--color-link);
+    text-decoration: none;
+}
+
+.image-caption a:hover {
+    text-decoration: underline;
+}
+
+/* ---- 9. TEXT TRANSCRIPTION ------------------------------- */
+
+.text-transcription {
+    background-color: var(--color-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1rem 1.25rem;
+    overflow-y: auto;
+    max-height: 75vh;
 }
 
 .latin-text {
-    font-family: 'Garamond', serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
+    font-family: var(--font-latin);
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: #2C2C2C;
+}
+
+.latin-text p {
+    margin-bottom: 0.3rem;
+}
+
+.latin-text .loading-msg {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: #999;
+    font-style: italic;
+}
+
+/* Glossed words in transcription */
+.gloss-word {
+    cursor: pointer;
+    color: var(--color-accent);
+    border-bottom: 2px dashed var(--color-gold);
+    background-color: transparent;
+    transition: background-color 0.15s, color 0.15s;
+    border-radius: 2px;
+}
+
+.gloss-word:hover,
+.gloss-word:focus {
+    background-color: var(--color-highlight);
+    color: #8B4513;
+    outline: 1px dotted var(--color-gold);
+    outline-offset: 1px;
+}
+
+/* ---- 10. GLOSSES SIDEBAR --------------------------------- */
+
+#glosses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
 }
 
 .gloss-item {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 0.5rem;
-    border-left: 4px solid #0073e6;
-    margin: 0.5rem 0;
+    background-color: var(--color-highlight);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 0.6rem 0.75rem;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+    font-size: 0.88rem;
 }
 
-.page-navigation {
-    display: flex;
-    justify-content: space-between;
-    margin: 1rem 0;
+.gloss-item:hover {
+    border-color: var(--color-gold);
+    box-shadow: 0 2px 6px rgba(212, 165, 116, 0.4);
+    background-color: #FFF4E0;
 }
 
-.page-navigation a {
-    background-color: #0073e6;
-    color: white;
-    padding: 10px 15px;
+.gloss-item h4.gloss-word {
+    font-family: var(--font-latin);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 0.2rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.gloss-item .gloss-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #999;
+    margin-bottom: 0.3rem;
+}
+
+.gloss-item .gloss-content {
+    font-family: var(--font-latin);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--color-text);
+}
+
+.sidebar-glosses #glosses-list .loading-msg {
+    font-size: 0.9rem;
+    color: #999;
+    font-style: italic;
+}
+
+/* ---- 11. FOOTER ------------------------------------------ */
+
+footer {
+    background-color: var(--color-accent);
+    color: #B0BEC5;
+    padding: 1.25rem 2rem;
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    margin-top: auto;
+}
+
+.footer-content a {
+    color: var(--color-primary);
     text-decoration: none;
-    border-radius: 5px;
 }
 
-.page-navigation a:hover {
-    background-color: #005bb5;
+.footer-content a:hover {
+    text-decoration: underline;
 }
+
+.source-info {
+    margin-top: 0.4rem;
+    font-size: 0.8rem;
+    color: #6A7A8A;
+}
+
+/* ---- 12. UTILITY / HEADINGS ------------------------------ */
 
 h1, h2, h3 {
-    font-family: 'Garamond', serif;
-    color: #4a2c2c;
+    font-family: var(--font-heading);
+    color: var(--color-accent);
 }
 
-header, footer {
-    background-color: #f8f8f8;
-    padding: 1rem;
-    text-align: center;
+a {
+    color: var(--color-link);
 }
 
-.sidebar {
-    background-color: #ffffff;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
+/* ---- 13. RESPONSIVE: TABLET (≤1100px) -------------------- */
+
+@media (max-width: 1100px) {
+    :root {
+        --sidebar-width: 210px;
+        --gloss-width:   240px;
+    }
+
+    .header-content h1 {
+        font-size: 2rem;
+    }
 }
+
+/* ---- 14. RESPONSIVE: MOBILE (≤768px) --------------------- */
 
 @media (max-width: 768px) {
-    .manuscript-image {
-        flex: 1 1 100%;
-    }
-    .page-navigation {
+    .app-container {
+        display: flex;
         flex-direction: column;
+    }
+
+    .sidebar {
+        min-height: unset;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .sidebar-glosses {
+        border-left: none;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .manuscript-image-container {
+        max-height: 40vh;
+    }
+
+    .text-transcription {
+        max-height: unset;
+    }
+
+    nav ul {
+        justify-content: flex-start;
+    }
+
+    nav ul li a {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
     }
 }

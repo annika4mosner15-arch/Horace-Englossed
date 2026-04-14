@@ -1,1 +1,168 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Horace Englossed</title>\n</head>\n<body>\n    <header>\n        <h1>Horace Englossed</h1>\n    </header>\n    <nav>\n        <ul>\n            <li><a href="#home">Home</a></li>\n            <li><a href="#about">About</a></li>\n            <li><a href="#services">Services</a></li>\n            <li><a href="#contact">Contact</a></li>\n        </ul>\n    </nav>\n    <aside id="sidebar-controls">\n        <h2>Controls</h2>\n        <ul>\n            <li><button>Control 1</button></li>\n            <li><button>Control 2</button></li>\n            <li><button>Control 3</button></li>\n        </ul>\n    </aside>\n    <main>\n        <h2>Main Content Area</h2>\n        <p>This is where the main content goes.</p>\n    </main>\n    <aside id="glossen-sidebar">\n        <h2>Glossen</h2>\n        <ul>\n            <li>Glossary term 1</li>\n            <li>Glossary term 2</li>\n            <li>Glossary term 3</li>\n        </ul>\n    </aside>\n    <footer>\n        <p>&copy; 2026 Horace Englossed. All Rights Reserved.</p>\n    </footer>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="la">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horace Englossed – Carmen 1,12</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ===================== HEADER ===================== -->
+    <header>
+        <div class="header-content">
+            <h1>Horace Englossed</h1>
+            <p class="subtitle">Carmen 1,12 &#8211; Interactive Digital Edition</p>
+            <p class="manuscript-info">VadSlg Ms. 312 (10th c.) &middot; Kantonsbibliothek St. Gallen</p>
+        </div>
+    </header>
+
+    <!-- ===================== NAVIGATION ===================== -->
+    <nav aria-label="Main navigation">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#text">Text</a></li>
+            <li><a href="#glosses">Glosses</a></li>
+            <li><a href="imprint.html">Imprint</a></li>
+        </ul>
+    </nav>
+
+    <!-- ===================== APP CONTAINER (3-column layout) ===================== -->
+    <div class="app-container" id="home">
+
+        <!-- Left Sidebar: Controls -->
+        <aside class="sidebar sidebar-controls" aria-label="Viewer controls">
+            <h2>Controls</h2>
+
+            <!-- Display toggles -->
+            <div class="control-group">
+                <h3>Display</h3>
+                <label class="toggle-label">
+                    <input type="checkbox" id="toggle-glosses" checked>
+                    Show Glosses
+                </label>
+                <label class="toggle-label">
+                    <input type="checkbox" id="toggle-abbreviations">
+                    Expand Abbreviations
+                </label>
+            </div>
+
+            <!-- Edition mode -->
+            <div class="control-group">
+                <label for="edition-mode">Edition Mode</label>
+                <select id="edition-mode">
+                    <option value="diplomatic">Diplomatic</option>
+                    <option value="normalized">Normalized</option>
+                </select>
+            </div>
+
+            <!-- Page navigation -->
+            <div class="control-group page-nav-group">
+                <h3>Navigation</h3>
+                <p class="folio-label" id="current-folio">Folio 7r</p>
+                <div class="nav-buttons">
+                    <button id="prev-page" aria-label="Previous page" disabled>&#8592; Prev</button>
+                    <button id="next-page" aria-label="Next page">Next &#8594;</button>
+                </div>
+                <progress id="page-progress" value="1" max="2" aria-label="Page progress"></progress>
+                <p class="page-counter" id="page-counter">Page 1 of 2</p>
+            </div>
+
+            <!-- Abbreviation legend -->
+            <div class="control-group abbrev-legend">
+                <h3>Abbreviations</h3>
+                <ul>
+                    <li><span class="abbrev">&#42835;</span> = pro</li>
+                    <li><span class="abbrev">&#42833;</span> = per/par</li>
+                    <li><span class="abbrev">&#42839;</span> = qui</li>
+                    <li><span class="abbrev">&#42841;</span> = quod</li>
+                    <li><span class="abbrev">&#247;</span> = est</li>
+                    <li><span class="abbrev">&#8266;</span> = et/etiam</li>
+                    <li><span class="abbrev">&#42864;</span> = us</li>
+                    <li><span class="abbrev">&#42863;</span> = con</li>
+                    <li><span class="abbrev">&#42869;</span> = rum</li>
+                    <li><span class="abbrev">&#361;</span> = um/us</li>
+                    <li><span class="abbrev">&#227;</span> = am/as</li>
+                    <li><span class="abbrev">&#7869;</span> = em/es</li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content: Manuscript Image + Transcription -->
+        <main class="main-content" id="text" aria-label="Manuscript content">
+
+            <!-- Manuscript image viewer -->
+            <section class="manuscript-viewer">
+                <h2>Manuscript Page</h2>
+                <div class="manuscript-image-container">
+                    <a id="manuscript-image-link"
+                       href="https://www.e-codices.unifr.ch/en/vad/0312/7r/"
+                       target="_blank" rel="noopener noreferrer"
+                       aria-label="Open manuscript page on e-codices (opens in new tab)">
+                        <img id="manuscript-image"
+                             class="manuscript-image"
+                             src="https://www.e-codices.unifr.ch/loris/vad/vad0312/vad0312_0007r.jpg/full/full/0/default.jpg"
+                             alt="VadSlg Ms. 312, Folio 7r - Horace, Carmen 1,12">
+                    </a>
+                </div>
+                <p class="image-caption">
+                    <a href="https://www.e-codices.ch/en/vad/0312" target="_blank" rel="noopener noreferrer">VadSlg Ms. 312</a>,
+                    Kantonsbibliothek St. Gallen &middot;
+                    <a href="https://www.e-codices.ch/en/about/terms" target="_blank" rel="noopener noreferrer">Terms of use</a>
+                </p>
+            </section>
+
+            <!-- Latin text transcription -->
+            <section class="text-transcription">
+                <h2>Transcription</h2>
+                <div id="manuscript-text" class="latin-text" aria-live="polite">
+                    <p class="loading-msg">Loading manuscript text&#8230;</p>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Right Sidebar: Glosses -->
+        <aside class="sidebar sidebar-glosses" id="glosses" aria-label="Glosses">
+            <h2>Glosses</h2>
+
+            <div class="control-group">
+                <label for="gloss-type-filter">Filter by type</label>
+                <select id="gloss-type-filter">
+                    <option value="all">All glosses</option>
+                    <option value="commentary">Commentary</option>
+                    <option value="synonym">Synonym</option>
+                    <option value="explanation">Explanation</option>
+                    <option value="addition">Addition</option>
+                </select>
+            </div>
+
+            <div id="glosses-list" aria-live="polite">
+                <p class="loading-msg">Loading glosses&#8230;</p>
+            </div>
+        </aside>
+
+    </div><!-- /.app-container -->
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer>
+        <div class="footer-content">
+            <p>
+                &copy; 2026 Annabelle Kienzl &middot;
+                Digital Humanities Graz, University of Graz &middot;
+                <a href="imprint.html">Imprint</a>
+            </p>
+            <p class="source-info">
+                Manuscript: VadSlg Ms. 312, Kantonsbibliothek St. Gallen.
+                Images: <a href="https://www.e-codices.ch/en/vad/0312" target="_blank" rel="noopener noreferrer">e-codices</a>
+                (rights according to the repository&#8217;s terms of use).
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

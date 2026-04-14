@@ -18,6 +18,20 @@ const appState = {
   manuscriptData: null // Will be populated by XML parser
 };
 
+// e-codices IIIF image URLs for each manuscript page (index matches appState.currentPage)
+const pageImages = [
+  {
+    src: 'https://www.e-codices.unifr.ch/loris/vad/vad0312/vad0312_0007r.jpg/full/full/0/default.jpg',
+    href: 'https://www.e-codices.unifr.ch/en/vad/0312/7r/',
+    alt: 'VadSlg Ms. 312, Folio 7r \u2013 Horace, Carmen 1,12'
+  },
+  {
+    src: 'https://www.e-codices.unifr.ch/loris/vad/vad0312/vad0312_0008r.jpg/full/full/0/default.jpg',
+    href: 'https://www.e-codices.unifr.ch/en/vad/0312/8r/',
+    alt: 'VadSlg Ms. 312, Folio 8r \u2013 Horace, Carmen 1,12 (cont.)'
+  }
+];
+
 /* ========================================
    2. DOM ELEMENT REFERENCES
    ======================================== */
@@ -40,7 +54,11 @@ const domElements = {
 
   // Gloss Filter & Display
   glossFilterSelect: document.getElementById('gloss-type-filter'),
-  glossesListContainer: document.getElementById('glosses-list')
+  glossesListContainer: document.getElementById('glosses-list'),
+
+  // Manuscript image
+  manuscriptImage: document.getElementById('manuscript-image'),
+  manuscriptImageLink: document.getElementById('manuscript-image-link')
 };
 
 /* ========================================
@@ -210,6 +228,14 @@ class TEIParser {
     const glosses = [];
     const noteElements = Array.from(xmlDoc.querySelectorAll('note'));
 
+    // Build a lookup map from xml:id → element (CSS selectors don't handle
+    // XML namespace prefixes reliably, so we scan all elements manually)
+    const idMap = new Map();
+    Array.from(xmlDoc.querySelectorAll('*')).forEach((el) => {
+      const xmlId = el.getAttribute('xml:id');
+      if (xmlId) idMap.set(xmlId, el);
+    });
+
     noteElements.forEach((noteEl, index) => {
       const target = noteEl.getAttribute('target');
       const type = noteEl.getAttribute('type') || 'commentary';
@@ -225,7 +251,8 @@ class TEIParser {
       }
 
       if (target && glossContent) {
-        const targetElement = xmlDoc.querySelector(`[xml\\:id="${target.substring(1)}"],[id="${target.substring(1)}"]`);
+        const targetId = target.startsWith('#') ? target.substring(1) : target;
+        const targetElement = idMap.get(targetId);
 
         if (targetElement) {
           const glossWord = targetElement.textContent.trim();
@@ -387,10 +414,20 @@ function renderGlosses() {
     ? appState.manuscriptData.glosses
     : appState.manuscriptData.glosses.filter(g => g.type === appState.glossFilter);
 
-  // Filter by current page (glosses that target elements on this page)
-  const pageGlosses = filteredGlosses.filter((gloss) => {
-    return gloss.targetElement && gloss.targetElement.closest('ab') === currentPage.lineElements[0]?.closest('ab');
-  });
+  // Filter by current page: collect the set of <ab> ancestor elements for all
+  // lines on this page, then include glosses whose targets belong to any of them
+  const pageAbSet = new Set();
+  if (currentPage && currentPage.lineElements.length > 0) {
+    currentPage.lineElements.forEach((lineEl) => {
+      const ab = lineEl.closest('ab');
+      if (ab) pageAbSet.add(ab);
+    });
+  }
+  const pageGlosses = pageAbSet.size > 0
+    ? filteredGlosses.filter((gloss) => {
+        return gloss.targetElement && pageAbSet.has(gloss.targetElement.closest('ab'));
+      })
+    : filteredGlosses;
 
   if (pageGlosses.length === 0) {
     domElements.glossesListContainer.innerHTML = '<p>Keine Glossen auf dieser Seite.</p>';
@@ -440,6 +477,18 @@ function updatePageNavigation() {
   // Disable buttons at boundaries
   domElements.prevPageBtn.disabled = currentPage === 0;
   domElements.nextPageBtn.disabled = currentPage === totalPages - 1;
+
+  // Update manuscript image for the current page
+  const imageData = pageImages[currentPage];
+  if (imageData && domElements.manuscriptImage) {
+    domElements.manuscriptImage.src = imageData.src;
+    domElements.manuscriptImage.alt = imageData.alt;
+  }
+  if (imageData && domElements.manuscriptImageLink) {
+    domElements.manuscriptImageLink.href = imageData.href;
+    domElements.manuscriptImageLink.setAttribute('aria-label',
+      `Open ${imageData.alt} on e-codices (opens in new tab)`);
+  }
 }
 
 function updateToggleStates() {
