@@ -1,65 +1,71 @@
-/*
-Style.css
-Comprehensive styling including 3-column layout, a color scheme, responsive design, typography, and accessibility features.
-*/
-
-/* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Garamond&family=Inter:wght@400;700&display=swap');
-
-/* Body styling */
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f5f5f5; /* Example main background color */
-    margin: 0;
-    padding: 20px;
+.manuscript-image-container {
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1rem 0;
 }
 
-/* Typography */
-h1, h2, h3 {
+.manuscript-image {
+    flex: 1 1 45%;
+    margin: 0.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.latin-text {
     font-family: 'Garamond', serif;
-    color: #333; /* Example header color */
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
 }
 
-/* 3-column layout */
-.container {
+.gloss-item {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0.5rem;
+    border-left: 4px solid #0073e6;
+    margin: 0.5rem 0;
+}
+
+.page-navigation {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-    margin: 0 -10px;
+    margin: 1rem 0;
 }
 
-.column {
-    flex: 1;
-    padding: 10px;
-    min-width: 250px;
+.page-navigation a {
+    background-color: #0073e6;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
 }
 
-/* Responsive design */
+.page-navigation a:hover {
+    background-color: #005bb5;
+}
+
+h1, h2, h3 {
+    font-family: 'Garamond', serif;
+    color: #4a2c2c;
+}
+
+header, footer {
+    background-color: #f8f8f8;
+    padding: 1rem;
+    text-align: center;
+}
+
+.sidebar {
+    background-color: #ffffff;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
 @media (max-width: 768px) {
-    .container {
+    .manuscript-image {
+        flex: 1 1 100%;
+    }
+    .page-navigation {
         flex-direction: column;
     }
 }
-
-/* Accessibility features */
-button, a {
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-}
-
-button:focus, a:focus {
-    outline: 2px solid #ffcc00;
-}
-
-button:hover, a:hover {
-    background-color: #0056b3;
-}
-
-/* WCAG AA compliance */
-/* Ensure sufficient contrast between text and background colors. */
