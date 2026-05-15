@@ -10,15 +10,31 @@ fetch(filesApiUrl)
     .then(files => {
         const xmlFiles = files.filter(file => file.name.endsWith(".xml"));
         xmlFiles.forEach(file => {
-            // ---- SECTION for each poem/TEI file ----
+            // ---- SECTION per poem/TEI file ----
             const section = document.createElement("section");
             section.style.marginBottom = "2em";
 
-            // --- Title placeholder (set after parsing XML) ---
+            // --- Title (filled in after loading XML) ---
             const title = document.createElement("h2");
             section.appendChild(title);
 
-            // --- Split view container ---
+            // --- Button row at the top ---
+            const btnBox = document.createElement("div");
+            btnBox.style.display = "flex";
+            btnBox.style.gap = "1em";
+            btnBox.style.marginBottom = "1.3em";
+
+            const glossesBtn = document.createElement("button");
+            glossesBtn.textContent = "Show glosses and metamarks";
+            btnBox.appendChild(glossesBtn);
+
+            const teiBtn = document.createElement("button");
+            teiBtn.textContent = "Show TEI code";
+            btnBox.appendChild(teiBtn);
+
+            section.appendChild(btnBox);
+
+            // --- Split view: poem | code ---
             const split = document.createElement("div");
             split.className = "tei-poem-split";
 
@@ -27,7 +43,7 @@ fetch(filesApiUrl)
             poemColumn.className = "tei-poem-column";
             split.appendChild(poemColumn);
 
-            // TEI code column (hidden by default)
+            // TEI code column (right, hidden by default)
             const codeColumn = document.createElement("div");
             codeColumn.className = "tei-code-column";
             codeColumn.style.display = "none";
@@ -37,18 +53,9 @@ fetch(filesApiUrl)
 
             section.appendChild(split);
 
-            // --- Control buttons ---
-            const glossesBtn = document.createElement("button");
-            glossesBtn.textContent = "Show glosses and metamarks";
-            section.appendChild(glossesBtn);
-
-            const teiBtn = document.createElement("button");
-            teiBtn.textContent = "Show TEI code";
-            section.appendChild(teiBtn);
-
             fileContentContainer.appendChild(section);
 
-            // --- FETCH and PROCESS XML ---
+            // --- FETCH/PROCESS XML for this file ---
             fetch(file.download_url)
                 .then(res => res.text())
                 .then(xmlText => {
@@ -60,13 +67,12 @@ fetch(filesApiUrl)
                         const parser = new DOMParser();
                         const xmlDoc = parser.parseFromString(xmlText, "application/xml");
 
-                        // --- Set heading from <fw><hi>... ---
+                        // --- Set the title from <fw><hi>... ---
                         const hiEl = xmlDoc.querySelector('fw > hi');
                         title.textContent = hiEl ? hiEl.textContent.replace(/[\.·]$/, "").trim() : "";
 
-                        // Find all <ab> blocks (these group lines and glosses/metamarks)
+                        // Find all <ab> blocks (group poem lines and gloss/metamark siblings)
                         const abs = Array.from(xmlDoc.getElementsByTagNameNS("*", "ab"));
-
                         abs.forEach(ab => {
                             let block = [];
                             Array.from(ab.childNodes).forEach(node => {
@@ -152,6 +158,7 @@ fetch(filesApiUrl)
                         });
 
                         // ***** Synchronized Scrolling *****
+                        // Only active when TEI code is visible
                         let programmaticScroll = false;
                         poemColumn.addEventListener("scroll", function() {
                             if (!teiVisible) return;
@@ -165,36 +172,5 @@ fetch(filesApiUrl)
                         codeColumn.addEventListener("scroll", function() {
                             if (!teiVisible) return;
                             if (programmaticScroll) { programmaticScroll = false; return; }
-                            const maxScroll = codeColumn.scrollHeight - codeColumn.clientHeight;
-                            const percent = maxScroll ? codeColumn.scrollTop / maxScroll : 0;
-                            const poemMaxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
-                            programmaticScroll = true;
-                            poemColumn.scrollTop = percent * poemMaxScroll;
-                        });
-
-                    } catch (e) {
-                        poemColumn.textContent = "Could not extract poem lines.";
-                    }
-                })
-                .catch(err => {
-                    poemColumn.textContent = "Failed to load or parse file: " + file.name;
-                });
-        });
-    })
-    .catch(err => {
-        fileContentContainer.textContent = "Failed to load file list.";
-        console.error(err);
-    });
-
-function escapeHtml(s) {
-    if (typeof s !== "string") return s;
-    return s.replace(/[&<>"']/g, function(m) {
-        return ({
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#039;"
-        })[m];
-    });
-}
+                            const maxScroll*
+
