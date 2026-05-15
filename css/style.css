@@ -6,6 +6,20 @@ body {
     padding: 0;
 }
 
+.impressum {
+    font-size: 0.77em;
+    text-align: center;
+    color: #888;
+    margin: 2em auto 0 auto;
+    max-width: 700px;
+    line-height: 1.6;
+}
+footer {
+    padding-bottom: 2em;
+    padding-top: 2em;
+    background: #f9f6eb;
+}
+
 /* ---- Heading and buttons ---- */
 
 header {
