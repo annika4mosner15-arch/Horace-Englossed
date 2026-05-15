@@ -5,10 +5,10 @@ const filesApiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${da
 
 const fileContentContainer = document.getElementById("file-content");
 
-// Utility: Find ordered manuscript image names for a TEI file
+// Utility: Map a TEI file to its associated manuscript image names (can extend logic if desired)
 function getImageNamesForTei(teiFile) {
-    // Example: For your simple use case, always ["010.jpg", "011.jpg"]
-    // Replace logic if you want to match TEI filename to images dynamically.
+    // For your current setup just return your manuscript page image filenames
+    // (expand to adapt for other poems/manuscripts)
     return ["010.jpg", "011.jpg"];
 }
 
@@ -65,7 +65,6 @@ fetch(filesApiUrl)
             const codeColumn = document.createElement("div");
             codeColumn.className = "tei-code-column";
             codeColumn.style.display = "none";
-
             // Two children, only one visible at a time:
             const teiPre = document.createElement("pre");
             teiPre.style.display = "none";
@@ -80,6 +79,7 @@ fetch(filesApiUrl)
             codeColumn.appendChild(imgArea);
 
             split.appendChild(codeColumn);
+
             section.appendChild(split);
 
             fileContentContainer.appendChild(section);
@@ -204,6 +204,152 @@ fetch(filesApiUrl)
                         function showImages() {
                             codeColumn.style.display = "block";
                             teiPre.style.display = "none";
-                            imgArea.style.display = "flex";
-                           
-
+                            imgArea.style.display = "block";
+                            teiBtn.textContent = "Show TEI code";
+                            imgBtn.textContent = "Hide manuscript";
+                            teiVisible = false;
+                            imgVisible = true;
+                        }
+
+                        teiBtn.onclick = function() {
+                            if (teiVisible) {
+                                hideAllRight();
+                            } else {
+                                showTeiCode();
+                            }
+                        };
+                        imgBtn.onclick = function() {
+                            if (imgVisible) {
+                                hideAllRight();
+                            } else {
+                                showImages();
+                            }
+                        };
+
+                        // --- Dynamically load images for this TEI (one at a time, with select) ---
+                        const imageNames = getImageNamesForTei(file); // e.g. ["010.jpg", "011.jpg"]
+
+                        imgArea.innerHTML = "";
+
+                        // --- Page select control ---
+                        const imgSelectBox = document.createElement("div");
+                        imgSelectBox.style.display = "flex";
+                        imgSelectBox.style.gap = "0.9em";
+                        imgSelectBox.style.marginBottom = "1em";
+                        imgSelectBox.style.alignItems = "center";
+
+                        const imgLabel = document.createElement("label");
+                        imgLabel.textContent = "Manuscript page: ";
+                        imgLabel.htmlFor = `img-page-select-${file.name.replace(/[^a-zA-Z0-9]/g, "_")}`;
+
+                        const imgSelect = document.createElement("select");
+                        imgSelect.id = imgLabel.htmlFor;
+                        imageNames.forEach((name, idx) => {
+                            const opt = document.createElement("option");
+                            opt.text = `Page ${idx + 1}`;
+                            opt.value = name;
+                            imgSelect.appendChild(opt);
+                        });
+                        imgSelectBox.appendChild(imgLabel);
+                        imgSelectBox.appendChild(imgSelect);
+                        imgArea.appendChild(imgSelectBox);
+
+                        // --- Zoomable image container (only one at a time) ---
+                        const imgContainer = document.createElement("div");
+                        imgContainer.className = "zoom-img-box";
+                        imgArea.appendChild(imgContainer);
+
+                        // Helper: load image for a given filename
+                        function showZoomImg(name) {
+                            imgContainer.innerHTML = ""; // Remove previous image
+                            const imgFile = imageFiles.find(f => f.name === name);
+                            if (imgFile) {
+                                const img = document.createElement("img");
+                                img.src = imgFile.download_url;
+                                img.alt = name;
+                                img.style.display = "block";
+                                img.style.width = "100%";
+                                img.style.maxWidth = "100%";
+                                img.style.maxHeight = "650px";
+                                img.style.cursor = "grab";
+                                imgContainer.appendChild(img);
+                                img.addEventListener('load', function () {
+                                    Panzoom(imgContainer, {
+                                        contain: 'outside',
+                                        maxScale: 8,
+                                        minScale: 1,
+                                        step: 0.07,
+                                        canvas: true,
+                                    });
+                                });
+                            } else {
+                                imgContainer.textContent = "Image not found: " + name;
+                                imgContainer.style.color = "#b33";
+                            }
+                        }
+                        showZoomImg(imgSelect.value);
+                        imgSelect.onchange = function () {
+                            showZoomImg(imgSelect.value);
+                        };
+
+                        // --- Synced Scroll: Poem <--> codeColumn or ms image ---
+                        let programmaticScroll = false;
+                        poemColumn.addEventListener("scroll", function() {
+                            if (!teiVisible && !imgVisible) return;
+                            if (programmaticScroll) { programmaticScroll = false; return; }
+                            const maxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
+                            const percent = maxScroll ? poemColumn.scrollTop / maxScroll : 0;
+                            // Choose which to sync to
+                            let target = teiVisible ? codeColumn : imgArea;
+                            const tgtMax = target.scrollHeight - target.clientHeight;
+                            programmaticScroll = true;
+                            target.scrollTop = percent * tgtMax;
+                        });
+                        codeColumn.addEventListener("scroll", function() {
+                            if (!teiVisible) return;
+                            if (programmaticScroll) { programmaticScroll = false; return; }
+                            const maxScroll = codeColumn.scrollHeight - codeColumn.clientHeight;
+                            const percent = maxScroll ? codeColumn.scrollTop / maxScroll : 0;
+                            const poemMaxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
+                            programmaticScroll = true;
+                            poemColumn.scrollTop = percent * poemMaxScroll;
+                        });
+                        imgArea.addEventListener("scroll", function() {
+                            if (!imgVisible) return;
+                            if (programmaticScroll) { programmaticScroll = false; return; }
+                            const maxScroll = imgArea.scrollHeight - imgArea.clientHeight;
+                            const percent = maxScroll ? imgArea.scrollTop / maxScroll : 0;
+                            const poemMaxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
+                            programmaticScroll = true;
+                            poemColumn.scrollTop = percent * poemMaxScroll;
+                        });
+
+                        // --- Show nothing on start (images/code) ---
+                        hideAllRight();
+
+                    } catch (e) {
+                        poemColumn.textContent = "Could not extract poem lines.";
+                    }
+                })
+                .catch(err => {
+                    poemColumn.textContent = "Failed to load or parse file: " + file.name;
+                });
+        });
+    })
+    .catch(err => {
+        fileContentContainer.textContent = "Failed to load file list.";
+        console.error(err);
+    });
+
+function escapeHtml(s) {
+    if (typeof s !== "string") return s;
+    return s.replace(/[&<>"']/g, function(m) {
+        return ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+        })[m];
+    });
+}
