@@ -5,10 +5,10 @@ const filesApiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${da
 
 const fileContentContainer = document.getElementById("file-content");
 
-// Utility: Find two matching image names for a TEI file
+// Utility: Map a TEI file to its associated manuscript image names
 function getImageNamesForTei(teiFile) {
-    // Example: If TEI file is "de-laudibus-deorum-vel-hominum.xml", load "010.jpg" and "011.jpg"
-    // You may want a more sophisticated mapping if needed.
+    // For your current setup just return your manuscript page image filenames
+    // Expand as needed for other poems/manuscripts
     return ["010.jpg", "011.jpg"];
 }
 
@@ -16,12 +16,12 @@ fetch(filesApiUrl)
     .then(res => res.json())
     .then(files => {
         const xmlFiles = files.filter(file => file.name.endsWith(".xml"));
-        // Get image files
         const imageFiles = files.filter(file =>
             file.name.toLowerCase().endsWith(".jpg") ||
             file.name.toLowerCase().endsWith(".jpeg") ||
             file.name.toLowerCase().endsWith(".jpf")
         );
+
         xmlFiles.forEach(file => {
             // ---- SECTION per poem/TEI file ----
             const section = document.createElement("section");
@@ -48,7 +48,7 @@ fetch(filesApiUrl)
             // --- Title ---
             const title = document.createElement("h2");
 
-            // --- Order: BUTTONS, TITLE, SPLIT VIEW
+            // --- Order: BUTTONS, TITLE, SPLIT VIEW ---
             section.appendChild(btnBox);
             section.appendChild(title);
 
@@ -56,20 +56,22 @@ fetch(filesApiUrl)
             const split = document.createElement("div");
             split.className = "tei-poem-split";
 
-            // Poem column
+            // Left: Poem column
             const poemColumn = document.createElement("div");
             poemColumn.className = "tei-poem-column";
             split.appendChild(poemColumn);
 
-            // TEI code column (right, hidden unless TEI/image is active)
+            // Right: TEI code or images
             const codeColumn = document.createElement("div");
             codeColumn.className = "tei-code-column";
             codeColumn.style.display = "none";
-            // Two children, only one visible at a time:
+            
+            // TEI code (hidden by default)
             const teiPre = document.createElement("pre");
             teiPre.style.display = "none";
             codeColumn.appendChild(teiPre);
 
+            // Manuscript image area (hidden by default)
             const imgArea = document.createElement("div");
             imgArea.className = "ms-img-area";
             imgArea.style.display = "none";
@@ -79,7 +81,6 @@ fetch(filesApiUrl)
             codeColumn.appendChild(imgArea);
 
             split.appendChild(codeColumn);
-
             section.appendChild(split);
 
             fileContentContainer.appendChild(section);
@@ -204,74 +205,67 @@ fetch(filesApiUrl)
                         function showImages() {
                             codeColumn.style.display = "block";
                             teiPre.style.display = "none";
-                            imgArea.style.display = "flex";
+                            imgArea.style.display = "block";
                             teiBtn.textContent = "Show TEI code";
                             imgBtn.textContent = "Hide manuscript";
                             teiVisible = false;
                             imgVisible = true;
+
+                            // Build (stack) both images, zoomable
+                            imgArea.innerHTML = "";
+                            const imageNames = getImageNamesForTei(file);
+                            imageNames.forEach(name => {
+                                const imgFile = imageFiles.find(f => f.name === name);
+                                if (imgFile) {
+                                    const imgContainer = document.createElement("div");
+                                    imgContainer.className = "zoom-img-box";
+                                    imgContainer.style.marginBottom = "1em";
+                                    imgContainer.style.background = "#f5f0e9";
+                                    imgContainer.style.border = "1px solid #e0d8cc";
+                                    const img = document.createElement("img");
+                                    img.src = imgFile.download_url;
+                                    img.alt = name;
+                                    img.style.width = "100%";
+                                    img.style.maxWidth = "100%";
+                                    img.style.height = "auto";
+                                    img.style.display = "block";
+                                    img.style.cursor = "grab";
+                                    imgContainer.appendChild(img);
+                                    imgArea.appendChild(imgContainer);
+
+                                    img.addEventListener('load', function () {
+                                        Panzoom(imgContainer, {
+                                            contain: 'outside',
+                                            maxScale: 8,
+                                            minScale: 1,
+                                            step: 0.07,
+                                            canvas: true,
+                                        });
+                                    });
+                                } else {
+                                    const missingMsg = document.createElement("div");
+                                    missingMsg.textContent = "Image \"" + name + "\" not found.";
+                                    missingMsg.style.color = "#b33";
+                                    missingMsg.style.margin = "1.5em";
+                                    imgArea.appendChild(missingMsg);
+                                }
+                            });
                         }
 
-                        teiBtn.onclick = function() {
-                            if (teiVisible) {
-                                hideAllRight();
-                            } else {
+                        teiBtn.onclick = function () {
+                            if (!teiVisible) {
                                 showTeiCode();
-                            }
-                        };
-                        imgBtn.onclick = function() {
-                            if (imgVisible) {
+                            } else {
                                 hideAllRight();
-                            } else {
-                                showImages();
                             }
                         };
-
-                        // --- Dynamically load images for this TEI ---
-                        const imageNames = getImageNamesForTei(file);
-                        imgArea.innerHTML = "";
-                        imgArea.style.flexDirection = "column";
-                        imageNames.forEach(name => {
-                            // Find download_url for this image file
-                            const imgFile = imageFiles.find(f => f.name === name);
-                            if (imgFile) {
-                                // Container for panzoom
-                                const imgContainer = document.createElement("div");
-                                imgContainer.className = "zoom-img-box";
-                                imgContainer.style.overflow = "hidden";
-                                imgContainer.style.marginBottom = "1em";
-                                imgContainer.style.background = "#f5f0e9";
-                                imgContainer.style.border = "1px solid #e0d8cc";
-                                // The actual image
-                                const img = document.createElement("img");
-                                img.src = imgFile.download_url;
-                                img.alt = name;
-                                img.style.width = "100%";
-                                img.style.maxWidth = "100%";
-                                img.style.maxHeight = "650px";
-                                img.style.display = "block";
-                                img.style.cursor = "grab";
-                                imgContainer.appendChild(img);
-                                imgArea.appendChild(imgContainer);
-
-                                // Add zoom on load
-                                img.addEventListener('load', function () {
-                                    Panzoom(imgContainer, {
-                                        contain: 'outside',
-                                        maxScale: 8,
-                                        minScale: 1,
-                                        step: 0.07,
-                                        canvas: true,
-                                    });
-                                });
+                        imgBtn.onclick = function () {
+                            if (!imgVisible) {
+                                showImages();
                             } else {
-                                // If not found
-                                const missingMsg = document.createElement("div");
-                                missingMsg.textContent = "Image \"" + name + "\" not found.";
-                                missingMsg.style.color = "#b33";
-                                missingMsg.style.margin = "1.5em";
-                                imgArea.appendChild(missingMsg);
+                                hideAllRight();
                             }
-                        });
+                        };
 
                         // --- Synced Scroll: Poem <--> codeColumn or ms images ---
                         let programmaticScroll = false;
@@ -280,7 +274,6 @@ fetch(filesApiUrl)
                             if (programmaticScroll) { programmaticScroll = false; return; }
                             const maxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
                             const percent = maxScroll ? poemColumn.scrollTop / maxScroll : 0;
-                            // Choose which to sync to
                             let target = teiVisible ? codeColumn : imgArea;
                             const tgtMax = target.scrollHeight - target.clientHeight;
                             programmaticScroll = true;
