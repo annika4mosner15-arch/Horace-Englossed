@@ -10,91 +10,66 @@ fetch(filesApiUrl)
     .then(files => {
         const xmlFiles = files.filter(file => file.name.endsWith(".xml"));
         xmlFiles.forEach(file => {
-            // Create a section for each poem/XML file
+            // ---- SECTION for each poem/TEI file ----
             const section = document.createElement("section");
             section.style.marginBottom = "2em";
 
-            // File name/title for each poem
-           const title = document.createElement("h2");
-section.appendChild(title); // append immediately, update later
+            // --- Title placeholder (set after parsing XML) ---
+            const title = document.createElement("h2");
+            section.appendChild(title);
 
-// Inside your fetch(file.download_url)...then(xmlText => {...}) block, AFTER you parse the XML:
-fetch(file.download_url)
-    .then(res => res.text())
-    .then(xmlText => {
-        // ... existing code ...
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+            // --- Split view container ---
+            const split = document.createElement("div");
+            split.className = "tei-poem-split";
 
-        // === Insert this block right after parsing xmlDoc ===
-        let docTitle = "";
-        const hiEl = xmlDoc.querySelector('fw > hi');
-        if (hiEl && hiEl.textContent) {
-            docTitle = hiEl.textContent
-                .replace(/[\.·]$/,"")   // Remove trailing period/interpunct
-                .replace(/ +/g, " ")    // Normalize whitespace
-                .trim();                // Trim whitespace
-        } else {
-            // Fallback: use cleaned file name (no .xml, hyphens/underscores to spaces, title case)
-            docTitle = file.name
-                .replace(/\.xml$/i, '')
-                .replace(/[-_]/g, ' ')
-                .toLowerCase()
-                .replace(/\b\w/g, l => l.toUpperCase());
-        }
-        title.textContent = docTitle;
-        // === End inserted block ===
+            // Poem column
+            const poemColumn = document.createElement("div");
+            poemColumn.className = "tei-poem-column";
+            split.appendChild(poemColumn);
 
-        // ... the rest of your code ...
-    });
-
-            // Button for gloss/metamark toggling
-            const glossesBtn = document.createElement("button");
-            glossesBtn.textContent = "Show glosses";
-            section.appendChild(glossesBtn);
-
-            // Container for the poem
-            const poemContainer = document.createElement("div");
-            poemContainer.className = "poem-container";
-            section.appendChild(poemContainer);
-
-            // Optional: Button and pre for the TEI code display
+            // TEI code column (hidden by default)
+            const codeColumn = document.createElement("div");
+            codeColumn.className = "tei-code-column";
+            codeColumn.style.display = "none";
             const teiPre = document.createElement("pre");
-            teiPre.style.display = "none"; // hidden by default
-            section.appendChild(teiPre);
+            codeColumn.appendChild(teiPre);
+            split.appendChild(codeColumn);
+
+            section.appendChild(split);
+
+            // --- Control buttons ---
+            const glossesBtn = document.createElement("button");
+            glossesBtn.textContent = "Show glosses and metamarks";
+            section.appendChild(glossesBtn);
 
             const teiBtn = document.createElement("button");
             teiBtn.textContent = "Show TEI code";
             section.appendChild(teiBtn);
 
-            let teiVisible = false;
-            teiBtn.addEventListener("click", function() {
-                teiVisible = !teiVisible;
-                teiPre.style.display = teiVisible ? "block" : "none";
-                teiBtn.textContent = teiVisible ? "Hide TEI code" : "Show TEI code";
-            });
-
             fileContentContainer.appendChild(section);
 
-            // --- PROCESS EACH TEI FILE ---
+            // --- FETCH and PROCESS XML ---
             fetch(file.download_url)
                 .then(res => res.text())
                 .then(xmlText => {
-                    teiPre.textContent = xmlText; // always show raw code in TEI panel
+                    teiPre.textContent = xmlText;
 
                     let poemHtmlLines = [];
 
                     try {
                         const parser = new DOMParser();
                         const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+
+                        // --- Set heading from <fw><hi>... ---
+                        const hiEl = xmlDoc.querySelector('fw > hi');
+                        title.textContent = hiEl ? hiEl.textContent.replace(/[\.·]$/, "").trim() : "";
+
                         // Find all <ab> blocks (these group lines and glosses/metamarks)
                         const abs = Array.from(xmlDoc.getElementsByTagNameNS("*", "ab"));
 
-                        // For each <ab>, process as a sequence
                         abs.forEach(ab => {
-                            let block = []; // sequence of items in display order
+                            let block = [];
                             Array.from(ab.childNodes).forEach(node => {
-                                // Line (verse)
                                 if (node.nodeType === Node.ELEMENT_NODE && node.tagName.toLowerCase() === "l") {
                                     block.push({
                                         type: "line",
@@ -102,42 +77,37 @@ fetch(file.download_url)
                                         htmlWithGloss: renderLineWithGlosses(node, true)
                                     });
                                 }
-                                // Metamark or Note, not inside a line
-                                else if (node.nodeType === Node.ELEMENT_NODE && (node.tagName.toLowerCase() === "note" || node.tagName.toLowerCase() === "metamark")) {
-                                    // Display only when glosses are on
+                                else if (node.nodeType === Node.ELEMENT_NODE &&
+                                         (node.tagName.toLowerCase() === "note" || node.tagName.toLowerCase() === "metamark")) {
                                     let css = node.tagName.toLowerCase() === "note" ? "poem-gloss" : "poem-metamark";
                                     block.push({
                                         type: node.tagName.toLowerCase(),
-                                        htmlPlain: "", // hidden when glosses are off
+                                        htmlPlain: "",
                                         htmlWithGloss: `<span class="${css}">${escapeHtml(node.textContent.trim())}</span>`
                                     });
                                 }
                             });
-                            // Add all this ab-block's lines and glosses to the main display array
                             poemHtmlLines.push(...block);
                         });
 
-                        // Function: (re)render poem
                         function renderPoem(glossMode = false) {
-                            poemContainer.innerHTML = "";
+                            poemColumn.innerHTML = "";
                             poemHtmlLines.forEach(part => {
-                                if (!glossMode && part.type !== 'line') return; // Show only lines when glosses are off
+                                if (!glossMode && part.type !== 'line') return;
                                 if (part.type === "line") {
                                     const lineDiv = document.createElement("div");
                                     lineDiv.className = "poem-line";
                                     lineDiv.innerHTML = glossMode ? part.htmlWithGloss : part.htmlPlain;
-                                    poemContainer.appendChild(lineDiv);
+                                    poemColumn.appendChild(lineDiv);
                                 } else if (glossMode && part.type !== 'line') {
-                                    // Insert gloss/metamark as its own line
                                     const div = document.createElement("div");
                                     div.className = part.type === "note" ? "poem-gloss" : "poem-metamark";
                                     div.innerHTML = part.htmlWithGloss;
-                                    poemContainer.appendChild(div);
+                                    poemColumn.appendChild(div);
                                 }
                             });
                         }
 
-                        // Helper for rendering a line (<l>), including any inline gloss/metamark
                         function renderLineWithGlosses(node, showGloss) {
                             let html = "";
                             node.childNodes.forEach(child => {
@@ -161,10 +131,9 @@ fetch(file.download_url)
                             return html;
                         }
 
-                        // First render: glosses OFF
+                        // ***** Button Toggle Logic *****
                         renderPoem(false);
 
-                        // Button: toggle glosses/metamarks
                         let glossesVisible = false;
                         glossesBtn.onclick = function() {
                             glossesVisible = !glossesVisible;
@@ -174,12 +143,41 @@ fetch(file.download_url)
                                 : "Show glosses and metamarks";
                         };
 
+                        // TEI code toggle (show/hide right column)
+                        let teiVisible = false;
+                        teiBtn.addEventListener("click", function() {
+                            teiVisible = !teiVisible;
+                            codeColumn.style.display = teiVisible ? "block" : "none";
+                            teiBtn.textContent = teiVisible ? "Hide TEI code" : "Show TEI code";
+                        });
+
+                        // ***** Synchronized Scrolling *****
+                        let programmaticScroll = false;
+                        poemColumn.addEventListener("scroll", function() {
+                            if (!teiVisible) return;
+                            if (programmaticScroll) { programmaticScroll = false; return; }
+                            const maxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
+                            const percent = maxScroll ? poemColumn.scrollTop / maxScroll : 0;
+                            const codeMaxScroll = codeColumn.scrollHeight - codeColumn.clientHeight;
+                            programmaticScroll = true;
+                            codeColumn.scrollTop = percent * codeMaxScroll;
+                        });
+                        codeColumn.addEventListener("scroll", function() {
+                            if (!teiVisible) return;
+                            if (programmaticScroll) { programmaticScroll = false; return; }
+                            const maxScroll = codeColumn.scrollHeight - codeColumn.clientHeight;
+                            const percent = maxScroll ? codeColumn.scrollTop / maxScroll : 0;
+                            const poemMaxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
+                            programmaticScroll = true;
+                            poemColumn.scrollTop = percent * poemMaxScroll;
+                        });
+
                     } catch (e) {
-                        poemContainer.textContent = "Could not extract poem lines.";
+                        poemColumn.textContent = "Could not extract poem lines.";
                     }
                 })
                 .catch(err => {
-                    poemContainer.textContent = "Failed to load or parse file: " + file.name;
+                    poemColumn.textContent = "Failed to load or parse file: " + file.name;
                 });
         });
     })
@@ -188,7 +186,6 @@ fetch(file.download_url)
         console.error(err);
     });
 
-// Helper to safely escape HTML
 function escapeHtml(s) {
     if (typeof s !== "string") return s;
     return s.replace(/[&<>"']/g, function(m) {
