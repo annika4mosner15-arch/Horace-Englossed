@@ -378,4 +378,77 @@ footer a:hover {
     .page-navigation {
         flex-direction: column;
     }
+   .poem-container {
+    margin: 2em 0 1em 0;
+    background: #fcfaf4;
+    border: 1px solid #e7dec7;
+    border-radius: 7px;
+    padding: 1.5em 1em 1em 1.5em;
+    box-shadow: 0 2px 7px #b6a99022;
+}
+
+.poem-line {
+    font-family: 'Garamond', Georgia, serif;
+    font-size: 1.13em;
+    color: #4a2c2c;
+    margin-bottom: 0.45em;
+    line-height: 1.5;
+    background: transparent;
+    padding-left: 0.0em;
+}
+
+.poem-gloss {
+    color: #1266a3;
+    font-style: italic;
+    font-size: 0.97em;
+    background: #efebe2;
+    border-radius: 4px;
+    padding: 0.05em 0.25em;
+    margin-left: 0.3em;
+}
+
+.poem-metamark {
+    color: #b36b12;
+    font-size: 0.93em;
+    margin-left: 0.23em;
+    background: #f8ecd6;
+    border-radius: 2px;
+    padding: 0 0.22em;
+}
+
+button {
+    background-color: #4a2c2c;
+    color: #fff;
+    border: none;
+    padding: 0.53em 1.25em;
+    border-radius: 3px;
+    font-size: 1em;
+    cursor: pointer;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: 700;
+    margin-top: 0.5em;
+    margin-bottom: 1.1em;
+    letter-spacing: 0.06em;
+    transition: background 0.18s, transform 0.12s;
+    box-shadow: 0 1px 3px #4a2c2c16;
+}
+button:hover, button:focus {
+    background-color: #996633;
+    color: #fffdf6;
+    outline: none;
+    transform: scale(1.025);
+}
+
+pre {
+    background: #fbf6ed;
+    color: #363229;
+    border: 1px solid #e7dec7;
+    border-radius: 4px;
+    padding: 1em;
+    font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
+    line-height: 1.6;
+    overflow-x: auto;
+    font-size: 1em;
+    margin-top: 0.4em;
+}
 }
