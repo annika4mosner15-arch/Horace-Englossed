@@ -57,14 +57,30 @@ fetch(filesApiUrl)
                     try {
                         const parser = new DOMParser();
                         const xmlDoc = parser.parseFromString(xmlText, "application/xml");
-                        // Get concatenated text content inside the <body> if present, otherwise all text
-                        const body = xmlDoc.getElementsByTagName("body")[0];
-                        plainText = body ? body.textContent.trim() : xmlDoc.documentElement.textContent.trim();
+                        // Try to get <body> in any namespace
+                        let body = xmlDoc.getElementsByTagNameNS("*", "body")[0];
+                        if (!body) {
+                            // Try <text>
+                            body = xmlDoc.getElementsByTagNameNS("*", "text")[0];
+                        }
+                        if (body) {
+                            plainText = getTextFromNode(body).trim();
+                        } else {
+                            plainText = xmlDoc.documentElement.textContent.trim();
+                        }
                     } catch (e) {
                         plainText = "(Plain text could not be extracted)";
                     }
+                    // Helper: Recursively extract only text
+                    function getTextFromNode(node) {
+                        let text = "";
+                        for (let child of node.childNodes) {
+                            if (child.nodeType === Node.TEXT_NODE) text += child.textContent;
+                            if (child.nodeType === Node.ELEMENT_NODE) text += getTextFromNode(child);
+                        }
+                        return text;
+                    }
                     plainDiv.textContent = plainText;
-
                 })
                 .catch(err => {
                     plainDiv.textContent = "Failed to load or parse file: " + file.name;
