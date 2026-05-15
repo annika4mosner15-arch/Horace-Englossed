@@ -5,81 +5,109 @@
   <title>A Digital Edition of Horace, Carmen 1,12</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
   <style>
-  <style>
-    
+<style>
   body {
     font-family: 'Open Sans', Arial, sans-serif;
-    background: #f7fbff; /* light blue background */
-    color: #15395b;       /* dark blue text for good contrast */
-    margin: 2em;
+    background: #f0f4fa; /* Soft, pale blue */
+    color: #22325e;      /* Very dark blue, easy to read */
+    margin: 0;
+    padding: 0;
+    line-height: 1.7;
+  }
+
+  .container {
+    max-width: 850px;
+    margin: 2.5em auto 2em auto;
+    padding: 2em;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 3px 18px rgba(20,54,128,0.11);
   }
 
   h1 {
-    font-size: 2.5em;
+    font-size: 2.8em;
     font-weight: 700;
-    color: #145da0;   /* prominent deep blue for the title */
-    margin-bottom: 1em;
-    letter-spacing: 1px;
+    color: #1755a3;
+    text-align: center;
+    margin: 0 0 1.0em 0;
+    letter-spacing: 0.5px;
   }
 
   section {
-    background: #e3effc; /* very light blue panel */
-    border-left: 6px solid #1766b5;
-    margin-bottom: 2em;
-    padding: 1.5em 1em 1em 1.5em;
-    border-radius: 4px;
+    background: #e7f1fd; /* Light blue "card" */
+    border-left: 7px solid #397fe7;
+    margin-bottom: 2.2em;
+    margin-top: 2em;
+    padding: 2em 2em 1.5em 2em;
+    border-radius: 5px;
+    box-shadow: 0 2px 7px #b6c6ec20;
   }
 
   h2 {
-    font-size: 1.2em;
-    font-weight: 700;
-    color: #1766b5;
+    color: #22325e;
     margin-top: 0;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.6em;
+    font-size: 1.32em;
+    font-weight: 700;
   }
 
   div, pre {
-    font-size: 1.1em;
+    font-size: 1.11em;
     margin-bottom: 1em;
+    word-break: break-word;
   }
 
-  pre {
-    background: #162447;
-    color: #f7fbff;
-    padding: 1em;
-    border-radius: 4px;
-    border: 1px solid #145da0;
-    overflow-x: auto;
-    font-size: 1em;
-    font-family: 'Fira Mono', 'Consolas', monospace;
-  }
-
+  /* Better styling for buttons */
   button {
-    background: #1766b5;
-    color: #f7fbff;
+    background: linear-gradient(90deg, #397fe7 60%, #1755a3 100%);
+    color: #fff;
     border: none;
-    padding: 0.5em 1.2em;
-    margin-bottom: 1em;
-    margin-top: 0.2em;
-    border-radius: 3px;
+    padding: 0.48em 1.15em;
+    margin-bottom: 1.15em;
+    margin-top: 0.4em;
+    border-radius: 3.5px;
     font-size: 1em;
     cursor: pointer;
     font-family: inherit;
     font-weight: 600;
-    transition: background .18s;
+    letter-spacing: .2px;
+    box-shadow: 0 1px 4px #397fe743;
+    transition: background .15s, transform .13s;
   }
-
   button:hover, button:focus {
-    background: #145da0;
-    outline: none;
+    background: linear-gradient(90deg, #1755a3 20%, #397fe7 100%);
+    outline: 2px solid #397fe7;
+    transform: translateY(-1px) scale(1.03);
   }
 
-  @media (max-width: 600px) {
-    body { margin: 0.5em; }
+  /* TEI code block */
+  pre {
+    background: #34455b;
+    color: #e2eaff;  /* light pastel blue, good on navy */
+    border: 1.5px solid #397fe7;
+    border-radius: 4px;
+    padding: 1em;
+    font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
+    line-height: 1.6;
+    overflow-x: auto;
+  }
+
+  /* Misc: highlight important error/success messages */
+  .error {
+    color: #c00b3b;
+    background: #fff1f4;
+    border-left: 5px solid #c00b3b;
+    padding: 0.5em 1em;
+    margin-bottom: 2em;
+    border-radius: 3px;
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .container { padding: 1em; }
     section { padding: 1em 0.5em 0.5em 1em; }
     h1 { font-size: 2em; }
   }
-</style>
   </style>
 </head>
 <body>
