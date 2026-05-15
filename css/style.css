@@ -5,19 +5,42 @@ body {
     margin: 0;
     padding: 0;
 }
-
-.impressum {
-    font-size: 0.77em;
-    text-align: center;
-    color: #888;
-    margin: 2em auto 0 auto;
-    max-width: 700px;
-    line-height: 1.6;
-}
 footer {
-    padding-bottom: 2em;
-    padding-top: 2em;
+    width: 100%;
     background: #f9f6eb;
+    padding: 2.5em 1em 2em 1em;
+    margin-top: 2em;
+    border-top: 1px solid #ede5cd;
+}
+.impressum {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 0.96em;
+    color: #854545;
+    text-align: center;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+}
+.impressum a {
+    color: #976656;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+.impressum a:hover {
+    color: #b63232;
+    text-decoration: underline;
+}
+.impressum-note {
+    margin-top: 0.7em;
+    font-size: 0.9em;
+    color: #996666;
+}
+.impressum-subtle {
+    margin-top: 0.6em;
+    font-size: 0.84em;
+    color: #888;
+    font-family: Georgia, serif;
+    letter-spacing: 0.01em;
 }
 
 /* ---- Heading and buttons ---- */
