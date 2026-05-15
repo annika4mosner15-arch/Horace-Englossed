@@ -15,9 +15,38 @@ fetch(filesApiUrl)
             section.style.marginBottom = "2em";
 
             // File name/title for each poem
-            const title = document.createElement("h2");
-            title.textContent = file.name;
-            section.appendChild(title);
+           const title = document.createElement("h2");
+section.appendChild(title); // append immediately, update later
+
+// Inside your fetch(file.download_url)...then(xmlText => {...}) block, AFTER you parse the XML:
+fetch(file.download_url)
+    .then(res => res.text())
+    .then(xmlText => {
+        // ... existing code ...
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+
+        // === Insert this block right after parsing xmlDoc ===
+        let docTitle = "";
+        const hiEl = xmlDoc.querySelector('fw > hi');
+        if (hiEl && hiEl.textContent) {
+            docTitle = hiEl.textContent
+                .replace(/[\.·]$/,"")   // Remove trailing period/interpunct
+                .replace(/ +/g, " ")    // Normalize whitespace
+                .trim();                // Trim whitespace
+        } else {
+            // Fallback: use cleaned file name (no .xml, hyphens/underscores to spaces, title case)
+            docTitle = file.name
+                .replace(/\.xml$/i, '')
+                .replace(/[-_]/g, ' ')
+                .toLowerCase()
+                .replace(/\b\w/g, l => l.toUpperCase());
+        }
+        title.textContent = docTitle;
+        // === End inserted block ===
+
+        // ... the rest of your code ...
+    });
 
             // Button for gloss/metamark toggling
             const glossesBtn = document.createElement("button");
