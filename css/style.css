@@ -455,3 +455,44 @@ pre {
     font-size: 1em;
     margin-top: 0.4em;
 }
+/* --- Tei glosses/metamarks emphasis --- */
+
+.poem-gloss {
+    display: inline-block;
+    color: #2a5080;
+    font-style: italic;
+    background: #fff9c4;              /* Light yellow */
+    border: 1px dashed #d4b896;       /* Parchment accent */
+    border-radius: 5px;
+    padding: 0.06em 0.38em;
+    margin: 0 0.27em;
+    box-shadow: 0 1px 6px #4a2c2c13;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.poem-gloss:hover, .poem-gloss:focus {
+    background: #fff176;              /* Deeper yellow on hover */
+    box-shadow: 0 2px 12px #bfa33622;
+}
+
+/* Metamarks as bold and uppercase, on light blue */
+.poem-metamark {
+    display: inline-block;
+    color: #1e2952;
+    background: #bbdefb;              /* Soft blue */
+    border: 1.5px solid #4a90e2;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: 700;
+    font-variant: small-caps;
+    padding: 0.04em 0.34em;
+    margin: 0 0.22em;
+    letter-spacing: 0.03em;
+    box-shadow: 0 1.5px 8px #2261a133;
+    transition: background 0.18s, box-shadow 0.2s;
+}
+
+.poem-metamark:hover, .poem-metamark:focus {
+    background: #90caf9;
+    box-shadow: 0 2px 16px #22559929;
+}
