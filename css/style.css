@@ -15,34 +15,36 @@ footer {
 .impressum {
     max-width: 900px;
     margin: 0 auto;
-    font-size: 0.96em;
-    color: #854545;
+    font-size: 0.75em;         /* Smaller font */
+    color: #998678;            /* Fainter, elegant brownish-grey */
     text-align: center;
-    line-height: 1.6;
-    letter-spacing: 0.02em;
+    line-height: 1.8;
+    letter-spacing: 0.015em;
 }
+
 .impressum a {
-    color: #976656;
+    color: #aa8d7b;            /* Fainter muted link color */
     text-decoration: underline;
     transition: color 0.2s;
 }
+
 .impressum a:hover {
     color: #b63232;
-    text-decoration: underline;
 }
+
 .impressum-note {
     margin-top: 0.7em;
     font-size: 0.9em;
-    color: #996666;
+    color: #b1a494;
 }
+
 .impressum-subtle {
     margin-top: 0.6em;
     font-size: 0.84em;
-    color: #888;
+    color: #b6a799;
     font-family: Georgia, serif;
     letter-spacing: 0.01em;
 }
-
 /* ---- Heading and buttons ---- */
 
 header {
