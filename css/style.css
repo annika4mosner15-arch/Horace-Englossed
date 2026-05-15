@@ -378,7 +378,11 @@ footer a:hover {
     .page-navigation {
         flex-direction: column;
     }
-   .poem-container {
+}
+
+/* === Poem Display Customization (TEI lines, glosses, metamarks) === */
+
+.poem-container {
     margin: 2em 0 1em 0;
     background: #fcfaf4;
     border: 1px solid #e7dec7;
@@ -450,5 +454,4 @@ pre {
     overflow-x: auto;
     font-size: 1em;
     margin-top: 0.4em;
-}
 }
