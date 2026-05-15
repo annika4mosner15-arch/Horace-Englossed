@@ -25,6 +25,15 @@ h1, h2, h3, h4 {
     color: #4a2c2c;
 }
 
+h2 {
+    font-size: 2rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.6em;
+    margin-top: 0.3em;
+    border-bottom: 2px solid #e7dec7;
+    padding-bottom: 0.08em;
+}
+
 /* ---- Header ---- */
 header {
     background-color: #4a2c2c;
@@ -104,7 +113,7 @@ nav a:hover {
     letter-spacing: 0.08em;
 }
 
-/* ---- Controls sidebar ---- */
+
 .control-group {
     margin-bottom: 0.9rem;
     font-size: 0.88rem;
@@ -139,7 +148,6 @@ main {
     margin-bottom: 1rem;
 }
 
-/* ---- Manuscript image container ---- */
 .manuscript-image-container {
     display: flex;
     flex-wrap: wrap;
@@ -193,7 +201,6 @@ main {
     accent-color: #4a2c2c;
 }
 
-/* ---- Latin text transcription ---- */
 .latin-text {
     font-family: 'Garamond', Georgia, serif;
     font-size: 1.05rem;
@@ -208,7 +215,6 @@ main {
     margin-bottom: 0.1rem;
 }
 
-/* ---- Gloss words in text ---- */
 .gloss-word {
     border-bottom: 1px dashed #0073e6;
     cursor: pointer;
@@ -222,7 +228,6 @@ main {
     outline: none;
 }
 
-/* ---- Page navigation buttons ---- */
 .page-navigation {
     display: flex;
     justify-content: space-between;
@@ -250,7 +255,6 @@ main {
     cursor: not-allowed;
 }
 
-/* kept for backward compatibility with any <a> usage */
 .page-navigation a {
     background-color: #0073e6;
     color: white;
@@ -263,7 +267,7 @@ main {
     background-color: #005bb5;
 }
 
-/* ---- Glosses sidebar ---- */
+
 .sidebar-glosses {
     box-shadow: inset 1px 0 0 #e0d8cc;
     flex: 0 0 260px;
@@ -284,7 +288,6 @@ main {
     font-size: 0.82rem;
 }
 
-/* ---- Gloss items ---- */
 .gloss-item {
     background: rgba(255, 255, 255, 0.8);
     padding: 0.55rem 0.65rem;
@@ -322,7 +325,6 @@ main {
     line-height: 1.4;
 }
 
-/* ---- Footer ---- */
 footer {
     background-color: #3a1f1f;
     color: #c8b49a;
@@ -341,7 +343,6 @@ footer a:hover {
     color: #fff;
 }
 
-/* ---- Responsive ---- */
 @media (max-width: 1024px) {
     .sidebar {
         flex: 0 0 180px;
@@ -353,11 +354,21 @@ footer a:hover {
     }
 }
 
+@media (max-width: 900px) {
+  .tei-poem-split {
+    flex-direction: column;
+  }
+  .tei-poem-column, .tei-code-column {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+}
+
 @media (max-width: 768px) {
     .page-wrapper {
         flex-direction: column;
     }
-
     .sidebar, .sidebar-glosses {
         position: static;
         max-height: none;
@@ -366,94 +377,15 @@ footer a:hover {
         width: 100%;
         box-shadow: 0 1px 0 #e0d8cc;
     }
-
     .manuscript-image-container figure {
         flex: 1 1 100%;
     }
-
     .manuscript-image {
         max-width: 100%;
     }
-
     .page-navigation {
         flex-direction: column;
     }
-}
-
-/* === Poem Display Customization (TEI lines, glosses, metamarks) === */
-
-.poem-container {
-    margin: 2em 0 1em 0;
-    background: #fcfaf4;
-    border: 1px solid #e7dec7;
-    border-radius: 7px;
-    padding: 1.5em 1em 1em 1.5em;
-    box-shadow: 0 2px 7px #b6a99022;
-}
-
-.poem-line {
-    font-family: 'Garamond', Georgia, serif;
-    font-size: 1.13em;
-    color: #4a2c2c;
-    margin-bottom: 0.45em;
-    line-height: 1.5;
-    background: transparent;
-    padding-left: 0.0em;
-}
-
-.poem-gloss {
-    color: #1266a3;
-    font-style: italic;
-    font-size: 0.97em;
-    background: #efebe2;
-    border-radius: 4px;
-    padding: 0.05em 0.25em;
-    margin-left: 0.3em;
-}
-
-.poem-metamark {
-    color: #b36b12;
-    font-size: 0.93em;
-    margin-left: 0.23em;
-    background: #f8ecd6;
-    border-radius: 2px;
-    padding: 0 0.22em;
-}
-
-button {
-    background-color: #4a2c2c;
-    color: #fff;
-    border: none;
-    padding: 0.53em 1.25em;
-    border-radius: 3px;
-    font-size: 1em;
-    cursor: pointer;
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-weight: 700;
-    margin-top: 0.5em;
-    margin-bottom: 1.1em;
-    letter-spacing: 0.06em;
-    transition: background 0.18s, transform 0.12s;
-    box-shadow: 0 1px 3px #4a2c2c16;
-}
-button:hover, button:focus {
-    background-color: #996633;
-    color: #fffdf6;
-    outline: none;
-    transform: scale(1.025);
-}
-
-pre {
-    background: #fbf6ed;
-    color: #363229;
-    border: 1px solid #e7dec7;
-    border-radius: 4px;
-    padding: 1em;
-    font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
-    line-height: 1.6;
-    overflow-x: auto;
-    font-size: 1em;
-    margin-top: 0.4em;
 }
 
 /* === Poem Display Customization (TEI lines, glosses, metamarks) === */
@@ -483,110 +415,7 @@ pre {
     display: inline-block;
     color: #2a5080;
     font-style: italic;
-    background: #fff9c4;              /* Light yellow */
-    border: 1px dashed #d4b896;       /* Parchment accent */
-    border-radius: 5px;
-    padding: 0.06em 0.38em;
-    margin: 0 0.27em;
-    box-shadow: 0 1px 6px #4a2c2c13;
-    transition: background 0.2s, box-shadow 0.2s;
-}
-.poem-gloss:hover, .poem-gloss:focus {
-    background: #fff176;              /* Deeper yellow on hover */
-    box-shadow: 0 2px 12px #bfa33622;
-}
-
-.poem-metamark {
-    display: inline-block;
-    color: #1e2952;
-    background: #bbdefb;              /* Soft blue */
-    border: 1.5px solid #4a90e2;
-    border-radius: 4px;
-    font-size: 1em;
-    font-weight: 700;
-    font-variant: small-caps;
-    padding: 0.04em 0.34em;
-    margin: 0 0.22em;
-    letter-spacing: 0.03em;
-    box-shadow: 0 1.5px 8px #2261a133;
-    transition: background 0.18s, box-shadow 0.2s;
-}
-.poem-metamark:hover, .poem-metamark:focus {
-    background: #90caf9;
-    box-shadow: 0 2px 16px #22559929;
-}
-
-/* === TEI split-view poem/code columns === */
-.tei-poem-split {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-    align-items: flex-start;
-    margin-bottom: 2em;
-}
-.tei-poem-column, .tei-code-column {
-    flex: 1 1 0;
-    min-width: 0;
-    max-width: 50%;
-    overflow: auto;
-    height: 600px;
-    background: #fcf8f2;
-    border: 1px solid #e7dec7;
-    border-radius: 6px;
-    box-shadow: 0 2px 7px #b6a99022;
-    padding: 1.5em 1.5em 1em 1.5em;
-}
-.tei-code-column pre {
-    margin: 0;
-    padding: 0.5em 1em;
-    background: #fffaf3;
-    font-size: 0.97em;
-    overflow: auto;
-    white-space: pre-wrap;
-    word-break: break-word;
-}
-@media (max-width: 900px) {
-  .tei-poem-split {
-    flex-direction: column;
-  }
-  .tei-poem-column, .tei-code-column {
-    max-width: 100%;
-    width: 100%;
-    height: auto;
-  }
-}
-.poem-gloss {
-    display: inline-block;
-    color: #2a5080;
-    font-style: italic;
     background: #fff9c4;
     border: 1px dashed #d4b896;
-    border-radius: 5px;
-    padding: 0.06em 0.38em;
-    margin: 0 0.27em;
-    box-shadow: 0 1px 6px #4a2c2c13;
-    transition: background 0.2s, box-shadow 0.2s;
-}
-.poem-gloss:hover, .poem-gloss:focus {
-    background: #fff176;
-    box-shadow: 0 2px 12px #bfa33622;
-}
-.poem-metamark {
-    display: inline-block;
-    color: #1e2952;
-    background: #bbdefb;
-    border: 1.5px solid #4a90e2;
-    border-radius: 4px;
-    font-size: 1em;
-    font-weight: 700;
-    font-variant: small-caps;
-    padding: 0.04em 0.34em;
-    margin: 0 0.22em;
-    letter-spacing: 0.03em;
-    box-shadow: 0 1.5px 8px #2261a133;
-    transition: background 0.18s, box-shadow 0.2s;
-}
-.poem-metamark:hover, .poem-metamark:focus {
-    background: #90caf9;
-    box-shadow: 0 2px 16px #22559929;
-}
+*
+
