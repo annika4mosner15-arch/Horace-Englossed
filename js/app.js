@@ -14,10 +14,7 @@ fetch(filesApiUrl)
             const section = document.createElement("section");
             section.style.marginBottom = "2em";
 
-            // --- Title (filled in after loading XML) ---
-            const title = document.createElement("h2");
-            section.appendChild(title);
-
+        
             // --- Button row at the top ---
             const btnBox = document.createElement("div");
             btnBox.style.display = "flex";
@@ -33,6 +30,10 @@ fetch(filesApiUrl)
             btnBox.appendChild(teiBtn);
 
             section.appendChild(btnBox);
+
+               // --- Title (filled in after loading XML) ---
+            const title = document.createElement("h2");
+            section.appendChild(title);
 
             // --- Split view: poem | code ---
             const split = document.createElement("div");
