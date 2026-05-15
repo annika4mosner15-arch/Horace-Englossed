@@ -14,8 +14,7 @@ fetch(filesApiUrl)
             const section = document.createElement("section");
             section.style.marginBottom = "2em";
 
-        
-            // --- Button row at the top ---
+            // --- Button row at the very top ---
             const btnBox = document.createElement("div");
             btnBox.style.display = "flex";
             btnBox.style.gap = "1em";
@@ -29,10 +28,11 @@ fetch(filesApiUrl)
             teiBtn.textContent = "Show TEI code";
             btnBox.appendChild(teiBtn);
 
-            section.appendChild(btnBox);
-
-               // --- Title (filled in after loading XML) ---
+            // --- Title (filled in after loading XML, appears after buttons!) ---
             const title = document.createElement("h2");
+
+            // --- Attach rows in this order: BUTTONS, then TITLE, then SPLIT VIEW
+            section.appendChild(btnBox);
             section.appendChild(title);
 
             // --- Split view: poem | code ---
@@ -173,5 +173,36 @@ fetch(filesApiUrl)
                         codeColumn.addEventListener("scroll", function() {
                             if (!teiVisible) return;
                             if (programmaticScroll) { programmaticScroll = false; return; }
-                            const maxScroll*
-
+                            const maxScroll = codeColumn.scrollHeight - codeColumn.clientHeight;
+                            const percent = maxScroll ? codeColumn.scrollTop / maxScroll : 0;
+                            const poemMaxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
+                            programmaticScroll = true;
+                            poemColumn.scrollTop = percent * poemMaxScroll;
+                        });
+
+                    } catch (e) {
+                        poemColumn.textContent = "Could not extract poem lines.";
+                    }
+                })
+                .catch(err => {
+                    poemColumn.textContent = "Failed to load or parse file: " + file.name;
+                });
+        });
+    })
+    .catch(err => {
+        fileContentContainer.textContent = "Failed to load file list.";
+        console.error(err);
+    });
+
+function escapeHtml(s) {
+    if (typeof s !== "string") return s;
+    return s.replace(/[&<>"']/g, function(m) {
+        return ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+        })[m];
+    });
+}
