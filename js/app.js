@@ -1,4 +1,3 @@
-// Name: tei-viewer.js
 // Simple script to list and display TEI XML files from the 'data' folder of your GitHub repository
 
 const owner = "annika4mosner15-arch";
