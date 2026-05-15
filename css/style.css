@@ -455,6 +455,28 @@ pre {
     font-size: 1em;
     margin-top: 0.4em;
 }
+
+/* === Poem Display Customization (TEI lines, glosses, metamarks) === */
+
+.poem-container {
+    margin: 2em 0 1em 0;
+    background: #fcfaf4;
+    border: 1px solid #e7dec7;
+    border-radius: 7px;
+    padding: 1.5em 1em 1em 1.5em;
+    box-shadow: 0 2px 7px #b6a99022;
+}
+
+.poem-line {
+    font-family: 'Garamond', Georgia, serif;
+    font-size: 1.13em;
+    color: #4a2c2c;
+    margin-bottom: 0.45em;
+    line-height: 1.5;
+    background: transparent;
+    padding-left: 0.0em;
+}
+
 /* --- Tei glosses/metamarks emphasis --- */
 
 .poem-gloss {
@@ -469,13 +491,11 @@ pre {
     box-shadow: 0 1px 6px #4a2c2c13;
     transition: background 0.2s, box-shadow 0.2s;
 }
-
 .poem-gloss:hover, .poem-gloss:focus {
     background: #fff176;              /* Deeper yellow on hover */
     box-shadow: 0 2px 12px #bfa33622;
 }
 
-/* Metamarks as bold and uppercase, on light blue */
 .poem-metamark {
     display: inline-block;
     color: #1e2952;
@@ -491,7 +511,6 @@ pre {
     box-shadow: 0 1.5px 8px #2261a133;
     transition: background 0.18s, box-shadow 0.2s;
 }
-
 .poem-metamark:hover, .poem-metamark:focus {
     background: #90caf9;
     box-shadow: 0 2px 16px #22559929;
