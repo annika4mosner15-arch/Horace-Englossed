@@ -1,10 +1,10 @@
 // Name: tei-viewer.js
-// Simple script to list and display TEI XML files from the 'docs' folder of your GitHub repository
+// Simple script to list and display TEI XML files from the 'data' folder of your GitHub repository
 
 const owner = "annika4mosner15-arch";
 const repo = "Horace-Englossed";
-const docsPath = "docs";
-const filesApiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${docsPath}`;
+const dataPath = "data";
+const filesApiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${dataPath}`;
 
 const fileListContainer = document.getElementById("file-list");
 const fileContentContainer = document.getElementById("file-content");
@@ -16,7 +16,7 @@ function el(tag, text) {
     return node;
 }
 
-// Fetch list of files in docs/
+// Fetch list of files in data/
 fetch(filesApiUrl)
     .then(res => res.json())
     .then(files => {
