@@ -5,10 +5,10 @@ const filesApiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${da
 
 const fileContentContainer = document.getElementById("file-content");
 
-// Utility: Find two matching image names for a TEI file
+// Utility: Find ordered manuscript image names for a TEI file
 function getImageNamesForTei(teiFile) {
-    // Example: If TEI file is "de-laudibus-deorum-vel-hominum.xml", load "010.jpg" and "011.jpg"
-    // You may want a more sophisticated mapping if needed.
+    // Example: For your simple use case, always ["010.jpg", "011.jpg"]
+    // Replace logic if you want to match TEI filename to images dynamically.
     return ["010.jpg", "011.jpg"];
 }
 
@@ -65,6 +65,7 @@ fetch(filesApiUrl)
             const codeColumn = document.createElement("div");
             codeColumn.className = "tei-code-column";
             codeColumn.style.display = "none";
+
             // Two children, only one visible at a time:
             const teiPre = document.createElement("pre");
             teiPre.style.display = "none";
@@ -79,7 +80,6 @@ fetch(filesApiUrl)
             codeColumn.appendChild(imgArea);
 
             split.appendChild(codeColumn);
-
             section.appendChild(split);
 
             fileContentContainer.appendChild(section);
@@ -205,132 +205,5 @@ fetch(filesApiUrl)
                             codeColumn.style.display = "block";
                             teiPre.style.display = "none";
                             imgArea.style.display = "flex";
-                            teiBtn.textContent = "Show TEI code";
-                            imgBtn.textContent = "Hide manuscript";
-                            teiVisible = false;
-                            imgVisible = true;
-                        }
-
-                        teiBtn.onclick = function() {
-                            if (teiVisible) {
-                                hideAllRight();
-                            } else {
-                                showTeiCode();
-                            }
-                        };
-                        imgBtn.onclick = function() {
-                            if (imgVisible) {
-                                hideAllRight();
-                            } else {
-                                showImages();
-                            }
-                        };
-
-                        // --- Dynamically load images for this TEI ---
-                        const imageNames = getImageNamesForTei(file);
-                        imgArea.innerHTML = "";
-                        imgArea.style.flexDirection = "column";
-                        imageNames.forEach(name => {
-                            // Find download_url for this image file
-                            const imgFile = imageFiles.find(f => f.name === name);
-                            if (imgFile) {
-                                // Container for panzoom
-                                const imgContainer = document.createElement("div");
-                                imgContainer.className = "zoom-img-box";
-                                imgContainer.style.overflow = "hidden";
-                                imgContainer.style.marginBottom = "1em";
-                                imgContainer.style.background = "#f5f0e9";
-                                imgContainer.style.border = "1px solid #e0d8cc";
-                                // The actual image
-                                const img = document.createElement("img");
-                                img.src = imgFile.download_url;
-                                img.alt = name;
-                                img.style.width = "100%";
-                                img.style.maxWidth = "100%";
-                                img.style.maxHeight = "650px";
-                                img.style.display = "block";
-                                img.style.cursor = "grab";
-                                imgContainer.appendChild(img);
-                                imgArea.appendChild(imgContainer);
-
-                                // Add zoom on load
-                                img.addEventListener('load', function () {
-                                    Panzoom(imgContainer, {
-                                        contain: 'outside',
-                                        maxScale: 8,
-                                        minScale: 1,
-                                        step: 0.07,
-                                        canvas: true,
-                                    });
-                                });
-                            } else {
-                                // If not found
-                                const missingMsg = document.createElement("div");
-                                missingMsg.textContent = "Image \"" + name + "\" not found.";
-                                missingMsg.style.color = "#b33";
-                                missingMsg.style.margin = "1.5em";
-                                imgArea.appendChild(missingMsg);
-                            }
-                        });
-
-                        // --- Synced Scroll: Poem <--> codeColumn or ms images ---
-                        let programmaticScroll = false;
-                        poemColumn.addEventListener("scroll", function() {
-                            if (!teiVisible && !imgVisible) return;
-                            if (programmaticScroll) { programmaticScroll = false; return; }
-                            const maxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
-                            const percent = maxScroll ? poemColumn.scrollTop / maxScroll : 0;
-                            // Choose which to sync to
-                            let target = teiVisible ? codeColumn : imgArea;
-                            const tgtMax = target.scrollHeight - target.clientHeight;
-                            programmaticScroll = true;
-                            target.scrollTop = percent * tgtMax;
-                        });
-                        codeColumn.addEventListener("scroll", function() {
-                            if (!teiVisible) return;
-                            if (programmaticScroll) { programmaticScroll = false; return; }
-                            const maxScroll = codeColumn.scrollHeight - codeColumn.clientHeight;
-                            const percent = maxScroll ? codeColumn.scrollTop / maxScroll : 0;
-                            const poemMaxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
-                            programmaticScroll = true;
-                            poemColumn.scrollTop = percent * poemMaxScroll;
-                        });
-                        imgArea.addEventListener("scroll", function() {
-                            if (!imgVisible) return;
-                            if (programmaticScroll) { programmaticScroll = false; return; }
-                            const maxScroll = imgArea.scrollHeight - imgArea.clientHeight;
-                            const percent = maxScroll ? imgArea.scrollTop / maxScroll : 0;
-                            const poemMaxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
-                            programmaticScroll = true;
-                            poemColumn.scrollTop = percent * poemMaxScroll;
-                        });
-
-                        // --- Show nothing on start (images/code) ---
-                        hideAllRight();
-
-                    } catch (e) {
-                        poemColumn.textContent = "Could not extract poem lines.";
-                    }
-                })
-                .catch(err => {
-                    poemColumn.textContent = "Failed to load or parse file: " + file.name;
-                });
-        });
-    })
-    .catch(err => {
-        fileContentContainer.textContent = "Failed to load file list.";
-        console.error(err);
-    });
-
-function escapeHtml(s) {
-    if (typeof s !== "string") return s;
-    return s.replace(/[&<>"']/g, function(m) {
-        return ({
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#039;"
-        })[m];
-    });
-}
+                           
+
