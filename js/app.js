@@ -21,7 +21,7 @@ fetch(filesApiUrl)
 
             // Button for gloss/metamark toggling
             const glossesBtn = document.createElement("button");
-            glossesBtn.textContent = "Show glosses and metamarks";
+            glossesBtn.textContent = "Show glosses";
             section.appendChild(glossesBtn);
 
             // Container for the poem
