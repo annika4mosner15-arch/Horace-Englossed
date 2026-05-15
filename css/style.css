@@ -7,15 +7,34 @@ body {
 }
 
 /* ---- Heading and buttons ---- */
+
+header {
+    background: #faf8f4;
+    padding-top: 2.2em;
+    padding-bottom: 2.2em;
+    text-align: center;
+}
+
+header h1 {
+    font-family: 'Garamond', Georgia, serif;
+    font-size: 2.8em;
+    letter-spacing: 0.07em;
+    color: #365257;
+    margin: 0 auto 0.3em auto;
+    text-shadow: 0 2px 8px #ded5be3f;
+    text-align: center;
+    display: block;
+}
+
 h2 {
     font-family: 'Garamond', Georgia, serif;
-    color: #415b5e;
+    text-align: center;
+    color: #4a2c2c;
     font-size: 2rem;
+    font-weight: normal;
     letter-spacing: 0.04em;
-    margin-bottom: 0.6em;
-    margin-top: 0.3em;
-    border-bottom: 2px solid #e7dec7;
-    padding-bottom: 0.08em;
+    margin: 0 auto 1.2em auto;
+    display: block;
 }
 
 button {
