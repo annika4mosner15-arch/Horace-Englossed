@@ -1,355 +1,545 @@
-const owner = "annika4mosner15-arch";
-const repo = "Horace-Englossed";
-const dataPath = "data";
-const filesApiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${dataPath}`;
+/* ============================================================
+   HORACE ENGLOSSED – STYLESHEET
+   ============================================================ */
 
-const fileContentContainer = document.getElementById("file-content");
-
-// Utility: Map a TEI file to its associated manuscript image names (can extend logic if desired)
-function getImageNamesForTei(teiFile) {
-    // For your current setup just return your manuscript page image filenames
-    // (expand to adapt for other poems/manuscripts)
-    return ["010.jpg", "011.jpg"];
+/* ---- Base reset ---- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-fetch(filesApiUrl)
-    .then(res => res.json())
-    .then(files => {
-        const xmlFiles = files.filter(file => file.name.endsWith(".xml"));
-        // Get image files
-        const imageFiles = files.filter(file =>
-            file.name.toLowerCase().endsWith(".jpg") ||
-            file.name.toLowerCase().endsWith(".jpeg") ||
-            file.name.toLowerCase().endsWith(".jpf")
-        );
-        xmlFiles.forEach(file => {
-            // ---- SECTION per poem/TEI file ----
-            const section = document.createElement("section");
-            section.style.marginBottom = "2em";
+body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background-color: #faf8f4;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-            // --- Button row (at top!) ---
-            const btnBox = document.createElement("div");
-            btnBox.style.display = "flex";
-            btnBox.style.gap = "1em";
-            btnBox.style.marginBottom = "1.3em";
+/* ---- Headings ---- */
+h1, h2, h3, h4 {
+    font-family: 'Garamond', Georgia, serif;
+    color: #4a2c2c;
+}
 
-            const glossesBtn = document.createElement("button");
-            glossesBtn.textContent = "Show glosses and metamarks";
-            btnBox.appendChild(glossesBtn);
+h2 {
+    font-size: 2rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.6em;
+    margin-top: 0.3em;
+    border-bottom: 2px solid #e7dec7;
+    padding-bottom: 0.08em;
+}
 
-            const teiBtn = document.createElement("button");
-            teiBtn.textContent = "Show TEI code";
-            btnBox.appendChild(teiBtn);
+/* ---- Header ---- */
+header {
+    background-color: #4a2c2c;
+    color: #fff;
+    padding: 1.5rem 2rem;
+    text-align: center;
+}
 
-            const imgBtn = document.createElement("button");
-            imgBtn.textContent = "Show manuscript";
-            btnBox.appendChild(imgBtn);
+header h1 {
+    color: #fff;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+}
 
-            // --- Title ---
-            const title = document.createElement("h2");
+header .subtitle {
+    color: #d4b896;
+    font-size: 0.9rem;
+    margin-top: 0.4rem;
+}
 
-            // --- Order: BUTTONS, TITLE, SPLIT VIEW
-            section.appendChild(btnBox);
-            section.appendChild(title);
+/* ---- Navigation ---- */
+nav {
+    background-color: #3a1f1f;
+    padding: 0.5rem 2rem;
+}
 
-            // --- Split view: poem | code/image column ---
-            const split = document.createElement("div");
-            split.className = "tei-poem-split";
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 
-            // Poem column
-            const poemColumn = document.createElement("div");
-            poemColumn.className = "tei-poem-column";
-            split.appendChild(poemColumn);
+nav a {
+    color: #d4b896;
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    transition: background 0.2s;
+}
 
-            // TEI code column (right, hidden unless TEI/image is active)
-            const codeColumn = document.createElement("div");
-            codeColumn.className = "tei-code-column";
-            codeColumn.style.display = "none";
-            // Two children, only one visible at a time:
-            const teiPre = document.createElement("pre");
-            teiPre.style.display = "none";
-            codeColumn.appendChild(teiPre);
+nav a:hover {
+    background-color: #4a2c2c;
+    color: #fff;
+}
 
-            const imgArea = document.createElement("div");
-            imgArea.className = "ms-img-area";
-            imgArea.style.display = "none";
-            imgArea.style.height = "100%";
-            imgArea.style.overflow = "auto";
-            imgArea.style.position = "relative";
-            codeColumn.appendChild(imgArea);
+/* ---- Page wrapper: three-column layout ---- */
+.page-wrapper {
+    display: flex;
+    flex: 1;
+    gap: 0;
+    align-items: flex-start;
+}
 
-            split.appendChild(codeColumn);
+/* ---- Sidebar (shared) ---- */
+.sidebar {
+    background-color: #fff;
+    box-shadow: inset -1px 0 0 #e0d8cc;
+    padding: 1.25rem;
+    min-width: 200px;
+    max-width: 240px;
+    flex: 0 0 220px;
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
+    overflow-y: auto;
+}
 
-            section.appendChild(split);
+.sidebar h2 {
+    font-size: 1rem;
+    border-bottom: 2px solid #d4b896;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
 
-            fileContentContainer.appendChild(section);
 
-            // --- FETCH AND PROCESS XML ---
-            fetch(file.download_url)
-                .then(res => res.text())
-                .then(xmlText => {
-                    teiPre.textContent = xmlText;
+.control-group {
+    margin-bottom: 0.9rem;
+    font-size: 0.88rem;
+}
 
-                    let poemHtmlLines = [];
+.control-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+}
 
-                    try {
-                        const parser = new DOMParser();
-                        const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+.control-group select {
+    margin-top: 0.25rem;
+    width: 100%;
+    padding: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 0.85rem;
+}
 
-                        // --- Set the title from <fw><hi>... ---
-                        const hiEl = xmlDoc.querySelector('fw > hi');
-                        title.textContent = hiEl ? hiEl.textContent.replace(/[\.·]$/, "").trim() : "";
+/* ---- Main content ---- */
+main {
+    flex: 1;
+    padding: 1.5rem 2rem;
+    min-width: 0;
+}
 
-                        // Find all <ab> blocks (group poem lines and gloss/metamark siblings)
-                        const abs = Array.from(xmlDoc.getElementsByTagNameNS("*", "ab"));
-                        abs.forEach(ab => {
-                            let block = [];
-                            Array.from(ab.childNodes).forEach(node => {
-                                if (node.nodeType === Node.ELEMENT_NODE && node.tagName.toLowerCase() === "l") {
-                                    block.push({
-                                        type: "line",
-                                        htmlPlain: renderLineWithGlosses(node, false),
-                                        htmlWithGloss: renderLineWithGlosses(node, true)
-                                    });
-                                }
-                                else if (node.nodeType === Node.ELEMENT_NODE &&
-                                         (node.tagName.toLowerCase() === "note" || node.tagName.toLowerCase() === "metamark")) {
-                                    let css = node.tagName.toLowerCase() === "note" ? "poem-gloss" : "poem-metamark";
-                                    block.push({
-                                        type: node.tagName.toLowerCase(),
-                                        htmlPlain: "",
-                                        htmlWithGloss: `<span class="${css}">${escapeHtml(node.textContent.trim())}</span>`
-                                    });
-                                }
-                            });
-                            poemHtmlLines.push(...block);
-                        });
+.section-desc {
+    color: #666;
+    font-size: 0.88rem;
+    margin-bottom: 1rem;
+}
 
-                        function renderPoem(glossMode = false) {
-                            poemColumn.innerHTML = "";
-                            poemHtmlLines.forEach(part => {
-                                if (!glossMode && part.type !== 'line') return;
-                                if (part.type === "line") {
-                                    const lineDiv = document.createElement("div");
-                                    lineDiv.className = "poem-line";
-                                    lineDiv.innerHTML = glossMode ? part.htmlWithGloss : part.htmlPlain;
-                                    poemColumn.appendChild(lineDiv);
-                                } else if (glossMode && part.type !== 'line') {
-                                    const div = document.createElement("div");
-                                    div.className = part.type === "note" ? "poem-gloss" : "poem-metamark";
-                                    div.innerHTML = part.htmlWithGloss;
-                                    poemColumn.appendChild(div);
-                                }
-                            });
-                        }
+.manuscript-image-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1rem 0 1.5rem;
+}
 
-                        function renderLineWithGlosses(node, showGloss) {
-                            let html = "";
-                            node.childNodes.forEach(child => {
-                                if (child.nodeType === Node.TEXT_NODE) {
-                                    html += escapeHtml(child.textContent);
-                                } else if (child.nodeType === Node.ELEMENT_NODE) {
-                                    const tag = child.tagName.toLowerCase();
-                                    if (tag === "note") {
-                                        html += showGloss
-                                            ? `<span class="poem-gloss">(${escapeHtml(child.textContent)})</span>`
-                                            : "";
-                                    } else if (tag === "metamark") {
-                                        html += showGloss
-                                            ? `<span class="poem-metamark">${escapeHtml(child.textContent)}</span>`
-                                            : "";
-                                    } else {
-                                        html += renderLineWithGlosses(child, showGloss);
-                                    }
-                                }
-                            });
-                            return html;
-                        }
+.manuscript-image-container figure {
+    flex: 1 1 45%;
+    min-width: 200px;
+    max-width: 480px;
+    text-align: center;
+}
 
-                        // ***** RENDER poem initially (no glosses) *****
-                        renderPoem(false);
+.manuscript-image {
+    width: 100%;
+    height: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid #ddd;
+    display: block;
+}
 
-                        // --- Lyric/Gloss buttons ---
-                        let glossesVisible = false;
-                        glossesBtn.onclick = function() {
-                            glossesVisible = !glossesVisible;
-                            renderPoem(glossesVisible);
-                            glossesBtn.textContent = glossesVisible
-                                ? "Hide glosses and metamarks"
-                                : "Show glosses and metamarks";
-                        };
+.manuscript-image-container figcaption {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.4rem;
+    font-style: italic;
+}
 
-                        // --- TEI/MS toggle logic ---
-                        let teiVisible = false;
-                        let imgVisible = false;
+.img-fallback {
+    font-style: italic;
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
 
-                        function showTeiCode() {
-                            codeColumn.style.display = "block";
-                            teiPre.style.display = "block";
-                            imgArea.style.display = "none";
-                            teiBtn.textContent = "Hide TEI code";
-                            imgBtn.textContent = "Show manuscript";
-                            teiVisible = true;
-                            imgVisible = false;
-                        }
-                        function hideAllRight() {
-                            codeColumn.style.display = "none";
-                            teiPre.style.display = "none";
-                            imgArea.style.display = "none";
-                            teiBtn.textContent = "Show TEI code";
-                            imgBtn.textContent = "Show manuscript";
-                            teiVisible = false;
-                            imgVisible = false;
-                        }
-                        function showImages() {
-                            codeColumn.style.display = "block";
-                            teiPre.style.display = "none";
-                            imgArea.style.display = "block";
-                            teiBtn.textContent = "Show TEI code";
-                            imgBtn.textContent = "Hide manuscript";
-                            teiVisible = false;
-                            imgVisible = true;
-                        }
+/* ---- Page header (folio / progress) ---- */
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.85rem;
+    color: #555;
+}
 
-                        teiBtn.onclick = function() {
-                            if (teiVisible) {
-                                hideAllRight();
-                            } else {
-                                showTeiCode();
-                            }
-                        };
-                        imgBtn.onclick = function() {
-                            if (imgVisible) {
-                                hideAllRight();
-                            } else {
-                                showImages();
-                            }
-                        };
+.page-header progress {
+    flex: 1;
+    height: 6px;
+    accent-color: #4a2c2c;
+}
 
-                        // --- Dynamically load images for this TEI (one at a time, with select) ---
-                        const imageNames = getImageNamesForTei(file); // e.g. ["010.jpg", "011.jpg"]
+.latin-text {
+    font-family: 'Garamond', Georgia, serif;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: #222;
+    border-left: 3px solid #d4b896;
+    padding-left: 1rem;
+    margin-bottom: 1.25rem;
+}
 
-                        imgArea.innerHTML = "";
+.latin-text p {
+    margin-bottom: 0.1rem;
+}
 
-                        // --- Page select control ---
-                        const imgSelectBox = document.createElement("div");
-                        imgSelectBox.style.display = "flex";
-                        imgSelectBox.style.gap = "0.9em";
-                        imgSelectBox.style.marginBottom = "1em";
-                        imgSelectBox.style.alignItems = "center";
+.gloss-word {
+    border-bottom: 1px dashed #0073e6;
+    cursor: pointer;
+    color: inherit;
+    transition: background 0.15s;
+}
 
-                        const imgLabel = document.createElement("label");
-                        imgLabel.textContent = "Manuscript page: ";
-                        imgLabel.htmlFor = `img-page-select-${file.name.replace(/[^a-zA-Z0-9]/g, "_")}`;
+.gloss-word:hover,
+.gloss-word:focus {
+    background-color: #fff3cd;
+    outline: none;
+}
 
-                        const imgSelect = document.createElement("select");
-                        imgSelect.id = imgLabel.htmlFor;
-                        imageNames.forEach((name, idx) => {
-                            const opt = document.createElement("option");
-                            opt.text = `Page ${idx + 1}`;
-                            opt.value = name;
-                            imgSelect.appendChild(opt);
-                        });
-                        imgSelectBox.appendChild(imgLabel);
-                        imgSelectBox.appendChild(imgSelect);
-                        imgArea.appendChild(imgSelectBox);
+.page-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+}
 
-                        // --- Zoomable image container (only one at a time) ---
-                        const imgContainer = document.createElement("div");
-                        imgContainer.className = "zoom-img-box";
-                        imgArea.appendChild(imgContainer);
+.page-navigation button {
+    background-color: #4a2c2c;
+    color: #fff;
+    border: none;
+    padding: 0.55rem 1.2rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
 
-                        // Helper: load image for a given filename
-                        function showZoomImg(name) {
-                            imgContainer.innerHTML = ""; // Remove previous image
-                            const imgFile = imageFiles.find(f => f.name === name);
-                            if (imgFile) {
-                                const img = document.createElement("img");
-                                img.src = imgFile.download_url;
-                                img.alt = name;
-                                img.style.display = "block";
-                                img.style.width = "100%";
-                                img.style.maxWidth = "100%";
-                                img.style.maxHeight = "650px";
-                                img.style.cursor = "grab";
-                                imgContainer.appendChild(img);
-                                img.addEventListener('load', function () {
-                                    Panzoom(imgContainer, {
-                                        contain: 'outside',
-                                        maxScale: 8,
-                                        minScale: 1,
-                                        step: 0.07,
-                                        canvas: true,
-                                    });
-                                });
-                            } else {
-                                imgContainer.textContent = "Image not found: " + name;
-                                imgContainer.style.color = "#b33";
-                            }
-                        }
-                        showZoomImg(imgSelect.value);
-                        imgSelect.onchange = function () {
-                            showZoomImg(imgSelect.value);
-                        };
+.page-navigation button:hover:not(:disabled) {
+    background-color: #6b3e3e;
+}
 
-                        // --- Synced Scroll: Poem <--> codeColumn or ms image ---
-                        let programmaticScroll = false;
-                        poemColumn.addEventListener("scroll", function() {
-                            if (!teiVisible && !imgVisible) return;
-                            if (programmaticScroll) { programmaticScroll = false; return; }
-                            const maxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
-                            const percent = maxScroll ? poemColumn.scrollTop / maxScroll : 0;
-                            // Choose which to sync to
-                            let target = teiVisible ? codeColumn : imgArea;
-                            const tgtMax = target.scrollHeight - target.clientHeight;
-                            programmaticScroll = true;
-                            target.scrollTop = percent * tgtMax;
-                        });
-                        codeColumn.addEventListener("scroll", function() {
-                            if (!teiVisible) return;
-                            if (programmaticScroll) { programmaticScroll = false; return; }
-                            const maxScroll = codeColumn.scrollHeight - codeColumn.clientHeight;
-                            const percent = maxScroll ? codeColumn.scrollTop / maxScroll : 0;
-                            const poemMaxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
-                            programmaticScroll = true;
-                            poemColumn.scrollTop = percent * poemMaxScroll;
-                        });
-                        imgArea.addEventListener("scroll", function() {
-                            if (!imgVisible) return;
-                            if (programmaticScroll) { programmaticScroll = false; return; }
-                            const maxScroll = imgArea.scrollHeight - imgArea.clientHeight;
-                            const percent = maxScroll ? imgArea.scrollTop / maxScroll : 0;
-                            const poemMaxScroll = poemColumn.scrollHeight - poemColumn.clientHeight;
-                            programmaticScroll = true;
-                            poemColumn.scrollTop = percent * poemMaxScroll;
-                        });
+.page-navigation button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
 
-                        // --- Show nothing on start (images/code) ---
-                        hideAllRight();
+.page-navigation a {
+    background-color: #0073e6;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+}
 
-                    } catch (e) {
-                        poemColumn.textContent = "Could not extract poem lines.";
-                    }
-                })
-                .catch(err => {
-                    poemColumn.textContent = "Failed to load or parse file: " + file.name;
-                });
-        });
-    })
-    .catch(err => {
-        fileContentContainer.textContent = "Failed to load file list.";
-        console.error(err);
-    });
+.page-navigation a:hover {
+    background-color: #005bb5;
+}
 
-function escapeHtml(s) {
-    if (typeof s !== "string") return s;
-    return s.replace(/[&<>"']/g, function(m) {
-        return ({
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#039;"
-        })[m];
-    });
+
+.sidebar-glosses {
+    box-shadow: inset 1px 0 0 #e0d8cc;
+    flex: 0 0 260px;
+    max-width: 260px;
+}
+
+.gloss-filter {
+    margin-bottom: 0.8rem;
+    font-size: 0.82rem;
+}
+
+.gloss-filter select {
+    width: 100%;
+    padding: 0.2rem;
+    margin-top: 0.2rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 0.82rem;
+}
+
+.gloss-item {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0.55rem 0.65rem;
+    border-left: 4px solid #d4b896;
+    margin-bottom: 0.75rem;
+    border-radius: 0 3px 3px 0;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.gloss-item:hover {
+    border-left-color: #4a2c2c;
+    background-color: #fff8f0;
+    cursor: pointer;
+}
+
+.gloss-item h4.gloss-word {
+    font-size: 0.92rem;
+    font-style: italic;
+    margin-bottom: 0.15rem;
+    border-bottom: none;
+    cursor: default;
+}
+
+.gloss-item .gloss-type {
+    font-size: 0.72rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.25rem;
+}
+
+.gloss-item .gloss-content {
+    font-size: 0.82rem;
+    color: #444;
+    line-height: 1.4;
+}
+
+footer {
+    background-color: #3a1f1f;
+    color: #c8b49a;
+    padding: 1.2rem 2rem;
+    text-align: center;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    margin-top: auto;
+}
+
+footer a {
+    color: #d4b896;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        flex: 0 0 180px;
+        max-width: 180px;
+    }
+    .sidebar-glosses {
+        flex: 0 0 200px;
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 900px) {
+  .tei-poem-split {
+    flex-direction: column;
+  }
+  .tei-poem-column, .tei-code-column {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+    .page-wrapper {
+        flex-direction: column;
+    }
+    .sidebar, .sidebar-glosses {
+        position: static;
+        max-height: none;
+        max-width: 100%;
+        flex: none;
+        width: 100%;
+        box-shadow: 0 1px 0 #e0d8cc;
+    }
+    .manuscript-image-container figure {
+        flex: 1 1 100%;
+    }
+    .manuscript-image {
+        max-width: 100%;
+    }
+    .page-navigation {
+        flex-direction: column;
+    }
+}
+
+/* === Poem Display Customization (TEI lines, glosses, metamarks) === */
+
+.poem-container {
+    margin: 2em 0 1em 0;
+    background: #fcfaf4;
+    border: 1px solid #e7dec7;
+    border-radius: 7px;
+    padding: 1.5em 1em 1em 1.5em;
+    box-shadow: 0 2px 7px #b6a99022;
+}
+
+.poem-line {
+    font-family: 'Garamond', Georgia, serif;
+    font-size: 1.13em;
+    color: #4a2c2c;
+    margin-bottom: 0.45em;
+    line-height: 1.5;
+    background: transparent;
+    padding-left: 0.0em;
+}
+
+/* --- Tei glosses/metamarks emphasis --- */
+
+.poem-gloss {
+    display: inline-block;
+    color: #2a5080;
+    font-style: italic;
+    background: #fff9c4;
+    border: 1px dashed #d4b896;
+    border-radius: 5px;
+    padding: 0.06em 0.38em;
+    margin: 0 0.27em;
+    box-shadow: 0 1px 6px #4a2c2c13;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.poem-gloss:hover, .poem-gloss:focus {
+    background: #fff176;
+    box-shadow: 0 2px 12px #bfa33622;
+}
+.poem-metamark {
+    display: inline-block;
+    color: #1e2952;
+    background: #bbdefb;
+    border: 1.5px solid #4a90e2;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: 700;
+    font-variant: small-caps;
+    padding: 0.04em 0.34em;
+    margin: 0 0.22em;
+    letter-spacing: 0.03em;
+    box-shadow: 0 1.5px 8px #2261a133;
+    transition: background 0.18s, box-shadow 0.2s;
+}
+.poem-metamark:hover, .poem-metamark:focus {
+    background: #90caf9;
+    box-shadow: 0 2px 16px #22559929;
+}
+
+button {
+    background-color: #4a2c2c;
+    color: #fff;
+    border: none;
+    padding: 0.53em 1.25em;
+    border-radius: 3px;
+    font-size: 1em;
+    cursor: pointer;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: 700;
+    margin-top: 0.5em;
+    margin-bottom: 1.1em;
+    letter-spacing: 0.06em;
+    transition: background 0.18s, transform 0.12s;
+    box-shadow: 0 1px 3px #4a2c2c16;
+}
+button:hover, button:focus {
+    background-color: #996633;
+    color: #fffdf6;
+    outline: none;
+    transform: scale(1.025);
+}
+
+pre {
+    background: #fbf6ed;
+    color: #363229;
+    border: 1px solid #e7dec7;
+    border-radius: 4px;
+    padding: 1em;
+    font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
+    line-height: 1.6;
+    overflow-x: auto;
+    font-size: 1em;
+    margin-top: 0.4em;
+}
+
+/* === TEI split-view poem/code columns === */
+.tei-poem-split {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 2em;
+}
+.tei-poem-column, .tei-code-column {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 50%;
+    overflow: auto;
+    height: 600px;
+    background: #fcf8f2;
+    border: 1px solid #e7dec7;
+    border-radius: 6px;
+    box-shadow: 0 2px 7px #b6a99022;
+    padding: 1.5em 1.5em 1em 1.5em;
+}
+.tei-code-column pre {
+    margin: 0;
+    padding: 0.5em 1em;
+    background: #fffaf3;
+    font-size: 0.97em;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* ---- Manuscript image special styles ---- */
+.ms-img-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2.1em;
+    margin-top: .5em;
+}
+.zoom-img-box {
+    width: 100%;
+    min-height: 80px;
+    background: #f9f8ed;
+    border-radius: 6px;
+    border: 1px solid #e7dec7;
+    box-shadow: 0 2px 6px #b6a99022;
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+}
+.zoom-img-box img {
+    width: 100%;
+    display: block;
+    pointer-events: all;
+    touch-action: none; /* for Panzoom drag compatibility */
+    user-select: none;
+    background: #fff7e9;
+    border-radius: 6px;
 }
