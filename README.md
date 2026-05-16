@@ -2,19 +2,14 @@
 Interactive digital edition of Horace's carmen 1,12.
 
 ## Project Overview
-This project is focused on creating an engaging platform for users to explore and enjoy a variety of content.
-
-## Installation Instructions
-1. Clone the repository.
-2. Install dependencies using `npm install`.
-
-## Usage
-Run the application with `npm start`. Follow the user instructions for navigation.
+This project is focused on creating an engaging platform for users to explore the glosses alongside the poem as viewed in the manuscript.
 
 ## Features
-- User-friendly interface
-- Responsive design
-- Seamless navigation
+- glosses toggle view
+- manuscript pages
+- TEI code
 
 ## License
-This project is licensed under the MIT License.
+Content on this site is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0) .
+Project by Annabelle Kienzl, annabelle.kienzl@uni-graz.at, University of Graz, Department of Digital Humanities.
+Manuscript images courtesy of e-codices – Virtual Manuscript Library of Switzerland .
