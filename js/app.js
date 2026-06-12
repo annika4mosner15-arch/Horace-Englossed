@@ -30,23 +30,15 @@ fetch(filesApiUrl)
             section.style.marginBottom = "2em";
 
             // --- Button row (at top!) ---
-            const btnBox = document.createElement("div");
-            btnBox.style.display = "flex";
-            btnBox.style.gap = "1em";
-            btnBox.style.marginBottom = "1.3em";
-
-            const glossesBtn = document.createElement("button");
-            glossesBtn.textContent = "Show glosses and metamarks";
-            btnBox.appendChild(glossesBtn);
-
-            const teiBtn = document.createElement("button");
-            teiBtn.textContent = "Show TEI code";
-            btnBox.appendChild(teiBtn);
-
-            const imgBtn = document.createElement("button");
-            imgBtn.textContent = "Show manuscript";
-            btnBox.appendChild(imgBtn);
-
+            document.querySelector(".button-container button:nth-child(1)")
+              .addEventListener("click", showGlosses);
+            
+            document.querySelector(".button-container button:nth-child(2)")
+              .addEventListener("click", showTEI);
+            
+            document.querySelector(".button-container button:nth-child(3)")
+              .addEventListener("click", showManuscript);
+            
             // --- Title ---
             const title = document.createElement("h2");
 
