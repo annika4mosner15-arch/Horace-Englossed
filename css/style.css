@@ -1,38 +1,57 @@
-/* --- MOBILE RESPONSIVE DESIGN --- */
-
-
-* {
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     font-family: Georgia, 'Times New Roman', serif;
     background-color: #faf8f4;
     color: #333;
     margin: 0;
     padding: 0;
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+}
+footer {
+    width: 100%;
+    background: #f9f6eb;
+    padding: 2.5em 1em 2em 1em;
+    margin-top: 2em;
+    border-top: 1px solid #ede5cd;
+}
+.impressum {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 0.75em;         /* Smaller font */
+    color: #998678;            /* Fainter, elegant brownish-grey */
+    text-align: center;
+    line-height: 1.8;
+    letter-spacing: 0.015em;
 }
 
-main {
-    flex: 1;
+.impressum a {
+    color: #aa8d7b;            /* Fainter muted link color */
+    text-decoration: underline;
+    transition: color 0.2s;
 }
 
-/* ---- HEADER & TYPOGRAPHY ---- */
+.impressum a:hover {
+    color: #b63232;
+}
+
+.impressum-note {
+    margin-top: 0.7em;
+    font-size: 0.9em;
+    color: #b1a494;
+}
+
+.impressum-subtle {
+    margin-top: 0.6em;
+    font-size: 0.84em;
+    color: #b6a799;
+    font-family: Georgia, serif;
+    letter-spacing: 0.01em;
+}
+/* ---- Heading and buttons ---- */
+
 header {
     background: #faf8f4;
-    padding: 2.2em 2em;
+    padding-top: 2.2em;
+    padding-bottom: 2.2em;
     text-align: center;
-    border-bottom: 1px solid #ede5cd;
 }
 
 header h1 {
@@ -44,7 +63,6 @@ header h1 {
     text-shadow: 0 2px 8px #ded5be3f;
     text-align: center;
     display: block;
-    line-height: 1.2;
 }
 
 h2 {
@@ -56,27 +74,23 @@ h2 {
     letter-spacing: 0.04em;
     margin: 0 auto 1.2em auto;
     display: block;
-    line-height: 1.4;
 }
 
-/* ---- BUTTONS ---- */
 button {
     background-color: #4a2c2c;
     color: #fff;
     border: none;
     padding: 0.53em 1.25em;
-    border-radius: 4px;
+    border-radius: 3px;
     font-size: 1em;
     cursor: pointer;
     font-family: 'Open Sans', Arial, sans-serif;
     font-weight: 700;
     margin-right: 1em;
-    margin-bottom: 1.1em;
     letter-spacing: 0.06em;
-    transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
-    box-shadow: 0 2px 4px #4a2c2c16;
-    display: inline-block;
-    text-transform: uppercase;
+    margin-bottom: 1.1em;
+    transition: background 0.18s, transform 0.12s;
+    box-shadow: 0 1px 3px #4a2c2c16;
 }
 
 button:last-child {
@@ -87,35 +101,24 @@ button:hover, button:focus {
     background-color: #996633;
     color: #fffdf6;
     outline: none;
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px #4a2c2c28;
+    transform: scale(1.025);
 }
 
-button:active {
-    transform: scale(0.98);
-}
-
-/* ---- SPLIT VIEW (Desktop: Side-by-Side) ---- */
+/* ==== SPLIT VIEW ==== */
 .tei-poem-split {
     display: flex;
     flex-direction: row;
     gap: 2rem;
     align-items: flex-start;
-    justify-content: center;
-    margin: 2em auto;
-    padding: 0 2em;
-    width: 100%;
-    max-width: 1400px;
     margin-bottom: 2em;
 }
 
 .tei-poem-column, .tei-code-column {
-    flex: 1 1 calc(50% - 1rem);
+    flex: 1 1 0;
     min-width: 0;
-    width: auto;
-    max-width: 100%;
-    height: 600px;
+    max-width: 50%;
     overflow: auto;
+    height: 600px;
     background: #fcf8f2;
     border: 1px solid #e7dec7;
     border-radius: 6px;
@@ -125,30 +128,26 @@ button:active {
 
 .tei-code-column pre {
     margin: 0;
-    padding: 0.8em 1em;
+    padding: 0.5em 1em;
     background: #fffaf3;
     font-size: 0.97em;
     overflow: auto;
     white-space: pre-wrap;
     word-break: break-word;
-    font-family: 'Monaco', 'Courier New', monospace;
-    line-height: 1.4;
 }
 
-/* ---- MANUSCRIPT IMAGE AREA ---- */
+/* ==== MANUSCRIPT IMAGE AREA ==== */
 .ms-img-area {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 2em;
-    margin: 2em auto;
-    padding: 0 2em;
-    max-width: 1400px;
+    margin-top: 0.5em;
 }
 
 .zoom-img-box {
     width: 100%;
-    min-height: 60px;
+    min-height: 80px;
     background: #f9f8ed;
     border-radius: 6px;
     border: 1px solid #e7dec7;
@@ -156,11 +155,7 @@ button:active {
     position: relative;
     overflow: hidden;
     cursor: grab;
-    margin-bottom: 0;
-}
-
-.zoom-img-box:active {
-    cursor: grabbing;
+    margin-bottom: 1em;
 }
 
 .zoom-img-box img {
@@ -171,19 +166,17 @@ button:active {
     user-select: none;
     background: #fff7e9;
     border-radius: 6px;
-    max-height: 70vh;
-    object-fit: contain;
 }
 
-/* ---- POEM, GLOSSES, METAMARKS ---- */
+/* ==== POEM, GLOSSES, METAMARKS ==== */
 .poem-line {
     font-family: 'Garamond', Georgia, serif;
     font-size: 1.13em;
     color: #4a2c2c;
     margin-bottom: 0.45em;
-    line-height: 1.6;
+    line-height: 1.5;
     background: transparent;
-    padding-left: 0;
+    padding-left: 0em;
 }
 
 .poem-gloss {
@@ -193,18 +186,14 @@ button:active {
     background: #fff9c4;
     border: 1px dashed #d4b896;
     border-radius: 5px;
-    padding: 0.15em 0.4em;
-    margin: 0 0.2em;
+    padding: 0.06em 0.38em;
+    margin: 0 0.27em;
     box-shadow: 0 1px 6px #4a2c2c13;
     transition: background 0.2s, box-shadow 0.2s;
-    cursor: pointer;
 }
-
 .poem-gloss:hover, .poem-gloss:focus {
     background: #fff176;
     box-shadow: 0 2px 12px #bfa33622;
-    outline: 2px solid #d4b896;
-    outline-offset: 1px;
 }
 
 .poem-metamark {
@@ -216,471 +205,25 @@ button:active {
     font-size: 1em;
     font-weight: 700;
     font-variant: small-caps;
-    padding: 0.1em 0.35em;
-    margin: 0 0.2em;
+    padding: 0.04em 0.34em;
+    margin: 0 0.22em;
     letter-spacing: 0.03em;
     box-shadow: 0 1.5px 8px #2261a133;
     transition: background 0.18s, box-shadow 0.2s;
-    cursor: pointer;
 }
-
 .poem-metamark:hover, .poem-metamark:focus {
     background: #90caf9;
     box-shadow: 0 2px 16px #22559929;
-    outline: 2px solid #4a90e2;
-    outline-offset: 1px;
 }
 
-/* ---- FOOTER & IMPRESSUM ---- */
-footer {
+/* ==== RESPONSIVE ==== */
+@media (max-width: 900px) {
+  .tei-poem-split {
+    flex-direction: column;
+  }
+  .tei-poem-column, .tei-code-column {
+    max-width: 100%;
     width: 100%;
-    background: #f9f6eb;
-    padding: 2.5em 2em 2em 2em;
-    margin-top: auto;
-    border-top: 1px solid #ede5cd;
-}
-
-.impressum {
-    max-width: 900px;
-    margin: 0 auto;
-    font-size: 0.75em;
-    color: #998678;
-    text-align: center;
-    line-height: 1.8;
-    letter-spacing: 0.015em;
-}
-
-.impressum a {
-    color: #aa8d7b;
-    text-decoration: underline;
-    transition: color 0.2s;
-    font-weight: 500;
-}
-
-.impressum a:hover {
-    color: #b63232;
-}
-
-.impressum a:focus {
-    outline: 2px solid #b63232;
-    outline-offset: 2px;
-}
-
-.impressum-note {
-    margin-top: 0.8em;
-    font-size: 0.9em;
-    color: #b1a494;
-}
-
-.impressum-subtle {
-    margin-top: 0.6em;
-    font-size: 0.85em;
-    color: #b6a799;
-    font-family: Georgia, serif;
-    letter-spacing: 0.01em;
-}
-
-/* =====================================================
-   LARGE DESKTOP BREAKPOINT: 1200px
-   ===================================================== */
-@media (min-width: 1200px) {
-    body {
-        font-size: 17px;
-    }
-
-    header {
-        padding: 2.5em 3em;
-    }
-
-    header h1 {
-        font-size: 3em;
-        letter-spacing: 0.08em;
-    }
-
-    h2 {
-        font-size: 2.2rem;
-    }
-
-    .tei-poem-split {
-        max-width: 1600px;
-        gap: 2.5rem;
-        padding: 0 3em;
-    }
-
-    .tei-poem-column, .tei-code-column {
-        flex: 1 1 calc(50% - 1.25rem);
-        height: 650px;
-        padding: 2em;
-    }
-
-    .tei-code-column pre {
-        font-size: 1em;
-    }
-
-    .ms-img-area {
-        max-width: 1600px;
-        gap: 2.5em;
-        padding: 0 3em;
-    }
-
-    .zoom-img-box {
-        max-height: 75vh;
-    }
-
-    .poem-line {
-        font-size: 1.15em;
-        margin-bottom: 0.6em;
-    }
-
-    .impressum {
-        font-size: 0.85em;
-    }
-
-    footer {
-        padding: 3em 3em 2.5em 3em;
-    }
-}
-
-/* =====================================================
-   EXTRA LARGE SCREENS: 1600px+
-   ===================================================== */
-@media (min-width: 1600px) {
-    header h1 {
-        font-size: 3.2em;
-        margin-bottom: 0.25em;
-    }
-
-    h2 {
-        font-size: 2.4rem;
-    }
-
-    .tei-poem-split {
-        max-width: 1800px;
-        gap: 3rem;
-        padding: 0 4em;
-    }
-
-    .tei-poem-column, .tei-code-column {
-        flex: 1 1 calc(50% - 1.5rem);
-        height: 700px;
-        padding: 2.2em;
-    }
-
-    .ms-img-area {
-        max-width: 1800px;
-        gap: 3em;
-        padding: 0 4em;
-    }
-
-    .zoom-img-box {
-        max-height: 80vh;
-    }
-
-    header {
-        padding: 3em 4em;
-    }
-
-    footer {
-        padding: 3.5em 4em 3em 4em;
-    }
-}
-
-/* =====================================================
-   TABLET BREAKPOINT: 768px - 1199px
-   ===================================================== */
-@media (max-width: 1199px) and (min-width: 768px) {
-    header {
-        padding: 2em 1.5em;
-    }
-
-    header h1 {
-        font-size: 2.2em;
-        padding: 0 1em;
-        margin-bottom: 0.3em;
-    }
-
-    h2 {
-        font-size: 1.8rem;
-        margin: 1em auto 1.2em auto;
-    }
-
-    .tei-poem-split {
-        gap: 1.5rem;
-        margin: 1.5em;
-        width: calc(100% - 3em);
-        padding: 0;
-    }
-
-    .tei-poem-column, .tei-code-column {
-        flex: 1 1 calc(50% - 0.75rem);
-        max-width: 100%;
-        height: 500px;
-        padding: 1.3em;
-    }
-
-    .ms-img-area {
-        margin: 1.5em;
-        padding: 0;
-        width: calc(100% - 3em);
-    }
-
-    .zoom-img-box {
-        max-height: 65vh;
-    }
-
-    button {
-        padding: 0.7em 1.5em;
-        font-size: 0.95em;
-        margin: 0.6em 0.6em 0.6em 0;
-    }
-
-    footer {
-        padding: 2em 1.5em;
-    }
-
-    .impressum {
-        font-size: 0.8em;
-    }
-}
-
-/* =====================================================
-   MOBILE BREAKPOINT: Under 768px
-   ===================================================== */
-@media (max-width: 767px) {
-    header {
-        padding: 1.5em 1em;
-    }
-
-    header h1 {
-        font-size: 1.5em;
-        letter-spacing: 0.05em;
-        margin: 0 0 0.3em 0;
-    }
-
-    h2 {
-        font-size: 1.2rem;
-        margin: 0.8em auto 0.8em auto;
-    }
-
-    button {
-        padding: 0.6em 1em;
-        font-size: 0.85em;
-        margin: 0.4em 0.3em 0.4em 0;
-        margin-right: 0.3em;
-        margin-bottom: 0.5em;
-    }
-
-    button:last-child {
-        margin-right: 0.3em;
-    }
-
-    /* STACKED VIEW on mobile */
-    .tei-poem-split {
-        flex-direction: column;
-        gap: 1.2rem;
-        margin: 1em;
-        padding: 0;
-        width: calc(100% - 2em);
-        max-width: 100%;
-    }
-
-    .tei-poem-column, .tei-code-column {
-        flex: 1 1 100%;
-        width: 100%;
-        height: auto;
-        max-height: 400px;
-        padding: 1em;
-    }
-
-    .tei-code-column pre {
-        font-size: 0.85em;
-        padding: 0.6em 0.8em;
-    }
-
-    /* IMAGE area - stacked */
-    .ms-img-area {
-        width: calc(100% - 2em);
-        margin: 1em;
-        padding: 0;
-        gap: 1em;
-    }
-
-    .zoom-img-box {
-        width: 100%;
-        max-height: 50vh;
-        margin-bottom: 0.5em;
-    }
-
-    .zoom-img-box img {
-        max-height: 50vh;
-    }
-
-    .poem-line {
-        font-size: 0.95em;
-        margin-bottom: 0.4em;
-    }
-
-    .poem-gloss {
-        padding: 0.12em 0.35em;
-        margin: 0 0.15em;
-        font-size: 0.95em;
-    }
-
-    .poem-metamark {
-        padding: 0.08em 0.3em;
-        margin: 0 0.15em;
-        font-size: 0.9em;
-    }
-
-    footer {
-        padding: 1.5em 1em;
-    }
-
-    .impressum {
-        font-size: 0.7em;
-        line-height: 1.6;
-    }
-
-    .impressum a {
-        font-weight: 400;
-    }
-
-    .impressum-note {
-        font-size: 0.8em;
-    }
-
-    .impressum-subtle {
-        font-size: 0.75em;
-    }
-}
-
-/* =====================================================
-   SMALL MOBILE BREAKPOINT: Under 480px
-   ===================================================== */
-@media (max-width: 479px) {
-    header {
-        padding: 1em 0.75em;
-    }
-
-    header h1 {
-        font-size: 1.25em;
-        letter-spacing: 0.03em;
-    }
-
-    h2 {
-        font-size: 1em;
-        margin: 0.6em auto;
-    }
-
-    .tei-poem-split {
-        margin: 0.75em;
-        width: calc(100% - 1.5em);
-        gap: 1rem;
-    }
-
-    .tei-poem-column, .tei-code-column {
-        max-height: 300px;
-        padding: 0.8em;
-    }
-
-    .tei-code-column pre {
-        font-size: 0.8em;
-        padding: 0.5em 0.6em;
-    }
-
-    .ms-img-area {
-        margin: 0.75em;
-        width: calc(100% - 1.5em);
-        gap: 0.8em;
-    }
-
-    .zoom-img-box {
-        max-height: 40vh;
-    }
-
-    .zoom-img-box img {
-        max-height: 40vh;
-    }
-
-    button {
-        padding: 0.5em 0.8em;
-        font-size: 0.8em;
-        margin: 0.3em 0.2em;
-    }
-
-    .poem-line {
-        font-size: 0.9em;
-        margin-bottom: 0.3em;
-    }
-
-    footer {
-        padding: 1em 0.75em;
-    }
-
-    .impressum {
-        font-size: 0.65em;
-    }
-}
-
-/* =====================================================
-   ACCESSIBILITY & PRINT
-   ===================================================== */
-
-/* Focus styles for keyboard navigation */
-button:focus,
-.poem-gloss:focus,
-.poem-metamark:focus,
-.impressum a:focus {
-    outline: 3px solid #365257;
-    outline-offset: 2px;
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: more) {
-    button {
-        border: 2px solid #333;
-    }
-
-    .poem-gloss,
-    .poem-metamark {
-        border-width: 2px;
-    }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-
-    button:hover, button:focus {
-        transform: none;
-    }
-}
-
-/* Print styles */
-@media print {
-    header, footer {
-        display: none;
-    }
-
-    .tei-poem-split {
-        flex-direction: column;
-        page-break-inside: avoid;
-    }
-
-    .tei-poem-column, .tei-code-column {
-        height: auto;
-        max-height: none;
-        page-break-inside: avoid;
-    }
-
-    button {
-        display: none;
-    }
+    height: auto;
+  }
 }
