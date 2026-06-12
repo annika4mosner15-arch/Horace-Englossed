@@ -7,6 +7,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: Georgia, 'Times New Roman', serif;
     background-color: #faf8f4;
@@ -16,6 +20,13 @@ body {
     font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }
 
 /* ---- HEADER & TYPOGRAPHY ---- */
@@ -94,6 +105,7 @@ button:active {
     align-items: stretch;
     margin: 1.5em 1em;
     margin-bottom: 2em;
+    width: calc(100% - 2em);
 }
 
 .tei-poem-column, .tei-code-column {
@@ -124,7 +136,7 @@ button:active {
 
 /* ---- MANUSCRIPT IMAGE AREA ---- */
 .ms-img-area {
-    width: 100%;
+    width: calc(100% - 2em);
     display: flex;
     flex-direction: column;
     gap: 1.5em;
@@ -222,7 +234,7 @@ footer {
     width: 100%;
     background: #f9f6eb;
     padding: 1.5em 1em;
-    margin-top: 2em;
+    margin-top: auto;
     border-top: 1px solid #ede5cd;
 }
 
@@ -270,9 +282,14 @@ footer {
    TABLET BREAKPOINT: 640px
    ===================================================== */
 @media (min-width: 640px) {
+    header {
+        padding: 2em 1.5em;
+    }
+
     header h1 {
         font-size: 2.2em;
         padding: 0 1em;
+        margin-bottom: 0.3em;
     }
 
     h2 {
@@ -282,6 +299,7 @@ footer {
 
     .tei-poem-split {
         margin: 2em 1.5em;
+        width: calc(100% - 3em);
     }
 
     .tei-poem-column, .tei-code-column {
@@ -291,6 +309,7 @@ footer {
 
     .ms-img-area {
         margin: 1.5em;
+        width: calc(100% - 3em);
     }
 
     .zoom-img-box {
@@ -305,12 +324,15 @@ footer {
 }
 
 /* =====================================================
-   DESKTOP BREAKPOINT: 900px
+   DESKTOP BREAKPOINT: 900px - SIDE-BY-SIDE VIEW
    ===================================================== */
 @media (min-width: 900px) {
+    body {
+        font-size: 16px;
+    }
+
     header {
-        padding-top: 2.2em;
-        padding-bottom: 2.2em;
+        padding: 2.2em 2em;
         border-bottom: 1px solid #ede5cd;
     }
 
@@ -318,6 +340,7 @@ footer {
         font-size: 2.8em;
         margin: 0 auto 0.3em auto;
         letter-spacing: 0.07em;
+        line-height: 1.2;
     }
 
     h2 {
@@ -331,17 +354,20 @@ footer {
         flex-direction: row;
         gap: 2rem;
         align-items: flex-start;
+        justify-content: center;
         margin: 2em auto;
+        padding: 0 2em;
+        width: 100%;
         max-width: 1400px;
         margin-bottom: 2em;
     }
 
     .tei-poem-column, .tei-code-column {
-        flex: 1 1 0;
+        flex: 1 1 calc(50% - 1rem);
         min-width: 0;
-        max-width: 50%;
+        width: auto;
+        max-width: 100%;
         height: 600px;
-        max-height: 600px;
         overflow: auto;
         padding: 1.5em 1.5em 1em 1.5em;
     }
@@ -351,14 +377,19 @@ footer {
     }
 
     .ms-img-area {
-        max-width: 1400px;
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
         margin: 2em auto;
-        margin-left: auto;
-        margin-right: auto;
+        padding: 0 2em;
+        width: 100%;
+        max-width: 1400px;
     }
 
     .zoom-img-box {
+        width: 100%;
         max-height: 70vh;
+        margin-bottom: 0;
     }
 
     button {
@@ -374,6 +405,15 @@ footer {
 
     .poem-line {
         font-size: 1.13em;
+        margin-bottom: 0.45em;
+    }
+
+    footer {
+        padding: 2.5em 2em 2em 2em;
+    }
+
+    .impressum {
+        font-size: 0.75em;
     }
 }
 
@@ -383,6 +423,10 @@ footer {
 @media (min-width: 1200px) {
     body {
         font-size: 17px;
+    }
+
+    header {
+        padding: 2.5em 3em;
     }
 
     header h1 {
@@ -397,9 +441,11 @@ footer {
     .tei-poem-split {
         max-width: 1600px;
         gap: 2.5rem;
+        padding: 0 3em;
     }
 
     .tei-poem-column, .tei-code-column {
+        flex: 1 1 calc(50% - 1.25rem);
         height: 650px;
         padding: 2em;
     }
@@ -411,6 +457,7 @@ footer {
     .ms-img-area {
         max-width: 1600px;
         gap: 2.5em;
+        padding: 0 3em;
     }
 
     .zoom-img-box {
@@ -425,6 +472,10 @@ footer {
     .impressum {
         font-size: 0.85em;
     }
+
+    footer {
+        padding: 3em 3em 2.5em 3em;
+    }
 }
 
 /* =====================================================
@@ -433,6 +484,7 @@ footer {
 @media (min-width: 1600px) {
     header h1 {
         font-size: 3.2em;
+        margin-bottom: 0.25em;
     }
 
     h2 {
@@ -442,15 +494,31 @@ footer {
     .tei-poem-split {
         max-width: 1800px;
         gap: 3rem;
+        padding: 0 4em;
     }
 
     .tei-poem-column, .tei-code-column {
+        flex: 1 1 calc(50% - 1.5rem);
         height: 700px;
         padding: 2.2em;
     }
 
     .ms-img-area {
         max-width: 1800px;
+        gap: 3em;
+        padding: 0 4em;
+    }
+
+    .zoom-img-box {
+        max-height: 80vh;
+    }
+
+    header {
+        padding: 3em 4em;
+    }
+
+    footer {
+        padding: 3.5em 4em 3em 4em;
     }
 }
 
