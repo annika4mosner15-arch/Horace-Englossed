@@ -214,15 +214,6 @@ fetch(filesApiUrl)
                 // ***** RENDER poem initially (no glosses) *****
                 renderPoem(false);
 
-                // --- Lyric/Gloss buttons ---
-                let glossesVisible = false;
-                glossesBtn.onclick = function() {
-                    glossesVisible = !glossesVisible;
-                    renderPoem(glossesVisible);
-                    glossesBtn.textContent = glossesVisible
-                        ? "Hide glosses and metamarks"
-                        : "Show glosses and metamarks";
-                };
 
                 // --- TEI/MS toggle logic ---
                 let teiVisible = false;
