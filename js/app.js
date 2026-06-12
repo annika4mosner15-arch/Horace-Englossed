@@ -29,8 +29,8 @@ glossesBtn.addEventListener("click", () => {
     });
 
     glossesBtn.textContent = glossesVisible
-        ? "Hide glosses and metamarks"
-        : "Show glosses and metamarks";
+        ? "Hide glossess"
+        : "Show glosses";
 });
 
 teiBtn.addEventListener("click", () => {
@@ -42,10 +42,10 @@ teiBtn.addEventListener("click", () => {
             col.style.display = "block";
             code.style.display = "block";
             img.style.display = "none";
-            teiBtn.textContent = "Hide TEI code";
+            teiBtn.textContent = "Hide TEI";
         } else {
             col.style.display = "none";
-            teiBtn.textContent = "Show TEI code";
+            teiBtn.textContent = "Show TEI";
         }
     });
 
