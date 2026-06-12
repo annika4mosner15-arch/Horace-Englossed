@@ -8,40 +8,44 @@ body {
 footer {
     width: 100%;
     background: #f9f6eb;
-    padding: 2.5em 1em 2em 1em;
-    margin-top: 2em;
-    border-top: 1px solid #ede5cd;
+    padding: 2.8em 1em 2.2em 1em;
+    margin-top: 2.5em;
+    border-top: 1px solid #e6dcc4;
 }
+
 .impressum {
     max-width: 900px;
     margin: 0 auto;
-    font-size: 0.85em;        
-    color: #4a2c2c;            /* Fainter, elegant brownish-grey */
+    font-size: 0.95em;            /* bigger, more readable */
+    color: #22696b;               /* same green as h1 */
     text-align: center;
-    line-height: 1.8;
-    letter-spacing: 0.015em;
+    line-height: 1.75;
+    letter-spacing: 0.02em;
 }
 
+/* links */
 .impressum a {
-    color: #aa8d7b;            /* Fainter muted link color */
+    color: #317989;               /* slightly lighter green-blue for contrast */
     text-decoration: underline;
-    transition: color 0.2s;
+    text-underline-offset: 2px;
+    transition: color 0.2s ease;
 }
 
 .impressum a:hover {
-    color: #b63232;
+    color: #174446;               /* deeper green on hover */
 }
 
+/* secondary text blocks */
 .impressum-note {
-    margin-top: 0.7em;
-    font-size: 0.9em;
-    color: #b1a494;
+    margin-top: 0.9em;
+    font-size: 0.95em;
+    color: #365257;               /* softer secondary green */
 }
 
 .impressum-subtle {
-    margin-top: 0.6em;
-    font-size: 0.84em;
-    color: #b6a799;
+    margin-top: 0.7em;
+    font-size: 0.9em;
+    color: #4a5f60;               /* readable but still muted */
     font-family: Georgia, serif;
     letter-spacing: 0.01em;
 }
