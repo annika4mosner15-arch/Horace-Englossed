@@ -5,6 +5,72 @@ const filesApiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${da
 
 const fileContentContainer = document.getElementById("file-content");
 
+// GLOBAL BUTTON REFERENCES
+const glossesBtn = document.querySelector(".button-container button:nth-child(1)");
+const teiBtn = document.querySelector(".button-container button:nth-child(2)");
+const imgBtn = document.querySelector(".button-container button:nth-child(3)");
+
+// ------------------------------
+// GLOBAL STATE (IMPORTANT)
+// ------------------------------
+let glossesVisible = false;
+let teiVisible = false;
+let imgVisible = false;
+
+// ------------------------------
+// BUTTON EVENTS (ONLY ONCE)
+// ------------------------------
+glossesBtn.addEventListener("click", () => {
+    glossesVisible = !glossesVisible;
+
+    // update all rendered poems
+    document.querySelectorAll(".tei-poem-column").forEach(col => {
+        if (col.renderPoem) col.renderPoem(glossesVisible);
+    });
+
+    glossesBtn.textContent = glossesVisible
+        ? "Hide glosses and metamarks"
+        : "Show glosses and metamarks";
+});
+
+teiBtn.addEventListener("click", () => {
+    document.querySelectorAll(".tei-code-column").forEach(col => {
+        const code = col.querySelector("pre");
+        const img = col.querySelector(".ms-img-area");
+
+        if (!teiVisible) {
+            col.style.display = "block";
+            code.style.display = "block";
+            img.style.display = "none";
+            teiBtn.textContent = "Hide TEI code";
+        } else {
+            col.style.display = "none";
+            teiBtn.textContent = "Show TEI code";
+        }
+    });
+
+    teiVisible = !teiVisible;
+});
+
+imgBtn.addEventListener("click", () => {
+    document.querySelectorAll(".ms-img-area").forEach(area => {
+        const col = area.parentElement;
+
+        if (!imgVisible) {
+            col.style.display = "block";
+            area.style.display = "block";
+            col.querySelector("pre").style.display = "none";
+            imgBtn.textContent = "Hide manuscript";
+        } else {
+            area.style.display = "none";
+            imgBtn.textContent = "Show manuscript";
+        }
+    });
+
+    imgVisible = !imgVisible;
+});
+
+
 // Utility: Map a TEI file to its associated manuscript image names
 function getImageNamesForTei(teiFile) {
     return ["010.jpg", "011.jpg"];
@@ -29,22 +95,9 @@ fetch(filesApiUrl)
             const section = document.createElement("section");
             section.style.marginBottom = "2em";
 
-            // --- Button row (at top!) ---
-            document.querySelector(".button-container button:nth-child(1)")
-              .addEventListener("click", showGlosses);
-            
-            document.querySelector(".button-container button:nth-child(2)")
-              .addEventListener("click", showTEI);
-            
-            document.querySelector(".button-container button:nth-child(3)")
-              .addEventListener("click", showManuscript);
-            
             // --- Title ---
             const title = document.createElement("h2");
 
-            // --- Order: BUTTONS, TITLE, SPLIT VIEW ---
-            section.appendChild(btnBox);
-            section.appendChild(title);
 
             // --- Split view: poem | code/image column ---
             const split = document.createElement("div");
@@ -238,21 +291,7 @@ fetch(filesApiUrl)
                     });
                 }
 
-                teiBtn.onclick = function () {
-                    if (!teiVisible) {
-                        showTeiCode();
-                    } else {
-                        hideAllRight();
-                    }
-                };
-                imgBtn.onclick = function () {
-                    if (!imgVisible) {
-                        showImages();
-                    } else {
-                        hideAllRight();
-                    }
-                };
-
+        
                 // --- Synced Scroll: Poem <--> codeColumn or ms images ---
                 let programmaticScroll = false;
                 poemColumn.addEventListener("scroll", function() {
