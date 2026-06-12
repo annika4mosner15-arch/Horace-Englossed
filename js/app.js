@@ -14,11 +14,6 @@ fetch(filesApiUrl)
     .then(res => res.json())
     .then(files => {
         const xmlFiles = files.filter(file => file.name.endsWith(".xml"));
-        const imageFiles = files.filter(file =>
-            file.name.toLowerCase().endsWith(".jpg") ||
-            file.name.toLowerCase().endsWith(".jpeg") ||
-            file.name.toLowerCase().endsWith(".jpf")
-        );
 
         // Process each XML file with its content fetched in sequence
         return Promise.all(xmlFiles.map(file =>
@@ -219,40 +214,35 @@ fetch(filesApiUrl)
                     imgArea.innerHTML = "";
                     const imageNames = getImageNamesForTei(file);
                     imageNames.forEach(name => {
-                        const imgFile = imageFiles.find(f => f.name === name);
-                        if (imgFile) {
-                            const imgContainer = document.createElement("div");
-                            imgContainer.className = "zoom-img-box";
-                            imgContainer.style.marginBottom = "1em";
-                            imgContainer.style.background = "#f5f0e9";
-                            imgContainer.style.border = "1px solid #e0d8cc";
-                            const img = document.createElement("img");
-                            img.src = imgFile.download_url;
-                            img.alt = name;
-                            img.style.width = "100%";
-                            img.style.maxWidth = "100%";
-                            img.style.height = "auto";
-                            img.style.display = "block";
-                            img.style.cursor = "grab";
-                            imgContainer.appendChild(img);
-                            imgArea.appendChild(imgContainer);
+                        // Build image URL directly without needing to search file list
+                        const imgUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/${dataPath}/${name}`;
+                        
+                        const imgContainer = document.createElement("div");
+                        imgContainer.className = "zoom-img-box";
+                        imgContainer.style.marginBottom = "1em";
+                        imgContainer.style.background = "#f5f0e9";
+                        imgContainer.style.border = "1px solid #e0d8cc";
+                        
+                        const img = document.createElement("img");
+                        img.src = imgUrl;
+                        img.alt = name;
+                        img.style.width = "100%";
+                        img.style.maxWidth = "100%";
+                        img.style.height = "auto";
+                        img.style.display = "block";
+                        img.style.cursor = "grab";
+                        imgContainer.appendChild(img);
+                        imgArea.appendChild(imgContainer);
 
-                            img.addEventListener('load', function () {
-                                Panzoom(imgContainer, {
-                                    contain: 'outside',
-                                    maxScale: 8,
-                                    minScale: 1,
-                                    step: 0.07,
-                                    canvas: true,
-                                });
+                        img.addEventListener('load', function () {
+                            Panzoom(imgContainer, {
+                                contain: 'outside',
+                                maxScale: 8,
+                                minScale: 1,
+                                step: 0.07,
+                                canvas: true,
                             });
-                        } else {
-                            const missingMsg = document.createElement("div");
-                            missingMsg.textContent = "Image \"" + name + "\" not found.";
-                            missingMsg.style.color = "#b33";
-                            missingMsg.style.margin = "1.5em";
-                            imgArea.appendChild(missingMsg);
-                        }
+                        });
                     });
                 }
 
