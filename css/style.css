@@ -15,8 +15,8 @@ footer {
 .impressum {
     max-width: 900px;
     margin: 0 auto;
-    font-size: 0.75em;         /* Smaller font */
-    color: #998678;            /* Fainter, elegant brownish-grey */
+    font-size: 0.85em;        
+    color: #4a2c2c;            /* Fainter, elegant brownish-grey */
     text-align: center;
     line-height: 1.8;
     letter-spacing: 0.015em;
