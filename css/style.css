@@ -16,8 +16,8 @@ footer {
 .impressum {
     max-width: 900px;
     margin: 0 auto;
-    font-size: 0.95em;            /* bigger, more readable */
-    color: #22696b;               /* same green as h1 */
+    font-size: 0.95em;           
+    color: #174446;             
     text-align: center;
     line-height: 1.75;
     letter-spacing: 0.02em;
@@ -25,27 +25,27 @@ footer {
 
 /* links */
 .impressum a {
-    color: #317989;               /* slightly lighter green-blue for contrast */
+    color: #317989;              
     text-decoration: underline;
     text-underline-offset: 2px;
     transition: color 0.2s ease;
 }
 
 .impressum a:hover {
-    color: #174446;               /* deeper green on hover */
+    color: #174446;             
 }
 
 /* secondary text blocks */
 .impressum-note {
     margin-top: 0.9em;
     font-size: 0.95em;
-    color: #365257;               /* softer secondary green */
+    color: #365257;               
 }
 
 .impressum-subtle {
     margin-top: 0.7em;
     font-size: 0.9em;
-    color: #4a5f60;               /* readable but still muted */
+    color: #4a5f60;              
     font-family: Georgia, serif;
     letter-spacing: 0.01em;
 }
