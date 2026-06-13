@@ -2,60 +2,178 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Horace Englossed is a digital scholarly edition of Horace's Carmen 1,12 with manuscript images, glosses, and interactive features.">
-  <title>Horace Englossed: A Digital Edition of Horace, Carmen 1,12</title>
+  <title>Horace Englossed: A Digital Edition of Horace, Carmen 1.12</title>
+  <meta name="description"
+      content="Digital scholarly edition of Horace, Carmen 1.12 with transcription, glosses, and manuscript images.">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=EB+Garamond:700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script>
+  <style>
+
+   body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    background: #f8f6ee;         /* soft parchment */
+    color: #222217;              /* almost black for great readability */
+    margin: 0;
+    padding: 0;
+    line-height: 1.8;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 3em auto 3em auto;
+    padding: 2.2em 2.2em 2em 2.2em;
+    background: #fdfcf7;   /* lighter cream for container */
+    border-radius: 7px;
+    box-shadow: 0 5px 24px 0 rgba(80,80,35,0.10);
+    border: 1.5px solid #ece9de;
+  }
+
+  h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: 2.5em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #22696b;
+    text-align: center;
+    margin-top: 0.4em;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+    border-bottom: 2px solid #e2dfd7;
+    padding-bottom: 0.45em;
+  }
+
+  h2 {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.45em;
+    color: #22696b;
+    font-weight: 700;
+    margin-top: 2.5em;
+    margin-bottom: 0.5em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #d8d0bb;
+    padding-bottom: 0.2em;
+  }
+
+  section {
+    background: #fcfaf1;
+    margin-bottom: 2.3em;
+    padding: 1.4em 1em 1em 1em;
+    border-radius: 4.5px;
+    border: 1px solid #ede5d1;
+    box-shadow: 0 1px 5px rgba(34,105,107,0.04);
+  }
+
+  div, pre {
+    font-size: 1.09em;
+    margin-bottom: 1em;
+    color: #332c1e;
+  }
+
+  button {
+    background: #22696b;
+    color: #f7f6f2;
+    border: none;
+    padding: 0.51em 1.3em;
+    margin-bottom: 1em;
+    border-radius: 2.5px;
+    font-size: 1em;
+    cursor: pointer;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: background 0.18s;
+    box-shadow: 0 1px 3px #22221715;
+    margin-top: 0.5em;
+  }
+  button:hover, button:focus {
+    background: #317989;
+    outline: none;
+  }
+
+  pre {
+    background: #f4eee4;
+    color: #174446;
+    border: 1px solid #e0dac9;
+    border-radius: 4px;
+    padding: 1em;
+    font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace;
+    line-height: 1.5;
+    overflow-x: auto;
+    font-size: 0.98em;
+  }
+
+  @media (max-width: 700px) {
+    .container { padding: 1em; }
+    section { padding: 1em 0.4em 0.5em 0.6em; }
+    h1 { font-size: 1.5em; }
+    h2 { font-size: 1em; }
+  }
+
+  </style>
+
 </head>
+
 <body>
-  <header class="container">
+
+<header>
     <h1>Horace Englossed</h1>
-  </header>
+</header>
 
-  <main class="container">
-      <section>
-        <h2>A Digital Edition of Horace, Carmen 1,12</h2>
-        <div id="file-content"></div>
-      </section> 
- 
+<nav aria-label="Main Navigation">
+    <ul>
+        <li><a href="#edition">Edition</a></li>
+        <li><a href="#impressum">Impressum</a></li>
+    </ul>
+</nav>
 
- <div class="button-container">
-    <button>Show glosses</button>
-    <button>Show TEI</button>
-    <button>Show manuscript</button>
- </div>
+<main id="edition">   
 
- </main>
+    <article>
 
-  <script src="js/app.js"></script>
-  
-  <footer class="container">
-    <div class="impressum">
-      <div>
-        Content on this site is licensed under a
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
-          Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)
-        </a>.
-      </div>
-      <div>
-        Project by Annabelle Kienzl,
-        <a href="mailto:annabelle.kienzl@uni-graz.at">annabelle.kienzl@uni-graz.at</a>,
-        University of Graz, Department of Digital Humanities.<br>
-        Manuscript images courtesy of
-        <a href="https://www.e-codices.ch/en/list/one/vad/0312" target="_blank">
-          e-codices – Virtual Manuscript Library of Switzerland
-        </a>.
-      </div>
-      <div class="impressum-note">
-        This is a scholarly, non-commercial project.
-        <br>
-        <span class="copyright">&copy; 2026 Annabelle Kienzl</span>
-      </div>
+        <section>
+
+            <h2>A Digital Edition of Horace, Carmen 1.12</h2>
+
+            <p>
+                This digital edition presents Horace's Carmen 1.12 as transmitted
+                in VadSlg Ms. 312. The edition combines
+                glosses and metamarks, alongside the manuscript images.
+            </p>
+
+            <div id="file-content"></div>
+            <script src="js/app.js"></script>
+
+        </section>
+
+    </article>
+
+</main>
+
+  <footer id="impressum">
+    <div>
+      Content on this site is licensed under a
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
+        Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)
+      </a>.
     </div>
-  </footer>
+    <div>
+      Project by Annabelle Kienzl,
+      <a href="mailto:annabelle.kienzl@uni-graz.at">annabelle.kienzl@uni-graz.at</a>,
+      University of Graz, Department of Digital Humanities.<br>
+      Manuscript images courtesy of
+      <a href="https://www.e-codices.ch/en/list/one/vad/0312" target="_blank">
+        e-codices – Virtual Manuscript Library of Switzerland
+      </a>.
+    </div>
+    <div class="impressum-note">
+      This is a scholarly, non-commercial project.
+      <br>
+      <span class="copyright">&copy; 2026 Annabelle Kienzl</span>
+    </div>
+</footer>
 
 </body>
 </html>
