@@ -1,12 +1,9 @@
 # Horace Englossed – Detailed JavaScript Code Tutorial
 
-This guide walks through every part of `app.js`, including variable roles, function logic, data flow, and DOM manipulation. Use it to review what the code does or to clarify your answers in discussion.
-
----
 
 ## 1. **Overview: What does `app.js` do?**
 
-- Loads file and image information from the project’s GitHub repository using the GitHub REST API.
+- Loads file information from the project’s GitHub repository using the GitHub REST API.
 - Dynamically builds the split-screen interface: poem on the left, right side switched between the TEI XML or manuscript images.
 - Adds interactive buttons for toggling glosses/metamarks, and revealing/hiding TEI or manuscript.
 - Handles loading, parsing, and rendering the TEI-XML, including glosses and metamarks.
@@ -77,10 +74,10 @@ fetch(filesApiUrl)
   
 - **`.then(res => res.json())`**:  
   Converts the response stream into JSON.  
-  - The result: an array of file metadata objects (XML + images).
+  - The result: an array of file metadata (XML).
   
 - **`.then(files => { ... })`**:  
-  Works with the parsed file list. Splits them into XML files (Poems/TEI) and image files (manuscripts) by their extensions.
+  Works with the parsed file list. 
   
 - **`.catch(err => { ... })`**:  
   If the initial fetch fails (e.g., bad path or network issue), this block sets an error message in the main content container and logs details for debugging.
@@ -200,7 +197,7 @@ function escapeHtml(s) { ... }
 
 1. **Builds GitHub API endpoint for repository data.**
 2. **Fetches a list of all files in the /data directory.**
-3. **Splits into XMLs (poems) and images.**
+3. **Splits into XMLs (poems).**
 4. **For each XML:**
    - Creates UI containers (section, buttons, headers, columns).
    - Fetches and processes the poem's XML:
@@ -211,38 +208,7 @@ function escapeHtml(s) { ... }
    - Synchronizes scrolling between poem and whichever right pane is visible.
 5. **If any fetch or parsing fails, shows an appropriate error message for the user.**
 
----
 
-## 4. **Why This Approach?**
 
-- **Fetches from GitHub**: Allows your edition data and images to live in the repo—no web server needed.
-- **Dynamic DOM construction**: Maximizes flexibility (works for one or many poems).
-- **Button-driven toggling**: Lets users switch between editions (poem-only, scholarly, facsimile) on the fly.
-- **Separation of presentation** (CSS), **logic** (JS), and **content** (XML, images)—all real digital edition best practices.
 
----
 
-## 5. **FAQs You Might Be Asked**
-
-- **Why two fetches?**
-  - First to get file list (so code works for multiple poems/manuscripts), second to actually load poem text for each one.
-- **Why use DOMParser for the TEI?**
-  - Easy to navigate XML with JS as a document tree; lets you extract elements robustly even if order varies.
-- **How do you ensure accessibility?**
-  - Buttons have clear text, headings are semantic, the split view collapses on mobile.
-- **How would you add another poem/manuscript?**
-  - Just drop its XML and images in `/data`; no HTML or JS changes needed unless mapping logic is customized.
-
----
-
-## 6. **Where Can Things Go Wrong? (Debug Tips)**
-
-- If **no poems or images appear**, check:
-  - The GitHub file path,
-  - That your repo is public,
-  - That the browser isn’t blocking cross-origin requests.
-- If **gloss toggle doesn’t work**, ensure your TEI contains `<note>` and `<metamark>` elements correctly.
-
----
-
-**With this guide, you can explain all code logic, justify every design, and confidently answer detailed questions about your digital edition's frontend scripting.**
