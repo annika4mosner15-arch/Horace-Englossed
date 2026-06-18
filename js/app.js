@@ -113,10 +113,9 @@ fetch(filesApiUrl)
                     Array.from(ab.childNodes).forEach(node => {
                         if (node.nodeType === Node.ELEMENT_NODE && node.tagName.toLowerCase() === "l") {
                             block.push({
-                                type: "line",
-                                htmlPlain: renderLineWithGlosses(node, false),
-                                htmlWithGloss: renderLineWithGlosses(node, true)
-                            });
+                            type: "line",
+                            node: node   
+                        });
                         }
                         else if (node.nodeType === Node.ELEMENT_NODE &&
                                  (node.tagName.toLowerCase() === "note" || node.tagName.toLowerCase() === "metamark")) {
@@ -131,6 +130,10 @@ fetch(filesApiUrl)
                     poemHtmlLines.push(...block);
                 });
 
+            
+                
+
+              
                 function renderPoem(glossMode = false) {
                     poemColumn.innerHTML = "";
                     poemHtmlLines.forEach(part => {
@@ -138,7 +141,7 @@ fetch(filesApiUrl)
                         if (part.type === "line") {
                             const lineDiv = document.createElement("div");
                             lineDiv.className = "poem-line";
-                            lineDiv.innerHTML = glossMode ? part.htmlWithGloss : part.htmlPlain;
+                            lineDiv.innerHTML = renderLineWithGlosses(part.node, glossesVisible);
                             poemColumn.appendChild(lineDiv);
                         } else if (glossMode && part.type !== 'line') {
                             const div = document.createElement("div");
@@ -150,74 +153,90 @@ fetch(filesApiUrl)
                 }
 
          
-                function renderLineWithGlosses(node, showGloss) {
-                let html = "";
-
-                node.childNodes.forEach(child => {
-
-                    if (child.nodeType === Node.TEXT_NODE) {
-                        html += escapeHtml(child.textContent);
-
-                    } else if (child.nodeType === Node.ELEMENT_NODE) {
-
-                        const tag = child.tagName.toLowerCase();
-
-                        // ---- TEI choice (abbr / expan) ----
-                        if (tag === "choice") {
-
-                            const abbr = child.querySelector("abbr");
-                            const expan = child.querySelector("expan");
-
-                            html += expandMode
-                                ? (expan ? escapeHtml(expan.textContent) : "")
-                                : (abbr ? escapeHtml(abbr.textContent) : "");
-
-                        // ---- gloss ----
-                        } else if (tag === "note") {
-
-                            html += showGloss
-                                ? `<span class="poem-gloss">(${escapeHtml(child.textContent)})</span>`
-                                : "";
-
-                        // ---- metamark ----
-                        } else if (tag === "metamark") {
-
-                            html += showGloss
-                                ? `<span class="poem-metamark">${escapeHtml(child.textContent)}</span>`
-                                : "";
-
-                        // ---- recursion ----
-                        } else {
-                            html += renderLineWithGlosses(child, showGloss);
+                // --- RENDER POEM FUNCTION ---
+                function renderPoem(glossMode = false) {
+                    poemColumn.innerHTML = "";
+                    poemHtmlLines.forEach(part => {
+                        if (!glossMode && part.type !== 'line') return;
+                        if (part.type === "line") {
+                            const lineDiv = document.createElement("div");
+                            lineDiv.className = "poem-line";
+                            lineDiv.innerHTML = renderLineWithGlosses(part.node, glossesVisible);
+                            poemColumn.appendChild(lineDiv);
+                        } else if (glossMode && part.type !== 'line') {
+                            const div = document.createElement("div");
+                            div.className = part.type === "note" ? "poem-gloss" : "poem-metamark";
+                            div.innerHTML = part.htmlWithGloss;
+                            poemColumn.appendChild(div);
                         }
-                    }
-                });
+                    });
+                } // <--- HIER hat die schließende Klammer gefehlt!
 
-                return html;
-            }
-                // ***** RENDER poem initially (no glosses) *****
-                renderPoem(false);
+         
+                // --- RENDER LINES FUNCTION ---
+                function renderLineWithGlosses(node, showGloss) {
+                    let html = "";
+
+                    node.childNodes.forEach(child => {
+                        if (child.nodeType === Node.TEXT_NODE) {
+                            html += escapeHtml(child.textContent);
+                        } else if (child.nodeType === Node.ELEMENT_NODE) {
+                            const tag = child.tagName.toLowerCase();
+
+                            // ---- TEI choice (abbr / expan) ----
+                            if (tag === "choice") {
+                                const abbr = child.querySelector("abbr");
+                                const expan = child.querySelector("expan");
+
+                                html += expanMode
+                                    ? (expan ? escapeHtml(expan.textContent) : "")
+                                    : (abbr ? escapeHtml(abbr.textContent) : "");
+
+                            // ---- gloss ----
+                            } else if (tag === "note") {
+                                html += showGloss
+                                    ? `<span class="poem-gloss">(${escapeHtml(child.textContent)})</span>`
+                                    : "";
+
+                            // ---- metamark ----
+                            } else if (tag === "metamark") {
+                                html += showGloss
+                                    ? `<span class="poem-metamark">${escapeHtml(child.textContent)}</span>`
+                                    : "";
+
+                            // ---- recursion ----
+                            } else {
+                                html += renderLineWithGlosses(child, showGloss);
+                            }
+                        }
+                    });
+
+                    return html;
+                }
+
+                // ***** RENDER poem initially (no glosses, no expansions) *****
+                renderPoem(expanMode);
 
                 // --- Lyric/Gloss buttons ---
-                
                 glossesBtn.onclick = function() {
                     glossesVisible = !glossesVisible;
+                    
                     renderPoem(glossesVisible);
+                    
                     glossesBtn.textContent = glossesVisible
                         ? "Hide glosses and metamarks"
                         : "Show glosses and metamarks";
                 };
 
                 expanBtn.onclick = function () {
-                expanMode = !expanMode;
+                    expanMode = !expanMode;
 
-                renderPoem(glossesVisible);
+                    renderPoem(glossesVisible);
 
-                expanBtn.textContent = expanMode
-                    ? "Hide expanded abbreviations"
-                    : "Show expanded abbreviations";
+                    expanBtn.textContent = expanMode
+                        ? "Hide expanded abbreviations"
+                        : "Show expanded abbreviations";
                 };
-
 
 
                 function showTeiCode() {
