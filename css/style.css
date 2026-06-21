@@ -109,6 +109,55 @@ button:focus {
     gap: 0.5rem;
 }
 
+
+/* ---------- TOOLTIP ---------- */
+/* 1. Base interactive word */
+.tooltip-trigger {
+    border-bottom: 1px dotted #8b0000;
+    cursor: help;
+    position: relative;
+    display: inline-block;
+    color: inherit;
+}
+
+/* 2. Left-aligned Tooltip Box */
+.tooltip-trigger::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 130%;
+    
+    left: 0;
+    transform: none; 
+    
+    /* Box Presentation */
+    background-color: #2d2d2a;
+    color: #f7f4ef;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1.4;
+    text-align: left;
+    
+    /* Dimensions */
+    width: 240px;           
+    white-space: normal;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    
+    /* Transitions */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* 3. Smooth Fade-in */
+.tooltip-trigger:hover::after {
+    opacity: 1;
+}
+
 /* =========================================
    SPLIT VIEW (MOBILE DEFAULT)
    ========================================= */
@@ -174,6 +223,18 @@ button:focus {
     color: #4a2c2c;
     margin-bottom: 0.4em;
     line-height: 1.5;
+}
+
+/* ---------- TRANSLATION ---------- */
+
+.line-translation {
+    font-style: italic;
+    color: #666;
+    font-size: 0.9em;
+    padding-left: 20px;
+    margin-top: 2px;
+    margin-bottom: 8px;
+    line-height: 1.2;
 }
 
 /* ---------- GLOSSES ---------- */
