@@ -1,7 +1,7 @@
-Horace-Englossed: CSS Architecture & Style Guide
+## Horace-Englossed: CSS Architecture & Style Guide
 This document provides a comprehensive walkthrough of the project's styling system. The stylesheet is designed around a Mobile-First Responsive Workflow, meaning layout systems are optimized for small mobile screen dimensions by default and scale gracefully into multi-column desktop environments using media queries.
 
-1. Global Setup & Typographic Foundations
+## 1. Global Setup & Typographic Foundations
 These core styles set the visual tone of the digital edition, prioritizing an elegant, manuscript-adjacent aesthetic.
 
 CSS
@@ -23,14 +23,14 @@ CSS
 }
 Layout Box: Serves as the global content wrapper. On mobile layouts, it stays full width with narrow margins to optimize text real estate.
 
-2. Navigation Component (nav)
+## 2. Navigation Component (nav)
 The header navigation is constructed using CSS Flexbox to accommodate dynamic counts of page links.
 
 nav ul: Eliminates standard list bullets and turns the collection into a centered, flexible row. flex-wrap: wrap ensures that if navigation links overflow a small device viewport, they wrap cleanly to a new line instead of clipping off-screen.
 
 nav a: Uses thick font treatments, a characteristic deep teal corporate hue (#22696b), and a 0.2s ease transition to smoothly change the background fill color when hovered or tabbed to via keyboards.
 
-3. Structural Headers & Typographic Accents
+## 3. Structural Headers & Typographic Accents
 CSS
 header h1 {
     font-family: 'Garamond', Georgia, serif;
@@ -41,7 +41,7 @@ header h1 {
 }
 header h1 & h2: Swaps main headings into a premium editorial font choice (Garamond). The properties include generous letter spacing (letter-spacing) to improve legibility and subtle warm earth tones (#365257 teal-gray and #4a2c2c wine-red) to categorize hierarchy.
 
-4. Control Interface (Buttons & Interaction)
+## 4. Control Interface (Buttons & Interaction)
 CSS
 button {
     background-color: #4a2c2c;
@@ -59,7 +59,7 @@ Micro-interactions: When hovered or focused, buttons shift colors smoothly to a 
 
 .button-row: Coordinates the multi-button layout, arranging controls vertically as a single column stacked block on mobile viewpoints.
 
-5. Pure-CSS Tooltip Component
+## 5. Pure-CSS Tooltip Component
 The glossary tooltip system is engineered to run automatically through markup parameters without depending on heavy third-party positioning libraries.
 
 CSS
@@ -71,7 +71,7 @@ CSS
 }
 Anchor: Tells the reader the word is interactive by giving it a custom help pointer (cursor: help) and a deep red dotted underline. Setting position: relative turns this phrase into the coordinates parent for the hidden bubble box.
 
-CSS
+## CSS
 .tooltip-trigger::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -88,7 +88,7 @@ Left Alignment Fix: Setting left: 0 pushes the text container box to grow entire
 
 Safety Mechanics: opacity: 0 keeps it hidden, while pointer-events: none makes sure the hidden box doesn't capture accidental mouse interaction clicks until hovered via .tooltip-trigger:hover::after.
 
-6. The Split-View Layout System
+## 6. The Split-View Layout System
 This defines the core presentation layout used to cross-analyze text side-by-side with source materials.
 
 CSS
@@ -101,7 +101,7 @@ Mobile Stack: On mobile views, the split screen drops the side-by-side display a
 
 Panel Presentations: .tei-poem-column and .tei-code-column feature uniform parchment-like boxes featuring light borders (#e7dec7) and light shadows (box-shadow) to distinguish readable panes clearly.
 
-7. TEI Markup Elements & Text Overlays
+## 7. TEI Markup Elements & Text Overlays
 These selectors specifically format structural values outputted from parsed XML TEI tags:
 
 .tei-code-column pre: Manages the raw XML inspection pane. Utilizes white-space: pre-wrap and word-break: break-word to guarantee long XML tag chains break nicely to a new line rather than pushing past box boundaries.
@@ -114,7 +114,7 @@ These selectors specifically format structural values outputted from parsed XML 
 
 .poem-metamark: Styles administrative notes and copy markings. Features heavy weights, high contrast backgrounds (#bbdefb), and elegant small-caps visual modifications.
 
-8. Responsive Breakpoints (Media Queries)
+## 8. Responsive Breakpoints (Media Queries)
 As viewports open up, media queries dynamically alter column architectures from mobile stacks into complex desktop layouts.
 
 A. Tablet Viewports (min-width: 768px)
