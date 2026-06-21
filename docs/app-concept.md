@@ -1,31 +1,31 @@
-App Concept (Current State and Future Plans)
+# Horace Englossed – Digital Scholarly Edition App Concept
+# Project Purpose
+The Horace Englossed project is a digital scholarly platform designed to bridge classical text curation with interactive, web-based digital humanites engineering. Focusing on Horace's Carmen 1.12, the platform aims to make medieval manuscript transmission, contextual mythological histories, and scribal annotations completely transparent to researchers, students, and philologists.
 
-This project, "Horace Englossed," is a digital scholarly edition that presents Horace’s Carmen 1,12 using a modern, user-friendly side-by-side interface. The application is built as a web page using custom JavaScript and HTML/CSS, creating an interactive and accessible environment for viewing encoded poetry, glosses, manuscript images, and underlying TEI-XML.
+# Technical Achievements
+Asynchronous Data Framework: The application breaks free from static server environments by dynamically pulling raw TEI XML files and high-definition manuscript images directly from a version-controlled GitHub repository using live API pipelines.
 
-Implemented Features
+Dynamic Structural Parsing: Instead of relying on manual pre-rendered web layouts, the system utilizes a runtime parsing engine that ingests structured XML and processes complex metadata hierarchies on the fly.
 
-Split-Screen UI: The page is structured into a two-column split view: the left column always displays the poem (with the option to toggle glosses and metamarks on or off), while the right column dynamically displays either the raw TEI-XML code or high-resolution manuscript images.
+Fail-Safe Micro-Service Design: Implemented modern parallel execution protocols (Promise.all) that handle cross-origin data fetching. If local asset dependencies—like glossary definitions—fail to load, a graceful error recovery path keeps the underlying text engine fully operational.
 
-Gloss/Metamark Toggle: Readers can show or hide glosses and metamarks embedded within the poem, supporting different reading needs and research interests.
+Responsive Workspace Architecture: Developed a mobile-first, fluid layout model. It scales from single-column vertical reading views on compact touch devices to automated multi-panel research dashboards on ultrawide desktop monitors.
 
-TEI/Manuscript Toggle: Dedicated buttons allow users to switch between viewing the TEI code and the manuscript facsimiles, ensuring the digital edition’s critical apparatus and material sources are both accessible.
+# Implemented Core Features
+# 1. Advanced Interactive Reading Options
+The workspace provides a suite of interactive tools allowing users to customize their layer of study:
 
-Stacked Manuscript Images: Both manuscript images relevant to the poem are displayed, stacked vertically within a scrollable container with zoom capabilities (via Panzoom), enabling close examination of manuscript details.
+Glosses & Metamarks Toggle: Instantly renders or isolates marginal medieval scribal additions and organizational symbols, letting researchers switch seamlessly from a clean reading format to a dense diplomatic transcription.
 
-Dynamic Content Loading: All content is fetched dynamically from the project’s GitHub repository, supporting flexibility for multiple poems/files in the future.
+Abbreviation Expansion System: A dynamic toggle that instantly swaps abbreviated scribal shorthand with full, expanded reading words to improve accessibility for non-expert readers.
 
-Responsive, Accessible Design: The site layout is responsive for desktop and mobile, headings are structured for accessibility, and captioning/attribution (including an improved "Impressum" footer) meets scholarly and legal standards.
+Parallel Translation: Integrates line-by-line editorial translations that can be toggled on or off directly beneath the classical poetry verses.
 
-Possible and Planned Extensions
+# 2. Contextual Glossary Tooltip Infrastructure
+The interface reads custom historical person and place tags within the XML string text at runtime. It cross-references these keywords against a parsed digital database file to build localized hover tooltips. Users can interact with mythological or historical names to view contextual definitions instantly without losing their place on the page.
 
-Abbreviation Resolution: Integrate a feature to automatically detect and resolve manuscript abbreviations (expansions or tooltips), possibly via a dictionary popup or inline expansions within the text.
+# 3. Digitized Manuscript Viewer with Interactive Zoom
+The application maps individual poems directly to their respective high-definition manuscript page assets. When toggled open, a canvas environment loads the image and hooks into a specialized spatial interaction framework (Panzoom), giving users smooth grab-and-drag panning alongside deep-resolution touch scrolling up to an 8x scale index.
 
-Word-Analysis Tool: Implement close description of the poem. 
-
-Interlinear/Parallel Translation Display: Add support for a parallel translation or grammatical notes, with toggles or hover popups.
-
-Search & Navigation: Implement searching across the poem text, glosses, and/or inline TEI queries for specific forms, lines, or manuscript features.
-
-Download/Share Features: Allow users to download the TEI-XML, manuscript image(s), or generate printable views.
-
-Accessibility Improvements: Options for high-contrast display, font scaling, and ARIA labeling throughout.
+# 4. Dual-Binding Synchronized Scroll View
+To facilitate micro-analysis, the screen splits into a side-by-side view showing the transcription text on one side and raw TEI code or manuscript images on the other. A synchronized position-tracking loop tracks the scroll coordinates of the columns. Moving through the poem dynamically scrolls the matching image or code segment in parallel, using algorithmic state-locking to eliminate infinite event collision loops.
