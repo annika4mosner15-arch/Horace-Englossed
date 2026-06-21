@@ -71,7 +71,7 @@ CSS
 }
 Anchor: Tells the reader the word is interactive by giving it a custom help pointer (cursor: help) and a deep red dotted underline. Setting position: relative turns this phrase into the coordinates parent for the hidden bubble box.
 
-## CSS
+CSS
 .tooltip-trigger::after {
     content: attr(data-tooltip);
     position: absolute;
