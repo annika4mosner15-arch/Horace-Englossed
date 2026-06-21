@@ -1,128 +1,91 @@
-# Horace Englossed — HTML Structure Tutorial
+## Horace-Englossed: HTML5 Architecture & Document Structure
+This document provides a detailed breakdown of the structural blueprint for the Horace Englossed platform. The codebase is written in semantic HTML5, prioritizing accessibility, standard search optimization patterns, and clear hooks for dynamic JavaScript integration.
 
-This document explains, in detail, the HTML structure for the "Horace Englossed" digital edition site. Reference it to understand how the main elements work, why they appear as they do, and where dynamic page content will be rendered.
+## 1. Document Metadata & Document Configuration (<head>)
+The document header establishes document environments, loads typography networks, and imports critical external script drivers.
 
----
+HTML
+<meta charset="UTF-8">
+<meta name="description" content="Digital scholarly edition of Horace, Carmen 1.12...">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+Encoding: Configures UTF-8 characters to guarantee Latin character accent features render perfectly without breakages.
 
-## 1. Overall Structure
+Responsive Control: The viewport element configures an initial device scaling index factor of 1.0, ensuring mobile displays render content layout dimensions natively without forced desktop shrinking.
 
-Your HTML is organized into these main blocks:
-- **Header:** For the website's main title.
-- **Edition Title:** For the current work/page.
-- **Dynamic Content Area:** Where the verse, TEI code, and manuscript images appear (injected by JS).
-- **Footer (Impressum):** For credits, contact information, licensing, and image source acknowledgement.
+External Assets & Dependencies
+HTML
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond:700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script>
+Typography Engine: Imports Google Font packages synchronously—utilizing Open Sans for readability across operational controls and interface markers, while using EB Garamond for classical, premium heading layouts.
 
----
+Style Sheet Binding: Hooks up your comprehensive external desktop styling systems (css/style.css).
 
-## 2. Annotated HTML Example
+Panzoom CDN Script: Pulls down the Panzoom engine resource link early. This library is required to let users click, grab, swipe, and zoom high-definition manuscript image fragments.
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Horace Englossed</title>
-  <link rel="stylesheet" href="css/style.css">
-  <!-- Panzoom library enables zooming manuscript images -->
-  <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script>
-</head>
-<body>
+## 2. Embedded Document Style System (<style>)
+Your HTML document holds local internal canvas adjustments inside an embedded <style> element. These complement the external file layers with explicit target properties:
 
-  <!-- Site Header: Prominent project name, always visible at the top -->
-  <header>
+.container Layout Box: Restricts reading boundaries to a centered container (max-width: 900px) using margin: 3em auto, wrapping the document in a soft-edged container shadow.
+
+pre Formatting Engine: Formats text components holding digital code outputs. Uses monospaced coding font structures (Fira Mono, Consolas) alongside horizontal scroll properties (overflow-x: auto) to protect layout bounds against text truncation.
+
+Responsive Mobile Compression Query (@media (max-width: 700px)): A fallback rule to safely reduce typographical size tags and frame paddings when viewing text frames through compact device interfaces.
+
+## 3. Structural Semantics & Page Architecture (<body>)
+The markup uses specific semantic landmarks instead of generic blocks (div). This makes the layout clear to web crawlers and accessible to assistive screen readers.
+
+HTML
+<header>
     <h1>Horace Englossed</h1>
-  </header>
+</header>
+<header> Module: Holds top-level site branding. The title tag utilizes standard text tags cleanly to ensure search engines recognize the root project context.
 
-  <!-- Edition/Work Title: Indicates which text or poem is currently in view -->
-  <h2>A Digital Edition of Horace, Carmen 1,12</h2>
+HTML
+<nav aria-label="Main Navigation">
+    <ul>
+        <li><a href="#edition">Edition</a></li>
+        <li><a href="#impressum">Impressum</a></li>
+    </ul>
+</nav>
+<nav> Accessibility System: Uses an internal anchor routing configuration. Links map instantly to local structural element nodes on the same page via ID flags (href="#edition" and href="#impressum").
 
-  <!-- Main Dynamic Content Area:
-       - This <div> is *empty* in the HTML and is populated by JavaScript (app.js)
-       - It will contain the split-screen UI with: buttons, poem, glosses, TEI XML, and manuscript images
-       - All user interaction and scholarly apparatus is rendered here -->
-  <div id="file-content"></div>
+Accessibility Flag: The aria-label="Main Navigation" attribute announces the correct semantic context to screen-reading assistive software.
 
-  <!-- Footer (Impressum) — Professional, mandatory in many countries for scholarly and transparent web projects.
-       - Contains licensing info, project credits, image source attribution, and contact
-       - Uses <div> with specialized classes for styling and spacing -->
-  <footer>
-    <div class="impressum">
-      <div>
-        Content on this site is licensed under a
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
-          Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)
-        </a>.
-      </div>
-      <div>
-        Project by Annabelle Kienzl,
-        <a href="mailto:annabelle.kienzl@uni-graz.at">annabelle.kienzl@uni-graz.at</a>,
-        University of Graz, Department of Digital Humanities.<br>
-        Manuscript images courtesy of
-        <a href="https://www.e-codices.ch/en/list/one/vad/0312" target="_blank">
-          e-codices – Virtual Manuscript Library of Switzerland
-        </a>.
-      </div>
-      <div class="impressum-note">
-        This is a scholarly, non-commercial project.<br>
-        <span class="copyright">&copy; 2026 Annabelle Kienzl</span>
-      </div>
-      <div class="impressum-subtle">
-        <em>
-          If you have questions or feedback, contact us at <a href="mailto:annabelle.kienzl@uni-graz.at">annabelle.kienzl@uni-graz.at</a>.
-        </em>
-      </div>
-    </div>
-  </footer>
+## 4. Primary Content Module (<main>)
+HTML
+<main id="edition">   
+    <article>
+        <h2>A Digital Edition of Horace, Carmen 1.12</h2>
+        <div>
+            <p>This digital edition presents...</p>
+            <div id="file-content"></div>
+            <script src="js/app.js" defer></script>
+        </div>
+    </article>
+</main>
+<main> Anchor Framework: Identifies the unique focus area of the page.
 
-  <!-- Main JavaScript:
-       - Controls all logic: split pane rendering, toggles, image zoom, etc.
-       - Must be included at the end of <body> so the DOM is loaded first -->
-  <script src="js/app.js"></script>
-</body>
-</html>
-```
+<article> Wrapper: Organizes self-contained reading segments suitable for independent study indexing.
 
----
+The Dynamic Engine Injection Hook (#file-content): This is the critical element for your digital project. This empty element serves as the physical insertion target for your script application loop. Your JavaScript parses the TEI XML file database behind the scenes and injects lines, tooltips, translations, and manuscript images right into this specific node.
 
-## 3. Explanation of Key Elements
+Script Integration Driver (js/app.js): Contains the logical processing functions. The defer attribute ensures this controller file loads in background sequences, running safely after your text layouts have completely parsed.
 
-- **`<header> <h1>...</h1> </header>`**  
-  Displays the site-wide project title centered at the top of the page, styled for impact in the CSS.
+## 5. Institutional Attribution & Metadata Frame (<footer>)
+HTML
+<footer id="impressum">
+<footer Element Context: Standardized container block holding institutional metadata tracking indexes, legal license configurations, and authorship assignments.
 
-- **`<h2>...</h2>`**  
-  Under the header, this indicates the edition, manuscript, or poem currently displayed.  
-  Only one per page by default, but can be adapted for multi-poem editions.
+HTML
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
+Licensing Parameters: Configures standard academic distributions using the Creative Commons (CC BY-NC-SA 4.0) protocol parameters. Incorporating target="_blank" forces the link to execute outside the workspace in a separate web tab.
 
-- **`<div id="file-content"></div>`**  
-  **This is the main container for everything else** your reader sees:  
-  - The poem text  
-  - Buttons for toggling glosses/TEI/manuscript  
-  - Side-by-side TEI and images (in a split view)  
-  - All injected and managed by JavaScript for flexibility and interactivity
+HTML
+Glossary data and mythological commentary adapted from... Paul Shorey...
+Academic Provenance Registry: Tracks physical textbook commentary origins (Shorey & Laing 1910 commentary editions), preserving reference tracking pathways.
 
-- **`<footer> ... </footer>`**  
-  Holds the **impressum** (legal/project info), copyright, manuscript image
-  attribution, and contact details.  
-  Each `<div>` or `<span>` inside has its own class for refined styling.
-
----
-
-## 4. Making Changes or Adding Features
-
-- To add a different poem or edition, change the `<h2>` text and update your JavaScript content loader.
-- To add disclaimers, alternate licenses, or additional attributions, insert new `<div>` blocks into the impressum/footer.
-- For a navigation bar or links to other works, add a `<nav>` after (or inside) the header.
-
----
-
-## 5. Why is so much content loaded by JavaScript?
-
-This lets the app:
-- Dynamically update what’s on the page (e.g. reveal glosses, switch between TEI and images, load multiple poems)
-- Keep the HTML neat and minimal, with all logic and content population handled in one place (`app.js`)
-- Easily expand the edition to include more poems or manuscript pages without rewriting HTML
-
----
-
-**In short:**  
-Your HTML provides a clean, semantic, and accessible scaffolding for your digital edition—the look, interactivity, and scholarly content is all enhanced and dynamically managed via CSS and JavaScript.
+HTML
+Project by Annabelle Kienzl... University of Graz, Department of Digital Humanities.
+Institutional Alignment Registry: Documents your research position profiles and project contacts at the University of Graz, establishing the scholarly authority behind the digital edition.
