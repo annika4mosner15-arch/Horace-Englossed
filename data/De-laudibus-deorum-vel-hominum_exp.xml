@@ -460,8 +460,8 @@
                 <l>
                     <seg xml:id="seg_Liber_1">Liber</seg> et <seg xml:id="seg_seuis_inimica_uirgo_1"
                         > saevae inimica virgo </seg>
-                    <seg type="translation" xml:lang="en"> nor you, Virgin, enemy of the
-                        fierce beasts, </seg>
+                    <seg type="translation" xml:lang="en"> nor you, Virgin, enemy of the fierce
+                        beasts, </seg>
                 </l>
                 <note target="#seg_nec_te_1">scilicet silebo</note>
                 <note target="#seg_certa_1" type="synonym">inevitabili</note>
@@ -553,10 +553,10 @@
                         >fasces of Tarquin, or the noble death of Cato.</seg>
                 </l>
                 <seg xml:id="seg_S_2">S</seg>
-                <l> Regulum et Scauros animaeque magnae <seg xml:id="seg_SS_1">SS</seg>
-                    <seg type="translation" xml:lang="en">I will speak of Regulus and the Scaurian
-                        name</seg>
+                <l> Regulum et Scauros animaeque magnae <seg type="translation" xml:lang="en">I will
+                        speak of Regulus and the Scaurian name</seg>
                 </l>
+                <seg xml:id="seg_SS_1">SS</seg>
                 <l>
                     <choice>
                         <abbr>ꝓdigum</abbr>
@@ -599,8 +599,8 @@
                         <abbr>aeuo</abbr>
                         <expan>aevo</expan>
                     </choice>
-                    <seg type="translation" xml:lang="en">Like a tree in the unperceived
-                        passing of time grows </seg>
+                    <seg type="translation" xml:lang="en">Like a tree in the unperceived passing of
+                        time grows </seg>
                 </l>
                 <seg xml:id="seg_Ø_2">Ø</seg>
                 <l> Fama Marcelli micat inter <choice>
