@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="tei_ms.rnc" type="application/relax-ng-compact-syntax"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Quintus Horatius Flaccus, Opera</title>
+            </titleStmt>
+            <publicationStmt>
+                <publisher>Kantonsbibliothek St. Gallen</publisher>
+                <pubPlace>St. Gallen</pubPlace>
+                <availability>
+                    <p>Images available via e-codices. Rights according to the repository’s terms of
+                        use.</p>
+                </availability>
+                <idno type="DOI">10.5076/e-codices-vad-0312</idno>
+            </publicationStmt>
+            <sourceDesc>
+                <msDesc xml:id="vadslg_ms_312">
+                    <msIdentifier>
+                        <country>Switzerland</country>
+                        <settlement>St. Gallen</settlement>
+                        <repository>Kantonsbibliothek</repository>
+                        <collection>Vadianische Sammlung</collection>
+                        <idno>VadSlg Ms. 312</idno>
+                    </msIdentifier>
+                    <msContents>
+                        <msItem>
+                            <author>Quintus Horatius Flaccus</author>
+                            <title>Opera</title>
+                            <textLang mainLang="la" otherLangs="goh"> Latin, with glosses including
+                                one Old High German gloss </textLang>
+
+                            <note> Extensive marginal and interlinear glossing. Glosses are written
+                                in different inks and by several hands. A commentary by
+                                    <persName>Acronius</persName> is included in the glosses.
+                            </note>
+                        </msItem>
+                    </msContents>
+                    <physDesc>
+                        <objectDesc>
+                            <supportDesc>
+                                <support>parchment</support>
+                                <extent>158 folios</extent>
+                                <foliation>Foliation in faint pencil on every recto page, upper
+                                    right margin;</foliation>
+                            </supportDesc>
+                            <layoutDesc>
+                                <layout> Margins for marginal glosses. </layout>
+                            </layoutDesc>
+                        </objectDesc>
+                        <bindingDesc>
+                            <binding>
+                                <p>15th century</p>
+                            </binding>
+                        </bindingDesc>
+                    </physDesc>
+                    <history>
+                        <origin>
+                            <origPlace>Franconia(?)</origPlace>
+                            <origDate>10th century</origDate>
+                            <note> Localization is uncertain; the only Old High German gloss might
+                                have been written in Franconia. </note>
+                        </origin>
+                        <provenance>
+                            <p> The manuscript’s presence in St. Gallen is not attested until the
+                                middle of the 17th century. </p>
+                        </provenance>
+                    </history>
+                    <additional>
+                        <adminInfo>
+                            <recordHist>
+                                <source> Description based on the e-codices catalogue and HAN.
+                                    Verbundkatalog Handschriften – Archive – Nachlässe (2016).
+                                </source>
+                            </recordHist>
+                        </adminInfo>
+                    </additional>
+                </msDesc>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <editorialDecl>
+                <interpretation>
+                    <!-- most common Latin abbreviations of this manuscript listed -->
+                    <p>The following abbreviations occur in the manuscript and are expanded in the
+                        transcription: ꝓ = pro; ꝑ = per/par; ꝗ = qui; ꝙ = quod; ÷ = est; ⁊ =
+                        et/etiam; ꝰ = us; ꝯ = con; ꝵ = rum; ũ = um/us; ã = am/as; ẽ = em/es.</p>
+                </interpretation>
+            </editorialDecl>
+        </encodingDesc>
+    </teiHeader>
+    <facsimile>
+        <graphic url="https://www.e-codices.ch/en/list/one/vad/0312"/>
+    </facsimile>
+    <text>
+        <body>
+            <!-- marginal glosses on the left side of the manuscript page -->
+            <ab>
+                <metamark>Ø</metamark>
+                <note target="#seg_Ø_1" type="commentary">
+                    <p> In hac ode <choice>
+                            <abbr>uelut</abbr>
+                            <expan>velut</expan>
+                        </choice>
+                        <choice>
+                            <abbr>ꝓ</abbr>
+                            <expan>pro</expan>
+                        </choice> sitio <choice>
+                            <abbr>ẽ</abbr>
+                            <expan>est</expan>
+                        </choice> cuiusdam incerti carminis. Nam dubitat <choice>
+                            <abbr>ꝗd</abbr>
+                            <expan>quid</expan>
+                        </choice> primum <choice>
+                            <abbr>ꝗd</abbr>
+                            <expan>quid</expan>
+                        </choice> potissimum dicat. Utrum caelestium deorum an <choice>
+                            <abbr>romanorum</abbr>
+                            <expan>Romanorum</expan>
+                        </choice> deorum &amp; fortium ducum. Omnis tamen laudat cum se fingit
+                        ancipitem. Peroratoriam paralexin. <choice>
+                            <abbr>Verum</abbr>
+                            <expan>Verum</expan>
+                        </choice> meliori intentum iam Augusti laudem extendit. <choice>
+                            <abbr>ꝙ</abbr>
+                            <expan>Quod</expan>
+                        </choice> secundum <choice>
+                            <abbr>Iouem</abbr>
+                            <expan>Iovem</expan>
+                        </choice> vult esse interris. Ordo <choice>
+                            <abbr>÷</abbr>
+                            <expan>est</expan>
+                        </choice> o Clio quem <choice>
+                            <abbr>uirum</abbr>
+                            <expan>virum</expan>
+                        </choice> aut quem heroam sumis celebrare tibia aut acrilira. </p>
+                </note>
+                <metamark>y</metamark>
+                <note target="seg_y_1" type="commentary">
+                    <p>
+                        <choice>
+                            <abbr>ꝓximã</abbr>
+                            <expan>Proximam</expan>
+                        </choice>
+                        <choice>
+                            <abbr>Iouis</abbr>
+                            <expan>Iovis</expan>
+                        </choice> honori Minervam, <choice>
+                            <abbr>ħ</abbr>
+                            <expan>hoc</expan>
+                        </choice>
+                        <choice>
+                            <abbr>ẽ</abbr>
+                            <expan>est</expan>
+                        </choice> virtutem et sapientiam deo <choice>
+                            <abbr>uicinam</abbr>
+                            <expan>vicinam</expan>
+                        </choice>, unde nulla quaestio <choice>
+                            <abbr>÷</abbr>
+                            <expan>est</expan>
+                        </choice>. Cum <choice>
+                            <abbr>supra</abbr>
+                            <expan>supra</expan>
+                        </choice> dixerit nil <choice>
+                            <abbr>Iouis</abbr>
+                            <expan>Iovis</expan>
+                        </choice> simile et secundum et in sequenti Minervam posuit. </p>
+                </note>
+                <metamark>∵</metamark>
+                <note target="seg_∵_1" type="commentary">
+                    <p> Castorem et Pollucem Ledae filios. Amatorem equorum Castorem dicit ut <choice>
+                            <abbr>÷</abbr>
+                            <expan>est</expan>
+                        </choice> talis <choice>
+                            <abbr>amrclei</abbr>
+                            <expan>amoris</expan>
+                        </choice> domitus Pollucis habens. Pollucem <choice>
+                            <abbr>uero</abbr>
+                            <expan>vero</expan>
+                        </choice> pugnis non bellis valentem ab eo quod pugil fuerit. Ergo pugnos
+                        dicit ut tertium inveniatur in genere. </p>
+                </note>
+            </ab>
+
+            <!-- beginning of current ode (carmen 1,12) -->
+            <fw><hi>DE LAUDIBUS DEORUM VEL HOMINUM.</hi></fw>
+            <!-- main text of ode including interlinear glosses -->
+            <ab>
+                <l>
+                    <metamark><seg xml:id="seg_Ø_1">Ø</seg></metamark> Quem <choice>
+                        <abbr>uirũ</abbr>
+                        <expan>virum</expan>
+                    </choice> aut heroam lyra <choice>
+                        <abbr>uel</abbr>
+                        <expan>vel</expan>
+                    </choice> acri <seg type="translation" xml:lang="en">What man or what hero with
+                        the lyre or the shrill</seg>
+                </l>
+                <note target="#seg_sumis_1" type="addition"><choice>
+                        <abbr>ꝯtendis</abbr>
+                        <expan>contendis</expan>
+                    </choice></note>
+                <note target="#seg_clyo_1" type="explanation"><choice>
+                        <abbr>una</abbr>
+                        <expan>una</expan>
+                    </choice></note>
+                <note target="#seg_clyo_1" type="explanation">una ex <choice>
+                        <abbr>uiiiii</abbr>
+                        <expan>novem</expan>
+                    </choice> musis</note>
+                <l> Tibia <seg xml:id="seg_sumis_1">sumis</seg> celebrare <seg xml:id="seg_clyo_1">
+                        <choice>
+                            <abbr>clyo</abbr>
+                            <expan>Clio</expan>
+                        </choice>
+                    </seg>: <seg type="translation" xml:lang="en">flute do you choose to celebrate,
+                        Clio?</seg>
+                </l>
+                <note>sumis celebrare</note>
+                <l>
+                    <choice>
+                        <abbr>Quẽ </abbr>
+                        <expan>Quem </expan>
+                    </choice>
+                    <choice>
+                        <abbr>deũ</abbr>
+                        <expan>deum</expan>
+                    </choice>, cuius retinet iocosa nomen imago <seg type="translation"
+                        xml:lang="en">Which god, whose name will the playful echo repeat</seg>
+                </l>
+                <note target="#seg_heliconis_oris_1" type="explanation"> in Parnaso monte musis <choice>
+                        <abbr>ꝯsecrato </abbr>
+                        <expan>consecrato </expan>
+                    </choice></note>
+                <l> Aut in <choice>
+                        <abbr>umbrosis</abbr>
+                        <expan>umbrosis</expan>
+                    </choice>
+                    <seg xml:id="seg_heliconis_oris_1">Heliconis oris</seg>. <seg type="translation"
+                        xml:lang="en">either on the shady borders of Helicon?</seg>
+                </l>
+                <note target="#seg_aut_super_pindo_1" type="explanation"> mons Thraciae in <choice>
+                        <abbr>qͦ </abbr>
+                        <expan>quo </expan>
+                    </choice>
+                    <choice>
+                        <abbr> orpheuꝰ</abbr>
+                        <expan>Orpheus </expan>
+                    </choice> cecinit </note>
+                <l>
+                    <seg xml:id="seg_aut_super_pindo_1">Aut <choice>
+                            <abbr>suꝑ </abbr>
+                            <expan>super </expan>
+                        </choice> Pindo</seg>. <seg xml:id="seg_gelidoue_in_haemo_1"><choice>
+                            <abbr>gelidoue</abbr>
+                            <expan>gelidove</expan>
+                        </choice> in <choice>
+                            <abbr>hȩmo </abbr>
+                            <expan>haemo </expan>
+                        </choice>
+                    </seg>. <seg type="translation" xml:lang="en">Or upon the heights of Pindus, or
+                        on cold Haemus,</seg>
+                </l>
+                <note target="#seg_gelidoue_in_haemo_1" type="explanation"> mons <choice>
+                        <abbr>thessaliȩ</abbr>
+                        <expan>Thessaliae</expan>
+                    </choice> haemo </note>
+                <note target="#seg_Unde_uocalẽ_temere_in_secutę_Orphea_siluȩ_1" type="explanation">
+                    vocales <choice>
+                        <abbr>om̃s </abbr>
+                        <expan>omnes </expan>
+                    </choice>
+                    <choice>
+                        <abbr>sũme </abbr>
+                        <expan>sumptae </expan>
+                    </choice>
+                    <choice>
+                        <abbr>uoces</abbr>
+                        <expan>voces</expan>
+                    </choice>
+                    <choice>
+                        <abbr>dnr̃ </abbr>
+                        <expan>dicuntur </expan>
+                    </choice>
+                </note>
+                <l>
+                    <seg xml:id="seg_Unde_uocalem_temere_insecutae_Orphea_silvae_1"> Unde <choice>
+                            <abbr>uocalẽ </abbr>
+                            <expan>vocalem </expan>
+                        </choice> temere <choice>
+                            <abbr>insecutę </abbr>
+                            <expan>insecutae </expan>
+                        </choice> Orphea <choice>
+                            <abbr>silvȩ </abbr>
+                            <expan>silvae </expan>
+                        </choice>. </seg>
+                    <seg type="translation" xml:lang="en">where the hurrying woods followed the
+                        singing Orpheus?</seg>
+                </l>
+                <note target="#seg_Arte_materna_1" type="explanation"> musica scilicet nam filius <choice>
+                        <abbr>Calliopẽ</abbr>
+                        <expan>Calliopae</expan>
+                    </choice>
+                    <choice>
+                        <abbr>đrͣ</abbr>
+                        <expan>dicitur</expan>
+                    </choice>
+                </note>
+                <l>
+                    <seg xml:id="seg_Arte_materna_1">Arte materna</seg> rapidos <choice>
+                        <abbr>morantẽ </abbr>
+                        <expan>morantes </expan>
+                    </choice>
+                    <seg type="translation" xml:lang="en">He who by his mother's art delayed the
+                        rapid</seg>
+                </l>
+                <note target="#seg_lapsus_1" type="synonym">cursus</note>
+                <l>
+                    <choice>
+                        <abbr>Fluminũ</abbr>
+                        <expan>Fluminum</expan>
+                    </choice>
+                    <seg xml:id="seg_lapsus_1">lapsus</seg>
+                    <choice>
+                        <abbr>celerisq.</abbr>
+                        <expan>celerisque</expan>
+                    </choice> ventos <seg type="translation" xml:lang="en">winds and the course of
+                        the river </seg>
+                </l>
+                <note target="#seg_Blandũ_1" type="addition">propter</note>
+                <note target="#seg_auritas_1" type="explanation">sensum audiendi habentes</note>
+                <note target="#seg_ducere_1" type="addition">oblectare</note>
+                <l>
+                    <seg xml:id="seg_Blandũ_1"><choice>
+                            <abbr>Blandũ</abbr>
+                            <expan>Blandum</expan>
+                        </choice></seg> et <seg xml:id="seg_auritas_1">auritas</seg>
+                    <choice>
+                        <abbr>fidibꝯ</abbr>
+                        <expan>fidibus</expan>
+                    </choice> canoris <seg xml:id="seg_ducere_1">ducere</seg> quercus. <seg
+                        type="translation" xml:lang="en">and was pervuasive enough to lead the
+                        listening oaks with his melodious strings.</seg>
+                </l>
+                <l> Quid prius <choice>
+                        <abbr>dicã</abbr>
+                        <expan>dicam</expan>
+                    </choice> solitis <choice>
+                        <abbr>parentũ</abbr>
+                        <expan>parentum</expan>
+                    </choice>
+                    <seg type="translation" xml:lang="en">What should I sing before the customary
+                        praises of the Father?</seg>
+                </l>
+                <l>
+                    <choice>
+                        <abbr>Laudibꝯ</abbr>
+                        <expan>Laudibus</expan>
+                    </choice> qui res <choice>
+                        <abbr>hominũ</abbr>
+                        <expan>hominum</expan>
+                    </choice> ac <choice>
+                        <abbr>deoꝵ</abbr>
+                        <expan>deorum</expan>
+                    </choice>
+                    <seg type="translation" xml:lang="en">Who rules the affairs of men and
+                        gods,</seg>
+                </l>
+                <note target="#seg_temperat_1" type="addition"> distinguit dimensio </note>
+                <l> Qui mare et terras variisque <seg xml:id="seg_temperat_1">temperat</seg> horis
+                        <seg type="translation" xml:lang="en">who rules the sea, the land, and the
+                        whole world with changing seasons.</seg>
+                </l>
+                <note target="#seg_Unde_nil_maius_generatur_ipso_1" type="addition"> aquae ex illo <choice>
+                        <abbr>qͥ</abbr>
+                        <expan>qui</expan>
+                    </choice> cuncta <choice>
+                        <abbr>tẽperat</abbr>
+                        <expan>temperat</expan>
+                    </choice>, <choice>
+                        <abbr>aqͥ</abbr>
+                        <expan>aquae</expan>
+                    </choice>
+                    <choice>
+                        <abbr>uirg̃</abbr>
+                        <expan>virginis</expan>
+                    </choice> unde <choice>
+                        <abbr>genꝰ</abbr>
+                        <expan>genus</expan>
+                    </choice> ducis <choice>
+                        <abbr>qᵘsi</abbr>
+                        <expan>quasi</expan>
+                    </choice>
+                    <choice>
+                        <abbr>dic̃</abbr>
+                        <expan>dicit</expan>
+                    </choice>
+                    <choice>
+                        <abbr>iouẽ</abbr>
+                        <expan>Iovem</expan>
+                    </choice>
+                    <choice>
+                        <abbr>suꝑ</abbr>
+                        <expan>super</expan>
+                    </choice>
+                    <choice>
+                        <abbr>om̃ia</abbr>
+                        <expan>omnia</expan>
+                    </choice> sine <choice>
+                        <abbr>cõparatione</abbr>
+                        <expan>comparatione</expan>
+                    </choice>
+                </note>
+                <l>
+                    <seg xml:id="seg_Unde_nil_maius_generatur_ipso_1"> Unde nihil maius generatur
+                        ipso. </seg>
+                    <seg type="translation" xml:lang="en">From whom nothing is begotten greater than
+                        himself,</seg>
+                </l>
+                <note target="#seg_simile_1" type="addition">illi</note>
+                <l> Nec <choice>
+                        <abbr>uig&amp;</abbr>
+                        <expan>viget</expan>
+                    </choice> quicquam <seg xml:id="seg_simile_1">simile</seg> aut secundum. <seg
+                        type="translation" xml:lang="en">nor does anything exist like him or second
+                        to him.</seg>
+                </l>
+                <seg xml:id="seg_y_1">y</seg>
+                <note target="#seg_Pallas_1" type="explanation">sapientia</note>
+                <l> Proximos illi tamen occupavit <seg xml:id="seg_Pallas_1">Pallas</seg> honores.
+                        <seg type="translation" xml:lang="en">Yet Pallas has won the honors closest
+                        to his own.</seg>
+                </l>
+                <l> Proeliis audax <choice>
+                        <abbr>neq'</abbr>
+                        <expan>neque</expan>
+                    </choice> te silebo <seg type="translation" xml:lang="en">Nor shall I pass you
+                        by in silence, Bacchus, bold in battle,</seg>
+                </l>
+                <note target="#seg_Liber_1" type="synonym">Bacche</note>
+                <note target="#seg_seuis_inimica_uirgo_1" type="explanation">
+                    <choice>
+                        <abbr>dianã</abbr>
+                        <expan>Dianam</expan>
+                    </choice>
+                    <choice>
+                        <abbr>dic̃</abbr>
+                        <expan>dicit</expan>
+                    </choice>
+                    <choice>
+                        <abbr>studiosã</abbr>
+                        <expan>studiosam</expan>
+                    </choice>
+                    <choice>
+                        <abbr>uenandi </abbr>
+                        <expan>venandi</expan>
+                    </choice>
+                </note>
+                <l>
+                    <seg xml:id="seg_Liber_1">Liber</seg> et <seg xml:id="seg_seuis_inimica_uirgo_1"
+                        > saevae inimica virgo </seg>
+                    <seg type="translation" xml:lang="en"> nor you, Virgin, enemy of the
+                        fierce beasts, </seg>
+                </l>
+                <note target="#seg_nec_te_1">scilicet silebo</note>
+                <note target="#seg_certa_1" type="synonym">inevitabili</note>
+                <note>o</note>
+                <note target="#seg_Phoebe_1" type="explanation"><choice>
+                        <abbr>apolline</abbr>
+                        <expan>Apollinem</expan>
+                    </choice>
+                    <choice>
+                        <abbr>dic̃</abbr>
+                        <expan>dicit</expan>
+                    </choice></note>
+                <l> Beluis nec te metuende certa <seg xml:id="seg_Phoebe_1"> Phoebe</seg> sagitta.
+                        <seg type="translation" xml:lang="en">nor you, Apollo, to be feared for your
+                        unerring arrow.</seg>
+                </l>
+                <note target="#seg_alciden_1" type="explanation"><choice>
+                        <abbr>herculẽ</abbr>
+                        <expan>Herculem</expan>
+                    </choice></note>
+                <l>
+                    <metamark><seg xml:id="seg_tricolon_1">∵</seg></metamark> Dicam et <seg
+                        xml:id="seg_alciden_1">Alciden</seg>, <seg xml:id="seg_puerosqe_ledae_1"
+                        >puerosque Ledae</seg>. <seg type="translation" xml:lang="en">I will sing of
+                        Alcides, and the sons of Leda.</seg>
+                </l>
+                <note target="#seg_pueros_q̨_ledȩ_1" type="explanation"><choice>
+                        <abbr>castorẽ</abbr>
+                        <expan>Castorem</expan>
+                    </choice>
+                    <choice>
+                        <abbr>pollucẽ</abbr>
+                        <expan>Pollucem</expan>
+                    </choice></note>
+                <l> Hunc equis illum superare pugnis <seg type="translation" xml:lang="en">One
+                        famous for conquering with horses, the other in boxing.</seg>
+                </l>
+            </ab>
+            <!-- new page of manuscript (folio 8r), main text of ode resumes here with interlinear glosses -->
+            <pb n="8r"/>
+            <ab>
+                <l>
+                    <choice>
+                        <abbr>Nobilẽ</abbr>
+                        <expan>Nobilem</expan>
+                    </choice> quorum simul alba nautis Stella refulsit. <seg type="translation"
+                        xml:lang="en">As soon as their white star shines out for sailors,</seg>
+                </l>
+                <l>Defluit saxis agitatus <choice>
+                        <abbr>humor</abbr>
+                        <expan>humor</expan>
+                    </choice>. <seg type="translation" xml:lang="en">the turbulent water flows down
+                        from the rocks,</seg>
+                </l>
+                <l>Concidunt venti, fugiunt <choice>
+                        <abbr>q;</abbr>
+                        <expan>que</expan>
+                    </choice> nubes. <seg type="translation" xml:lang="en">the winds die down, the
+                        clouds flee.</seg>
+                </l>
+                <l> Et minax quia sic <choice>
+                        <abbr>uoluere</abbr>
+                        <expan>voluere</expan>
+                    </choice> ponto unda <choice>
+                        <abbr>recũbit</abbr>
+                        <expan>recumbit</expan>
+                    </choice>
+                    <seg type="translation" xml:lang="en">And the treatening wave, because they
+                        willed it, sinks back upon the sea.</seg>
+                </l>
+                <seg xml:id="seg_S_1">S</seg>
+                <l>
+                    <seg xml:id="Romulus_post">Romulum post</seg> hos prius an quietum <seg
+                        type="translation" xml:lang="en">After these, I am in doubt whether to
+                        recount Romulus first, or the quiet</seg>
+                </l>
+                <l> Pompilii regnum memor et superbos <seg type="translation" xml:lang="en">reign of
+                        Numa Pompilius or the proud</seg>
+                </l>
+                <seg xml:id="seg_trikolon_2">∵</seg>
+                <note target="#seg_Romulus_post_1" type="addition">dubito</note>
+                <seg xml:id="seg_pro_1">
+                    <choice>
+                        <abbr>ꝓ</abbr>
+                        <expan>pro</expan>
+                    </choice>
+                </seg>
+                <l> Tarquinii fasces an Catonis nobile letum. <seg type="translation" xml:lang="en"
+                        >fasces of Tarquin, or the noble death of Cato.</seg>
+                </l>
+                <seg xml:id="seg_S_2">S</seg>
+                <l> Regulum et Scauros animaeque magnae <seg xml:id="seg_SS_1">SS</seg>
+                    <seg type="translation" xml:lang="en">I will speak of Regulus and the Scaurian
+                        name</seg>
+                </l>
+                <l>
+                    <choice>
+                        <abbr>ꝓdigum</abbr>
+                        <expan>prodigum</expan>
+                    </choice> paulum <choice>
+                        <abbr>suꝑante</abbr>
+                        <expan>superante</expan>
+                    </choice> Poeno <seg type="translation" xml:lang="en">and Paulus, when the
+                        Carthaginian conquered,</seg>
+                </l>
+                <seg xml:id="seg_SSS_1">SSS</seg>
+                <l> Gratus insigni referam <choice>
+                        <abbr>camẽa</abbr>
+                        <expan>camena</expan>
+                    </choice> Fabriciumque <seg type="translation" xml:lang="en">in a grateful song,
+                        and of Fabricius.</seg>
+                </l>
+                <seg xml:id="seg_c_1">c</seg>
+                <l> Nunc et incomptis Curium capillis <seg type="translation" xml:lang="en">Him, and
+                        Curius with his uncombed hair,</seg>
+                </l>
+                <seg xml:id="seg_u_1">u</seg>
+                <l> Utilem bello tulit et Camillum <seg type="translation" xml:lang="en">and
+                        Camillus, to be useful in war, </seg>
+                </l>
+                <l>
+                    <choice>
+                        <abbr>Saēua</abbr>
+                        <expan>Saeva</expan>
+                    </choice> paupertas et <choice>
+                        <abbr>auitꝰ</abbr>
+                        <expan>avitus</expan>
+                    </choice> apto cum lare fundus. <seg type="translation" xml:lang="en">cruel
+                        poverty bred, along with an ancestral farm and a fitting home.</seg>
+                </l>
+                <l> Crescit occulto <choice>
+                        <abbr>uelut</abbr>
+                        <expan>velut</expan>
+                    </choice> arbor <choice>
+                        <abbr>aeuo</abbr>
+                        <expan>aevo</expan>
+                    </choice>
+                    <seg type="translation" xml:lang="en">Like a tree in the unperceived
+                        passing of time grows </seg>
+                </l>
+                <seg xml:id="seg_Ø_2">Ø</seg>
+                <l> Fama Marcelli micat inter <choice>
+                        <abbr>omnis</abbr>
+                        <expan>omnes</expan>
+                    </choice>
+                    <seg type="translation" xml:lang="en">the fame of Marcellus.</seg>
+                </l>
+                <note type="addition">l</note>
+                <l> Iulium sidus <choice>
+                        <abbr>uelut</abbr>
+                        <expan>velut</expan>
+                    </choice> inter ignes luna minores <seg type="translation" xml:lang="en">The
+                        julian star shines among them all like the moon among the lesser
+                        fires.</seg>
+                </l>
+                <l> Gentis humanae pater atque custos <seg type="translation" xml:lang="en">Father
+                        and guardian of the human race,</seg>
+                </l>
+                <l> Orte Saturno tibi cura magni <seg type="translation" xml:lang="en">son of
+                        Saturn, the care of great</seg>
+                </l>
+                <l> Caesaris fatis data, tu secundo Caesare regnes <seg type="translation"
+                        xml:lang="en">Caesar has been given to you by the fates, may you reign with
+                        Caesar second only to you. </seg>
+                </l>
+                <l> Ille seu Parthos Latio imminentes <seg type="translation" xml:lang="en">Whether
+                        the Parthians who now overhang Latium,</seg>
+                </l>
+                <note target="#Egerit_1" type="synonym">subegerit</note>
+                <l>
+                    <seg xml:id="seg_Egerit_1">Egerit</seg> iusto domitos triumpho <seg
+                        type="translation">he tames and leads in a just triumph,</seg>
+                </l>
+                <l>
+                    <choice>
+                        <abbr>Siue</abbr>
+                        <expan>Sive</expan>
+                    </choice> subiectos orientis orae Seras et Indos. <seg type="translation">or the
+                        Seres and Indians who live under the eastern sky.</seg></l>
+                <note target="#aequus_1" type="synonym">iustus</note>
+                <l> Te minor Latium regit <seg xml:id="seg_aequus_1">aequus</seg> orbem. <seg
+                        type="translation">He, being less than you, shall rule the wide world in
+                        justice.</seg>
+                </l>
+                <l> Tu <choice>
+                        <abbr>graui</abbr>
+                        <expan>gravi</expan>
+                    </choice> curru quaties Olympum. <seg type="translation">You shall shake Olympus
+                        with your heavy chariot,</seg>
+                </l>
+                <l> Tu parvum castis inimica mittes fulmina lucis. <seg type="translation">you shall
+                        send your hostile lightning bolts against the defiled groves.</seg>
+                </l>
+            </ab>
+            <!-- end of ode 1,12-->
+            <!-- marginal glosses on the right side of the manuscript page -->
+            <ab>
+                <metamark>S</metamark>
+                <note target="#seg_S_1" type="commentary">
+                    <p> Adhuc Romanos duces et nobiles <choice>
+                            <abbr>p̃t̃eundo</abbr>
+                            <expan>praetereundo</expan>
+                        </choice> commemorat, ut Augustum praeferat cunctis. Nam Romulus urbis Romae
+                        conditor <choice>
+                            <abbr>ẽ</abbr>
+                            <expan>est</expan>
+                        </choice>. Numa Pompilius a Curibus Sabinus ad regnum <choice>
+                            <abbr>uocatus</abbr>
+                            <expan>vocatus</expan>
+                        </choice> sacrorum <choice>
+                            <abbr>inuentor</abbr>
+                            <expan>inventor</expan>
+                        </choice>
+                        <choice>
+                            <abbr>ẽ</abbr>
+                            <expan>est</expan>
+                        </choice>. </p>
+                </note>
+                <metamark><hi>∵</hi></metamark>
+                <note target="#seg_trikolon_2" type="commentary">
+                    <p> Tarquinius quoque rex virtute magnus <choice>
+                            <abbr>ẽ</abbr>
+                            <expan>est</expan>
+                        </choice>; hic <choice>
+                            <abbr>ꝓsecutionem</abbr>
+                            <expan>persecutionem</expan>
+                        </choice> posuit non superbum. Nam superbos fasces nobiles dicit. </p>
+                </note>
+                <metamark><hi>
+                        <choice>
+                            <abbr>ꝓ</abbr>
+                            <expan>Pro</expan>
+                        </choice>
+                    </hi></metamark>
+                <note target="#seg_ꝓ_1" type="commentary">
+                    <p> Cato dum mortuo Pompeio apud Uticam obsideret, amore libertatis manu sua se
+                        ipsum peremit. Unde et Uticensis <choice>
+                            <abbr>uocatus</abbr>
+                            <expan>vocatus</expan>
+                        </choice>
+                        <choice>
+                            <abbr>ẽ</abbr>
+                            <expan>est</expan>
+                        </choice>. </p>
+                </note>
+                <metamark><hi>S</hi></metamark>
+                <note target="#seg_S_2" type="commentary">
+                    <p> Regulum autem cum Afris <choice>
+                            <abbr>uicisset</abbr>
+                            <expan>vicisset</expan>
+                        </choice> ab hisdem cum paucis captus <choice>
+                            <abbr>ẽ</abbr>
+                            <expan>est</expan>
+                        </choice>. Quem dum Carthaginienses Romae misissent pro commutatione
+                        captivorum, adquiescentes Romanos suo consilio <choice>
+                            <abbr>reuocauit</abbr>
+                            <expan>revocavit</expan>
+                        </choice>. Hunc Poeni dum memoria sacramenti <choice>
+                            <abbr>uiolaret</abbr>
+                            <expan>violaret</expan>
+                        </choice>, sectis palpebris <choice>
+                            <abbr>uigiliis</abbr>
+                            <expan>vigiliis</expan>
+                        </choice> necaverunt. </p>
+                </note>
+                <metamark><hi>SS</hi></metamark>
+                <note target="#seg_SS_1" type="commentary">
+                    <p> Paulus et Terentius Varro consules <choice>
+                            <abbr>aduersus</abbr>
+                            <expan>adversus</expan>
+                        </choice> Hannibalem missi sunt. Hi similiter apud Cannas Apuliae <choice>
+                            <abbr>uicum</abbr>
+                            <expan>vicum</expan>
+                        </choice> grandi exercitu Romani clade superati sunt. Paulus postea quam
+                        tantam vitio collegae sui <choice>
+                            <abbr>uidisset</abbr>
+                            <expan>vidisset</expan>
+                        </choice> stragem, se inimicis dedit. </p>
+                </note>
+                <metamark><hi>SSS</hi></metamark>
+                <note target="#seg_SSS_1" type="commentary">
+                    <p> Fabricius quoque magnis primus a rege Pyrrho tentatus, dum nimis pauper
+                        censu esset, corrumpi non potuit. De <choice>
+                            <abbr>ꝙ</abbr>
+                            <expan>quo</expan>
+                        </choice> Lucanus: <choice>
+                            <abbr>ꝙ</abbr>
+                            <expan>quod</expan>
+                        </choice> te Fabricius regi non vendidit auro. </p>
+                </note>
+                <metamark><hi>c</hi></metamark>
+                <note target="#seg_c_1" type="commentary">
+                    <p> Curius paupertate clarus, de agro ad consulatum <choice>
+                            <abbr>euocatus</abbr>
+                            <expan>evocatus</expan>
+                        </choice>
+                        <choice>
+                            <abbr>ẽ</abbr>
+                            <expan>est</expan>
+                        </choice>, qui non totondit caesariem propter iniuriam capturam. </p>
+                </note>
+                <metamark><hi>u</hi></metamark>
+                <note target="#seg_u_1" type="commentary">
+                    <p> Camillus de exilio <choice>
+                            <abbr>reuersus</abbr>
+                            <expan>reversus</expan>
+                        </choice>
+                        <choice>
+                            <abbr>uictores</abbr>
+                            <expan>victores</expan>
+                        </choice> Gallos urbe pepulit, et ad internitionem cecidit. <choice>
+                            <abbr>Victor</abbr>
+                            <expan>Victor</expan>
+                        </choice> quo sua sponte in exilium rediit. </p>
+                </note>
+            </ab>
+
+            <ab>
+                <metamark>Ø</metamark>
+                <note target="#seg_Ø_2" type="commentary">
+                    <p> Marcellus <choice>
+                            <abbr>Octauiae</abbr>
+                            <expan>Octaviae</expan>
+                        </choice> dicitur <choice>
+                            <abbr>filitꝰ</abbr>
+                            <expan>filius </expan>
+                        </choice> sororis <choice>
+                            <abbr>Caesariˢ</abbr>
+                            <expan>Caesaris</expan>
+                        </choice>, qui puer <choice>
+                            <abbr>mortuꝰ</abbr>
+                            <expan>mortuus</expan>
+                        </choice>
+                        <choice>
+                            <abbr>ẽ</abbr>
+                            <expan>est</expan>
+                        </choice>. De quo <choice>
+                            <abbr>Uirgiliꝰ </abbr>
+                            <expan>Virgilius </expan>
+                        </choice>: si qua fata aspera rumpas tu Marcellus eris. Aut illum commemorat
+                        qui primus Hannibalem apud Nolam <choice>
+                            <abbr>ciuitatem</abbr>
+                            <expan>civitatem</expan>
+                        </choice> in fugam <choice>
+                            <abbr>cõpulit</abbr>
+                            <expan>compulit</expan>
+                        </choice> et ab eo postea occisus <choice>
+                            <abbr>ẽ </abbr>
+                            <expan>est </expan>
+                        </choice>. </p>
+                </note>
+            </ab>
+        </body>
+    </text>
+</TEI>
