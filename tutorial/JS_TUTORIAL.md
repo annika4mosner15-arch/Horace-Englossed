@@ -164,9 +164,6 @@ Purpose: Encodes raw special character nodes (&, <, >, ", ') directly into secur
 - Pulls file tracking metrics arrays straight from your GitHub repo data folder endpoints, filtering down list arrays into target collection categories.
 - Iterates over structural files, executing download updates to extract structural raw text strings.
 - Generates section frameworks sequentially for every item, pre-populating buttons, heading fields, and multi-pane split structural layouts.
-
-Parses the data using DOMParser to break up structural groupings, reading title fields, paragraph lines, translations, and nested abbreviation structures.
-
-Maps inline keywords directly against global glossary databases to generate tooltip layouts automatically.
-
-Binds local button click actions to switch views, handles Panzoom assignments on target elements, and locks view scroll positioning metrics tightly together in parallel.
+- Parses the data using DOMParser to break up structural groupings, reading title fields, paragraph lines, translations, and nested abbreviation structures.
+- Maps inline keywords directly against global glossary databases to generate tooltip layouts automatically.
+- Binds local button click actions to switch views, handles Panzoom assignments on target elements, and locks view scroll positioning metrics tightly together in parallel.
