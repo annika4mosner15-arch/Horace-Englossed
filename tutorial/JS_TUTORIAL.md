@@ -1,214 +1,172 @@
 # Horace Englossed – Detailed JavaScript Code Tutorial
 
+# 1. Overview: What does app.js do?
+- Loads file information from the project’s GitHub repository using the GitHub REST API while simultaneously pulling down a local glossary.json file.
+- Dynamically builds the split-screen interface: poem text on the left, right side switchable between raw TEI XML or zoom-enabled manuscript images.
+- Implements interactive toggle controls for showing or hiding structural glosses/metamarks, expanded abbreviations, translations, and secondary window configurations.
+- Utilizes an internal dictionary look-up pattern to parse <name> and <rs> data keys, outputting responsive, CSS-driven hovered tooltips safely.
+- Establishes a double-binding synchronized scroll event engine across all three reading panes, tracking layouts with a positional lock flag.
 
-## 1. **Overview: What does `app.js` do?**
-
-- Loads file information from the project’s GitHub repository using the GitHub REST API.
-- Dynamically builds the split-screen interface: poem on the left, right side switched between the TEI XML or manuscript images.
-- Adds interactive buttons for toggling glosses/metamarks, and revealing/hiding TEI or manuscript.
-- Handles loading, parsing, and rendering the TEI-XML, including glosses and metamarks.
-- Loads, stacks, and zoom-enables manuscript images.
-- Ensures responsive, accessible, and modular user interface with continuous user feedback.
-
----
-
-## 2. **Variable and Function Breakdown**
-
-### **Repository Parameters**
-
-```js
+# 2. Variable and Function Breakdown
+Repository Parameters
+JavaScript
+```
 const owner = "annika4mosner15-arch";
 const repo = "Horace-Englossed";
 const dataPath = "data";
 const filesApiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${dataPath}`;
 ```
-- **Purpose:** Sets up parameters necessary to query your GitHub repo.  
-  - `owner` is your GitHub username.
-  - `repo` is the repository’s name.
-  - `dataPath` is the subfolder in your repo where XML and images are stored.
-  - `filesApiUrl` constructs the API endpoint string to fetch the list of files stored at `/data/`.
+Purpose: Sets up parameters necessary to query your GitHub repo.
+- owner is your GitHub username.
+- repo is the repository’s name.
+- dataPath is the subfolder in your repo where XML and images are stored.
+- filesApiUrl constructs the API endpoint string to fetch the list of files stored at /data/.
 
----
-
-### **Main Content Container**
-
-```js
+Main Content Container
+JavaScript
+```
 const fileContentContainer = document.getElementById("file-content");
 ```
-- Selects the `<div id="file-content">` in your HTML.  
-- Everything rendered by your script (poem, TEI, buttons, images) gets attached here.
+Selects the <div id="file-content"> in your HTML.
 
----
+Everything rendered by your script (poem, TEI, buttons, images) gets attached here.
 
-### **Image-TEI Mapping Helper**
-
-```js
+Image-TEI Mapping Helper
+JavaScript
+```
 function getImageNamesForTei(teiFile) {
     return ["010.jpg", "011.jpg"];
 }
 ```
-- **Purpose:** Maps a TEI XML file to the relevant manuscript image filenames.
-- **Explanation:**  
-  - Currently hardcoded, always returns two specific manuscript JPEGs (["010.jpg", "011.jpg"]).
-  - Customizable: If you add more poems or manuscripts, you can extend this to map TEI files to their images.
+Purpose: Maps a TEI XML file to the relevant manuscript image filenames.
 
----
+Explanation:
 
-### **Fetching Files from GitHub (The Core FETCH Process)**
+Currently hardcoded, always returns two specific manuscript JPEGs (["010.jpg", "011.jpg"]).
 
-```js
-fetch(filesApiUrl)
-  .then(res => res.json())
-  .then(files => {
-      // ... further processing code ...
-  })
-  .catch(err => {
-      fileContentContainer.textContent = "Failed to load file list.";
-      console.error(err);
-  });
+Dual Initial Fetching (Promise.all)
+JavaScript
 ```
-
-#### **How it works:**
-- **`fetch(filesApiUrl)`**:  
-  Initiates an HTTP GET request to the GitHub API URL you constructed (`https://api.github.com/repos/annika4mosner15-arch/Horace-Englossed/contents/data`).
-  
-- **`.then(res => res.json())`**:  
-  Converts the response stream into JSON.  
-  - The result: an array of file metadata (XML).
-  
-- **`.then(files => { ... })`**:  
-  Works with the parsed file list. 
-  
-- **`.catch(err => { ... })`**:  
-  If the initial fetch fails (e.g., bad path or network issue), this block sets an error message in the main content container and logs details for debugging.
-
----
-
-### **Filtering Downloaded Files**
-
-```js
-const xmlFiles = files.filter(file => file.name.endsWith(".xml"));
-const imageFiles = files.filter(file => file.name.toLowerCase().endsWith(".jpg") ||
-                                        file.name.toLowerCase().endsWith(".jpeg") ||
-                                        file.name.toLowerCase().endsWith(".jpf"));
+Promise.all([
+    fetch('./data/glossary.json')
+        .then(res => { ... })
+        .catch(err => { ... }),
+    fetch(filesApiUrl)
+        .then(res => res.json())
+])
+.then(([glossaryData, files]) => { ... })
 ```
-- **Explanation:**
-  - `xmlFiles`: filters and stores files that end with `.xml` (should be <i>1 per poem</i>).
-  - `imageFiles`: filters images; case-insensitive matching for `.jpg`, `.jpeg`, `.jpf`.
-  - Both arrays allow you to handle poems and manuscript images separately.
+Purpose: Loads both the local glossary data definition file and the remote GitHub file list tracking arrays asynchronously at the same time.
 
----
+Explanation:
 
-### **Building Section per Poem/TEI File**
+Using Promise.all ensures the script waits for both files to download before trying to render anything.
 
-#### **HTML Structure:**
-For every TEI file:
-1. Creates a new section.
-2. Adds a button row (Show glosses/metamarks, Show TEI code, Show manuscript).
-3. Adds a header `<h2>` for the poem title.
-4. Adds a split-view layout:
-   - Left: Poem with gloss/metamark support.
-   - Right: Switchable area (TEI or manuscript images).
+It contains a safety fallback .catch routine for the glossary: if your JSON file fails to load or contains a formatting typo, it prints a console warning, falls back to an empty dictionary state {}, and allows the rest of the application to load the poems normally anyway.
 
-#### **Breakdown Example:**
-```js
-xmlFiles.forEach(file => {
-    // Creates containers for section, buttons, title, split-view, poem, TEI code, and images
-    // Appends all these to fileContentContainer (the DOM)
-    // ...
+Sequenced File Content Collection
+JavaScript
+```
+return Promise.all(xmlFiles.map(file =>
+    fetch(file.download_url)
+        .then(res => res.text())
+        .then(xmlText => ({ file, xmlText }))
+));
+```
+Explanation: Loops over every filtered .xml file discovered in your repository, immediately triggering secondary sub-fetch operations to extract raw string text from each poem database context file.
+
+Building Sections, Structural Elements, and Interactive State
+JavaScript
+```
+const section = document.createElement("section");
+const btnBox = document.createElement("div");
+btnBox.className = "button-row";
+```
+Creates glossesBtn, expanBtn, transBtn, teiBtn, imgBtn ...
+Explanation: Automatically generates isolated structural node wrappers for each individual poem card entity.
+
+Element Flow Order: Adds a container component holding exactly five action controllers (button-row), appends a title header element, and hooks up the responsive side-by-side display framework components (tei-poem-split).
+
+State Tracking Variables: Declares five local booleans (glossesVisible, expanMode, transVisible, teiVisible, imgVisible) and one engine flag (programmaticScroll) to handle layout states inside this unique section block.
+
+Recursive Sub-Element Rendering Engine
+JavaScript
+```
+function renderGlossWithExpansions(node) {
+    // Loops child nodes recursively checking text components and tag criteria...
+    if (tag === "choice") { ... }
+}
+```
+Purpose: Traverses deeply nested XML element child arrays to assemble structured inline string representations cleanly. Handles your inline abbreviations seamlessly by checking the state of expanMode, revealing either the expanded text value (<expan>) or the original contracted form (<abbr>).
+
+Normalized Content Processing & Glossary Hook Tooltips
+JavaScript
+```
+else if (tag === "name" || tag === "rs") {
+    const key = child.getAttribute("key");
+    const explanation = glossary[key] || `Definition for "${key}" not found.`;
+    const safeExplanation = escapeHtml(explanation);
+    const innerContent = renderLineWithGlosses(child, showGloss);
+    html += `<span class="tooltip-trigger" data-tooltip="${safeExplanation}">${innerContent}</span>`;
+}
+```
+Purpose: Intercepts custom semantic elements (<name> and <rs>) during layout passes.
+
+Explanation:
+
+Reads the internal node attribute index field (key).
+
+Matches the token against the globally initialized metadata glossary definition object dictionary.
+
+Wraps the contents inside a clean interactive HTML span element (tooltip-trigger), setting the descriptive string string inside a data-tooltip attribute tag block for instant CSS hover action.
+
+Dynamic Interactive Control Actions
+JavaScript
+```
+glossesBtn.onclick = function() { ... };
+expanBtn.onclick = function () { ... };
+transBtn.onclick = function () { ... };
+```
+Explanation: Assigns active click listener handlers to each localized menu control button on user interface headers. Clicking triggers variable state inversion, updates button text configurations cleanly, and calls the re-render routines to draw matching inline layouts.
+
+Multi-Column Canvas Views & Image Zoom Engine
+JavaScript
+```
+function showImages() {
+    // ... loops images, creates element frames ...
+    Panzoom(imgContainer, { maxScale: 8, minScale: 1, canvas: true });
+}
+```
+Explanation: Builds standard layout column structures (tei-code-column). If raw XML editing is activated, it sets code lines inside formatted layouts. If manuscript rendering is active, it runs automated generation sequences across targeted files, drawing elements safely and initiating the Panzoom touch interaction layer right after browser window load.
+
+Bi-Directional Synchronized Scrolling Event Controllers
+JavaScript
+```
+poemColumn.addEventListener("scroll", function() {
+    if (programmaticScroll) { programmaticScroll = false; return; }
+    // ... calculates position index percent factors and pushes target value adjustments ...
 });
 ```
-<br/>
+Purpose: Keeps the source transcription view on the left scrolling perfectly in sync with whichever analysis pane is open on the right.
 
-### **Fetching and Processing XML per Poem**
+Explanation: Calculates exactly how far down the user has scrolled as a percentage factor. To prevent infinite trigger loop collisions (where left scroll changes right scroll, which re-triggers left scroll forever), the script uses an interface flag state tracking toggle (programmaticScroll = true).
 
-For each XML file in `xmlFiles`:
-
-```js
-fetch(file.download_url)
-    .then(res => res.text())
-    .then(xmlText => {
-        teiPre.textContent = xmlText;
-        // All further processing below
-        // ...
-    })
-    .catch(err => { ... });
+Text Security & Escaping Utility
+JavaScript
 ```
-- **Second fetch:** Grabs and loads the XML content for each poem.
-- **Why two fetch calls?**  
-  - The first fetch grabs the list of files in /data.
-  - The second fetch (per XML) loads each poem’s actual content (`file.download_url` is provided by the GitHub API).
-
----
-
-#### **Parsing TEI XML and Displaying the Poem**
-
-- Uses `DOMParser` to convert the XML string to a DOM object.
-- Extracts the poem title from `<fw><hi>`.
-- Finds each `<ab>` block (arbitrary block, often groups lines).
-- For each `<ab>`, loops over child nodes:
-  - For `<l>`: builds both a plain version and a version with gloss/metamarks exposed inline.
-  - For `<note>` or `<metamark>` siblings: preps a gloss/metamark span for gloss mode.
-- Stores each as an object in `poemHtmlLines` for efficient toggling later.
-
-##### **Glosses and Metamarks Rendering**
-
-- The code toggles glosses and metamarks using buttons.
-- The logic lets you switch between a reading-friendly and a scholarship-detail mode.
-
----
-
-### **Button Functionality**
-
-- **Glosses Button:**  
-  Toggles display of gloss and metamark spans in the poem. Also updates its own label ("Show" ↔ "Hide").
-- **TEI/MS Toggle Buttons:**  
-  Only one right pane is visible at any time. Clicking a button shows or hides the corresponding view (TEI code or manuscript images).
-
----
-
-### **Rendering Manuscript Images (and Panzoom Integration)**
-
-- The `showImages()` function prepares all relevant images for a given TEI file:
-  - Searches `imageFiles` for matches.
-  - For each image, builds a container and `<img>`, adds Panzoom for zooming/panning.
-  - If an image is missing, displays a helpful error message.
-- Optionally, appends an attribution or caption under all images.
-
----
-
-### **Synchronized Scrolling**
-
-- When you scroll one part (poem, TEI, or images), the corresponding section scrolls in sync.
-- This uses event listeners and a flag (`programmaticScroll`) to prevent feedback loops between the sections.
-
----
-
-### **Utility Function**
-
-```js
 function escapeHtml(s) { ... }
 ```
-- Encodes special HTML characters to avoid rendering bugs or XSS/security issues.
+Purpose: Encodes raw special character nodes (&, <, >, ", ') directly into secure HTML character entity markers, eliminating script execution injection attacks or layout execution bugs.
 
----
+# 3. Code Flow Summary (Step by Step)
+- Constructs data endpoints and runs dual-fetch asynchronous lookup protocols simultaneously.
+- Loads the local glossary data resource dictionary file safely while protecting script execution loops.
+- Pulls file tracking metrics arrays straight from your GitHub repo data folder endpoints, filtering down list arrays into target collection categories.
+- Iterates over structural files, executing download updates to extract structural raw text strings.
+- Generates section frameworks sequentially for every item, pre-populating buttons, heading fields, and multi-pane split structural layouts.
 
-## 3. **Code Flow Summary (Step by Step)**
+Parses the data using DOMParser to break up structural groupings, reading title fields, paragraph lines, translations, and nested abbreviation structures.
 
-1. **Builds GitHub API endpoint for repository data.**
-2. **Fetches a list of all files in the /data directory.**
-3. **Splits into XMLs (poems).**
-4. **For each XML:**
-   - Creates UI containers (section, buttons, headers, columns).
-   - Fetches and processes the poem's XML:
-      - Extracts the title, poem lines, glosses, and metamarks.
-      - Builds both plain and glossed versions of the poem.
-   - Sets button logic to toggle glosses/metamarks, show/hide TEI or manuscript images.
-   - Manuscript images are displayed in the right pane, zoom-enabled, with optional source captions.
-   - Synchronizes scrolling between poem and whichever right pane is visible.
-5. **If any fetch or parsing fails, shows an appropriate error message for the user.**
+Maps inline keywords directly against global glossary databases to generate tooltip layouts automatically.
 
-
-
-
-
+Binds local button click actions to switch views, handles Panzoom assignments on target elements, and locks view scroll positioning metrics tightly together in parallel.
