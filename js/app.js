@@ -10,17 +10,33 @@ function getImageNamesForTei(teiFile) {
     return ["010.jpg", "011.jpg"];
 }
 
-fetch(filesApiUrl)
-    .then(res => res.json())
-    .then(files => {
-        const xmlFiles = files.filter(file => file.name.endsWith(".xml"));
-        
-        // Process each XML file with its content fetched in sequence
-        return Promise.all(xmlFiles.map(file =>
-            fetch(file.download_url)
-                .then(res => res.text())
-                .then(xmlText => ({ file, xmlText }))
-        ));
+let glossary = {};
+
+// Load both the glossary and the GitHub file list at the same time safely
+Promise.all([
+    fetch('./data/glossary.json')
+        .then(res => {
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            return res.json();
+        })
+        .catch(err => {
+            console.warn("Glossary JSON failed to load or has a syntax typo. Tooltips will be empty, but files will still load.", err);
+            return {}; 
+        }),
+    fetch(filesApiUrl)
+        .then(res => res.json())
+])
+.then(([glossaryData, files]) => {
+    glossary = glossaryData;
+
+    const xmlFiles = files.filter(file => file.name.endsWith(".xml"));
+    
+    // Process each XML file with its content fetched in sequence
+    return Promise.all(xmlFiles.map(file =>
+        fetch(file.download_url)
+            .then(res => res.text())
+            .then(xmlText => ({ file, xmlText }))
+    ));
     })
     .then(xmlDataArray => {
         xmlDataArray.forEach(({ file, xmlText }) => {
@@ -39,6 +55,10 @@ fetch(filesApiUrl)
             const expanBtn = document.createElement("button");   
             expanBtn.textContent = "Show expanded abbreviations";
             btnBox.appendChild(expanBtn);
+
+            const transBtn = document.createElement("button");
+            transBtn.textContent = "Show translation";
+            btnBox.appendChild(transBtn);
 
             const teiBtn = document.createElement("button");
             teiBtn.textContent = "Show TEI code";
@@ -88,12 +108,13 @@ fetch(filesApiUrl)
 
             fileContentContainer.appendChild(section);
 
-            // --- PROCESS XML (already fetched) ---
+            // --- PROCESS XML ---
             teiPre.textContent = xmlText;
 
             let poemHtmlLines = [];
             let glossesVisible = false;
             let expanMode = false;
+            let transVisible = false; // Steuert den Anzeige-Zustand der Übersetzung
             let teiVisible = false;
             let imgVisible = false;
             let programmaticScroll = false;
@@ -113,51 +134,49 @@ fetch(filesApiUrl)
                     Array.from(ab.childNodes).forEach(node => {
                         if (node.nodeType === Node.ELEMENT_NODE && node.tagName.toLowerCase() === "l") {
                             block.push({
-                            type: "line",
-                            node: node   
-                        });
+                                type: "line",
+                                node: node   
+                            });
                         }
                         else if (node.nodeType === Node.ELEMENT_NODE &&
                                  (node.tagName.toLowerCase() === "note" || node.tagName.toLowerCase() === "metamark")) {
-                            let css = node.tagName.toLowerCase() === "note" ? "poem-gloss" : "poem-metamark";
                             block.push({
                                 type: node.tagName.toLowerCase(),
-                                htmlPlain: "",
-                                htmlWithGloss: `<span class="${css}">${escapeHtml(node.textContent.trim())}</span>`
+                                node: node
                             });
                         }
                     });
                     poemHtmlLines.push(...block);
                 });
 
-            
-                
-
-              
-                function renderPoem(glossMode = false) {
-                    poemColumn.innerHTML = "";
-                    poemHtmlLines.forEach(part => {
-                        if (!glossMode && part.type !== 'line') return;
-                        if (part.type === "line") {
-                            const lineDiv = document.createElement("div");
-                            lineDiv.className = "poem-line";
-                            lineDiv.innerHTML = renderLineWithGlosses(part.node, glossesVisible);
-                            poemColumn.appendChild(lineDiv);
-                        } else if (glossMode && part.type !== 'line') {
-                            const div = document.createElement("div");
-                            div.className = part.type === "note" ? "poem-gloss" : "poem-metamark";
-                            div.innerHTML = part.htmlWithGloss;
-                            poemColumn.appendChild(div);
+                // --- HILFSFUNKTION FÜR GLOSSEN UND METAMARKS ---
+                function renderGlossWithExpansions(node) {
+                    let html = "";
+                    node.childNodes.forEach(child => {
+                        if (child.nodeType === Node.TEXT_NODE) {
+                            html += escapeHtml(child.textContent);
+                        } else if (child.nodeType === Node.ELEMENT_NODE) {
+                            const tag = child.tagName.toLowerCase();
+                            if (tag === "choice") {
+                                const abbr = child.querySelector("abbr");
+                                const expan = child.querySelector("expan");
+                                html += expanMode
+                                    ? (expan ? escapeHtml(expan.textContent) : "")
+                                    : (abbr ? escapeHtml(abbr.textContent) : "");
+                            } else {
+                                html += renderGlossWithExpansions(child);
+                            }
                         }
                     });
+                    return html;
                 }
 
-         
                 // --- RENDER POEM FUNCTION ---
                 function renderPoem(glossMode = false) {
                     poemColumn.innerHTML = "";
                     poemHtmlLines.forEach(part => {
                         if (!glossMode && part.type !== 'line') return;
+                        
                         if (part.type === "line") {
                             const lineDiv = document.createElement("div");
                             lineDiv.className = "poem-line";
@@ -165,17 +184,18 @@ fetch(filesApiUrl)
                             poemColumn.appendChild(lineDiv);
                         } else if (glossMode && part.type !== 'line') {
                             const div = document.createElement("div");
-                            div.className = part.type === "note" ? "poem-gloss" : "poem-metamark";
-                            div.innerHTML = part.htmlWithGloss;
+                            const css = part.type === "note" ? "poem-gloss" : "poem-metamark";
+                            div.className = css;
+                            div.innerHTML = `<span class="${css}">${renderGlossWithExpansions(part.node).trim()}</span>`;
                             poemColumn.appendChild(div);
                         }
                     });
-                } // <--- HIER hat die schließende Klammer gefehlt!
+                }
 
-         
                 // --- RENDER LINES FUNCTION ---
                 function renderLineWithGlosses(node, showGloss) {
                     let html = "";
+                    let translationHtml = ""; 
 
                     node.childNodes.forEach(child => {
                         if (child.nodeType === Node.TEXT_NODE) {
@@ -195,34 +215,52 @@ fetch(filesApiUrl)
                             // ---- gloss ----
                             } else if (tag === "note") {
                                 html += showGloss
-                                    ? `<span class="poem-gloss">(${escapeHtml(child.textContent)})</span>`
+                                    ? `<span class="poem-gloss">(${renderGlossWithExpansions(child)})</span>`
                                     : "";
 
                             // ---- metamark ----
                             } else if (tag === "metamark") {
                                 html += showGloss
-                                    ? `<span class="poem-metamark">${escapeHtml(child.textContent)}</span>`
+                                    ? `<span class="poem-metamark">${renderGlossWithExpansions(child)}</span>`
                                     : "";
 
-                            // ---- recursion ----
+                            // ---- translation ----
+                            } else if (tag === "seg" && child.getAttribute("type") === "translation") {
+                                if (transVisible) {
+                                    translationHtml = `<div class="line-translation">${escapeHtml(child.textContent.trim())}</div>`;
+                                }
+
+                            // =========================================================================
+                            // 3. ADDED: Intercept your newly added <name> and <rs> elements for tooltips
+                            // =========================================================================
+
+                            // ---- tooltips / glossary names (name and rs) ----
+                            } else if (tag === "name" || tag === "rs") {
+                                const key = child.getAttribute("key");
+                                const explanation = glossary[key] || `Definition for "${key}" not found.`;
+                                const safeExplanation = escapeHtml(explanation);
+                                const innerContent = renderLineWithGlosses(child, showGloss);
+                                
+                                
+                                html += `<span class="tooltip-trigger" data-tooltip="${safeExplanation}">${innerContent}</span>`;                              
+                             // ---- recursion ----
                             } else {
                                 html += renderLineWithGlosses(child, showGloss);
                             }
                         }
                     });
 
-                    return html;
+                    return html + translationHtml;
                 }
+            
 
-                // ***** RENDER poem initially (no glosses, no expansions) *****
-                renderPoem(expanMode);
+                // ***** RENDER poem initially *****
+                renderPoem(glossesVisible);
 
-                // --- Lyric/Gloss buttons ---
+                // --- Button Click Actions ---
                 glossesBtn.onclick = function() {
                     glossesVisible = !glossesVisible;
-                    
                     renderPoem(glossesVisible);
-                    
                     glossesBtn.textContent = glossesVisible
                         ? "Hide glosses and metamarks"
                         : "Show glosses and metamarks";
@@ -230,14 +268,20 @@ fetch(filesApiUrl)
 
                 expanBtn.onclick = function () {
                     expanMode = !expanMode;
-
                     renderPoem(glossesVisible);
-
                     expanBtn.textContent = expanMode
                         ? "Hide expanded abbreviations"
                         : "Show expanded abbreviations";
                 };
 
+                
+                transBtn.onclick = function () {
+                    transVisible = !transVisible;
+                    renderPoem(glossesVisible);
+                    transBtn.textContent = transVisible
+                        ? "Hide translation"
+                        : "Show translation";
+                };
 
                 function showTeiCode() {
                     codeColumn.style.display = "block";
@@ -266,7 +310,6 @@ fetch(filesApiUrl)
                     teiVisible = false;
                     imgVisible = true;
 
-                    // Build (stack) both images, zoomable
                     imgArea.innerHTML = "";
                     const imageNames = getImageNamesForTei(file);
                     imageNames.forEach(name => {
@@ -302,22 +345,13 @@ fetch(filesApiUrl)
                 }
 
                 teiBtn.onclick = function () {
-                    if (!teiVisible) {
-                        showTeiCode();
-                    } else {
-                        hideAllRight();
-                    }
+                    if (!teiVisible) { showTeiCode(); } else { hideAllRight(); }
                 };
                 imgBtn.onclick = function () {
-                    if (!imgVisible) {
-                        showImages();
-                    } else {
-                        hideAllRight();
-                    }
+                    if (!imgVisible) { showImages(); } else { hideAllRight(); }
                 };
 
-                // --- Synced Scroll: Poem <--> codeColumn or ms images ---
-
+                // --- Synced Scroll ---
                 poemColumn.addEventListener("scroll", function() {
                     if (!teiVisible && !imgVisible) return;
                     if (programmaticScroll) { programmaticScroll = false; return; }
@@ -372,3 +406,4 @@ function escapeHtml(s) {
         })[m];
     });
 }
+
